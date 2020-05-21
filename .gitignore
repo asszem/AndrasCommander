@@ -14,12 +14,6 @@
 /java/**/*~.nib
 /java/**/*.log
 
-# IDEA specific git ignore
-/java/**/**/.idea
-/java/**/out/
-*.trc
-*.iml
-
 # Eclipse specific git ignore
 /java/**/*.pydevproject
 /java/**/.metadata
@@ -32,6 +26,8 @@
 /java/**/target/
 /java/**/RemoteSystemsTempFiles
 /java/**/**/*.classpath
+/java/**/*.launch
+/builds/**/nbproject/
 
 # External tool builders
 /java/**/.externalToolBuilders/
@@ -40,12 +36,6 @@
 /java/**/.gradle
 /java/**/build/
 
-# Local Repository for Deploy
-/java/CFSWeb/Repository
-
-# Locally stored "Eclipse launch configurations"
-/java/**/*.launch
-
 # IDEA project files
 **/*.iml
 **/*.idea
@@ -53,9 +43,14 @@
 /java/**/target/
 /java/**/tmpdest.xml
 /java/**/tmpsrc.xml
+/java/**/**/.idea
+/java/**/out/
+*.trc
+*.iml
+/target
+
+# Project specific files
+/logs
 
 
-
-# Ignore NetBeans files
-/builds/**/nbproject/
 

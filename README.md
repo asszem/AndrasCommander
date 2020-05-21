@@ -3,9 +3,9 @@
 Simple File Manager with VIM like motions. 
 This is a learning project, nothing serious :)
 
-##MVP Feature Plans
+## MVP Feature Plans
 
-###Version 0.1 - Basic File Display and Navigation
+### Version 0.1 - Basic File Display and Navigation
 - [ ] Display files from a directory 
     - [ ] Highlight the first file
 - [ ] Implement VIM like keystroke detection (normal mode)
@@ -16,7 +16,7 @@ This is a learning project, nothing serious :)
 - [ ] Execute the highlighted file when "Enter" key pressed
 - [ ] Save the current directory and start AC in it at next launch
 
-###Version 0.2 - Basic Search
+### Version 0.2 - Basic Search
 - [ ] Implement a basic search invoked with space key
     - [ ] search term completed with enter key 
     - [ ] first matching item selected
@@ -24,38 +24,38 @@ This is a learning project, nothing serious :)
     - [ ] highlight other matching items
     - [ ] VIM like: :noh (no highlight) to clear search results
     
-###Version 0.3 - Basic Folder Navigation
+### Version 0.3 - Basic Folder Navigation
 - [ ] Display .. for parent folder
 - [ ] VIM like: "gu" for go up one folder 
 - [ ] VIM like: "gb" for go back to prev folder
     
-###Version 0.4 - Basic File Actions - Rename
+### Version 0.4 - Basic File Actions - Rename
 - [ ] VIM like: rename highlighted file with "r"
 
-##MVP Reached
+## MVP Reached
 At this point it should be an actually usable product.
 
-###Version 1.0 - Improved display - File Details
+### Version 1.0 - Improved display - File Details
  - [ ] Display file details (size in human readable format, modified date)
  - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
  - [ ] Display line numbers for files
  - [ ] VIM like: jump to line with #linenumber"g"
 
-###Version 1.1 - Improved search - Auto Jump
+### Version 1.1 - Improved search - Auto Jump
  - [ ] "insert" mode: disable VIM bindings ant enable Auto Jump
  - [ ] In insert mode jump automatically to the first matching result
 
-###Version 1.2 - Improved display - Basic Multiple Panes
+### Version 1.2 - Improved display - Basic Multiple Panes
 - [ ] VIM like: "sp" and "vs" to add a new viewing pane
 - [ ] VIM like: jump between panes with Ctrl-W and "h"/"j"/"k"/"l"
 - [ ] VIM like: :on (only) maximize current pane (but remember previous panes)
 - [ ] :res (reset) - reset the previous displayed pane(s)
 
-###Version 1.3 - Improved File Actions - select, copy, move, delete
+### Version 1.3 - Improved File Actions - select, copy, move, delete
 - [ ] NC like: select multiple files under cursor with "Ins"
 - [ ] Copy / move selected file(s)
 
-##Future Feature Plans
+## Future Feature Plans
 - Basic Theming (background, foreground color, cursor color, file color)
 - Bookmarks (VIM like marks and named bookmarks and a bookmark panel)
 - File colors based on properties (last changed, type, etc)
@@ -68,5 +68,5 @@ At this point it should be an actually usable product.
 - File preview (for text files)
 - Ranger like behaviour when entering a directory (new pane opens to the right)
 
-##Forbidden features
+## Forbidden features
 - Mouse support

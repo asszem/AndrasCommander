@@ -1,0 +1,61 @@
+#####################################################
+###  gitignore  for java folder                   ###
+#####################################################
+/java/**/*.war
+/java/**/*.ear
+/java/**/*.zip
+/java/**/*.tar
+/java/**/*.tar.gz
+/java/**/*.rar
+/java/**/*.class
+/java/**/*.tmp
+/java/**/*.bak
+/java/**/*.swp
+/java/**/*~.nib
+/java/**/*.log
+
+# IDEA specific git ignore
+/java/**/**/.idea
+/java/**/out/
+*.trc
+*.iml
+
+# Eclipse specific git ignore
+/java/**/*.pydevproject
+/java/**/.metadata
+/java/**/.recommenders
+/java/**/bin/**
+/java/**/tmp/**
+/java/**/tmp/**/*
+/java/**/local.properties
+/java/**/.loadpath
+/java/**/target/
+/java/**/RemoteSystemsTempFiles
+/java/**/**/*.classpath
+
+# External tool builders
+/java/**/.externalToolBuilders/
+
+# Gradle specific files/folders
+/java/**/.gradle
+/java/**/build/
+
+# Local Repository for Deploy
+/java/CFSWeb/Repository
+
+# Locally stored "Eclipse launch configurations"
+/java/**/*.launch
+
+# IDEA project files
+**/*.iml
+**/*.idea
+/java/**/out/
+/java/**/target/
+/java/**/tmpdest.xml
+/java/**/tmpsrc.xml
+
+
+
+# Ignore NetBeans files
+/builds/**/nbproject/
+

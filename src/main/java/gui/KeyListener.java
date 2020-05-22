@@ -23,11 +23,16 @@ public class KeyListener implements java.awt.event.KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-//        logger.debug("Key pressed event " + e.getKeyCode());
+        logger.debug("Key pressed event " + e.getKeyCode());
+        guiInstance.getKeyPressedPanel().displayPressedKey(e);
         // j is key 74
         if (e.getKeyCode()==74){
             logger.debug("j pressed.");
-            guiInstance.getFilePanel().stepHighlightDown();
+            guiInstance.getFilePanel().moveHighlightedFile("down");
+        }
+        if (e.getKeyCode()==75){
+            logger.debug("k pressed.");
+            guiInstance.getFilePanel().moveHighlightedFile("up");
         }
     }
 

@@ -85,9 +85,30 @@ public class FilePanel {
 //        frame.setVisible(true);
     }
 
-    public void stepHighlightDown(){
-       logger.debug("stephighlightdown called");
-       highlightedFile=fileList.getFilesAndFolders(folderPath).get(++highlightedFileIndex);
+    public void moveHighlightedFile(String direction){
+        logger.debug("index before change= " + highlightedFileIndex);
+        switch (direction){
+            case "down":
+                if (highlightedFileIndex==fileList.getFilesAndFolders(folderPath).size()-1){
+                    highlightedFileIndex=0;
+                } else {
+                    highlightedFileIndex++;
+                }
+                break;
+            case "up":
+                if (highlightedFileIndex==0){
+                    highlightedFileIndex=fileList.getFilesAndFolders(folderPath).size()-1; // index starts at 0
+                } else {
+                    highlightedFileIndex--;
+                }
+                break;
+            case "top":
+                break;
+            case "bottom":
+                break;
+        }
+        logger.debug("index after change " + highlightedFileIndex);
+       highlightedFile=fileList.getFilesAndFolders(folderPath).get(highlightedFileIndex);
        displayFolderContent();
        frame.repaint();
        frame.setVisible(true);

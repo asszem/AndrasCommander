@@ -9,10 +9,11 @@ This is a learning project, nothing serious :)
 - [x] Display files from a directory 
     - [x] Highlight the first file
 - [ ] Implement VIM like keystroke detection (normal mode)
-    - [ ] Display pressed key
+    - [x] Display pressed key
     - [ ] Handle single and multiple keystrokes
-    - [ ] VIM like: be able to move the cursor with "j"/"k" 
+    - [x] VIM like: be able to move the cursor with "j"/"k" 
     - [ ] VIM like: be able to move the cursor to the top/bottom with "gg"/"G"
+- [ ] Scrollpane viewport follows cursor
 - [ ] Execute the highlighted file when "Enter" key pressed
 - [ ] Save the current directory and start AC in it at next launch
 

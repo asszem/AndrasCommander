@@ -21,19 +21,20 @@ public class GUI extends JFrame {
     // UI classes
     // TODO implement multiple panels and store every filePanel in a list
     private FilePanel filePanel;
+    private KeyPressedPanel keyPressedPanel;
 
     // UI related fields
     private static Color selectedColor = Color.cyan;
     private static Color unselectedColor = Color.gray;
 
     // This frame is to hold the entire UI
-    JFrame frame = new JFrame();
+    private JFrame frame = new JFrame();
 
     // Constructor to pass the CFReportEditor instance
     public GUI(AndrasCommander andrasCommanderInstance) {
         this.andrasCommanderInstance = andrasCommanderInstance;
 
-        // passing UI to action so the FilePanel classes can be reached
+        // passing GUI instance to action listeners so they can get every GUI element
         this.actionListener = new UIActionListener(this);
         this.keyListener = new KeyListener(this);
     }
@@ -43,9 +44,11 @@ public class GUI extends JFrame {
 
         // instantiate the UI classes
         filePanel = new FilePanel(this);
+        keyPressedPanel = new KeyPressedPanel(this);
 
         // call the init method when adding UI elements to the contentPane
         frame.getContentPane().add(BorderLayout.NORTH, filePanel.initPanel("File Panel"));
+        frame.getContentPane().add(BorderLayout.SOUTH, keyPressedPanel.initPanel("KeyPressed Panel"));
 //        filePanel.getMainFilePanel().addKeyListener(keyListener);
         frame.addKeyListener(keyListener);
 
@@ -62,6 +65,9 @@ public class GUI extends JFrame {
 
     public FilePanel getFilePanel() {
         return filePanel;
+    }
+    public KeyPressedPanel getKeyPressedPanel(){
+        return keyPressedPanel;
     }
 
     public WindowTitle getWindowTitle() {

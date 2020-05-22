@@ -4,15 +4,18 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class KeyListener implements java.awt.event.KeyListener {
     private static Logger logger = LogManager.getLogger(KeyListener.class);
 
     private GUI guiInstance;
 
+    private ArrayList<KeyEvent> pressedKeysList;
+
     public KeyListener(GUI guiInstance) {
         this.guiInstance = guiInstance;
-        logger.debug("calling KeyListerner constructor");
+        this.pressedKeysList = new ArrayList<>();
     }
 
     @Override
@@ -23,8 +26,10 @@ public class KeyListener implements java.awt.event.KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        logger.debug("Key pressed event " + e.getKeyCode());
-        guiInstance.getKeyPressedPanel().displayPressedKey(e);
+//        logger.debug("Key pressed event " + e.getKeyCode());
+        pressedKeysList.add(e);
+        guiInstance.getKeyInfoPanel().displayPressedKey(e);
+        guiInstance.getKeyInfoPanel().displayAllPressedKeys(pressedKeysList);
         // j is key 74
         if (e.getKeyCode()==74){
             logger.debug("j pressed.");
@@ -39,5 +44,9 @@ public class KeyListener implements java.awt.event.KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
 //        logger.debug("Key released event " + e.getKeyCode());
+    }
+
+    public ArrayList<KeyEvent> getPressedKeysList() {
+        return pressedKeysList;
     }
 }

@@ -86,7 +86,6 @@ public class FilePanel {
     }
 
     public void moveHighlightedFile(String direction){
-        logger.debug("index before change= " + highlightedFileIndex);
         switch (direction){
             case "down":
                 if (highlightedFileIndex==fileList.getFilesAndFolders(folderPath).size()-1){
@@ -107,7 +106,6 @@ public class FilePanel {
             case "bottom":
                 break;
         }
-        logger.debug("index after change " + highlightedFileIndex);
        highlightedFile=fileList.getFilesAndFolders(folderPath).get(highlightedFileIndex);
        displayFolderContent();
        frame.repaint();

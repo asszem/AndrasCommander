@@ -21,7 +21,7 @@ public class GUI extends JFrame {
     // UI classes
     // TODO implement multiple panels and store every filePanel in a list
     private FilePanel filePanel;
-    private KeyPressedPanel keyPressedPanel;
+    private KeyInfoPanel keyInfoPanel;
 
     // UI related fields
     private static Color selectedColor = Color.cyan;
@@ -44,18 +44,18 @@ public class GUI extends JFrame {
 
         // instantiate the UI classes
         filePanel = new FilePanel(this);
-        keyPressedPanel = new KeyPressedPanel(this);
+        keyInfoPanel = new KeyInfoPanel(this);
 
         // call the init method when adding UI elements to the contentPane
         frame.getContentPane().add(BorderLayout.NORTH, filePanel.initPanel("File Panel"));
-        frame.getContentPane().add(BorderLayout.SOUTH, keyPressedPanel.initPanel("KeyPressed Panel"));
+        frame.getContentPane().add(BorderLayout.SOUTH, keyInfoPanel.initPanel("Key Info Panel"));
 //        filePanel.getMainFilePanel().addKeyListener(keyListener);
         frame.addKeyListener(keyListener);
 
         windowTitle = new WindowTitle();
         setWindowTitle();
 
-        frame.setSize(1000, 800);
+        frame.setSize(1000, 900);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -66,8 +66,8 @@ public class GUI extends JFrame {
     public FilePanel getFilePanel() {
         return filePanel;
     }
-    public KeyPressedPanel getKeyPressedPanel(){
-        return keyPressedPanel;
+    public KeyInfoPanel getKeyInfoPanel(){
+        return keyInfoPanel;
     }
 
     public WindowTitle getWindowTitle() {

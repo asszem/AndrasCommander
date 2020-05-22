@@ -6,8 +6,8 @@ This is a learning project, nothing serious :)
 ## MVP Feature Plans
 
 ### Version 0.1 - Basic File Display and Navigation
-- [ ] Display files from a directory 
-    - [ ] Highlight the first file
+- [x] Display files from a directory 
+    - [x] Highlight the first file
 - [ ] Implement VIM like keystroke detection (normal mode)
     - [ ] Display pressed key
     - [ ] Handle single and multiple keystrokes
@@ -28,6 +28,7 @@ This is a learning project, nothing serious :)
 - [ ] Display .. for parent folder
 - [ ] VIM like: "gu" for go up one folder 
 - [ ] VIM like: "gb" for go back to prev folder
+- [ ] VIM like: ":e" for refreshing the panel
     
 ### Version 0.4 - Basic File Actions - Rename
 - [ ] VIM like: rename highlighted file with "r"

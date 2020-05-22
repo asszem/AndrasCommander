@@ -14,8 +14,11 @@ public class GUI extends JFrame {
     private WindowTitle windowTitle;
     private AndrasCommander andrasCommanderInstance;
 
-    // UI classes
+    // Action Listener classes
     private UIActionListener actionListener;
+    private KeyListener keyListener;
+
+    // UI classes
     // TODO implement multiple panels and store every filePanel in a list
     private FilePanel filePanel;
 
@@ -29,7 +32,10 @@ public class GUI extends JFrame {
     // Constructor to pass the CFReportEditor instance
     public GUI(AndrasCommander andrasCommanderInstance) {
         this.andrasCommanderInstance = andrasCommanderInstance;
-        this.actionListener = new UIActionListener(this); // passing UI to action so the FilePanel classes can be reached
+
+        // passing UI to action so the FilePanel classes can be reached
+        this.actionListener = new UIActionListener(this);
+        this.keyListener = new KeyListener(this);
     }
 
     // This is called by AndrasCommander to initialize the GUI on the event dispatch thread
@@ -40,16 +46,22 @@ public class GUI extends JFrame {
 
         // call the init method when adding UI elements to the contentPane
         frame.getContentPane().add(BorderLayout.NORTH, filePanel.initPanel("File Panel"));
+//        filePanel.getMainFilePanel().addKeyListener(keyListener);
+        frame.addKeyListener(keyListener);
 
         windowTitle = new WindowTitle();
         setWindowTitle();
 
-        frame.setSize(1600, 800);
+        frame.setSize(1000, 800);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // Setting the frame visible
         frame.setVisible(true);
+    }
+
+    public FilePanel getFilePanel() {
+        return filePanel;
     }
 
     public WindowTitle getWindowTitle() {

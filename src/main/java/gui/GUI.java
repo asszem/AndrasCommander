@@ -3,7 +3,6 @@ package gui;
 import andrasCommander.AndrasCommander;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utility.PropertyReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,14 +13,11 @@ public class GUI extends JFrame {
     private static Logger logger = LogManager.getLogger(GUI.class);
     private WindowTitle windowTitle;
     private AndrasCommander andrasCommanderInstance;
-    private PropertyReader propertyReader;
 
     // UI classes
     private UIActionListener actionListener;
-//        private BottomRowPanel bottomRowPanel;
-//        private ProductSelectPanel productSelectPanel;
-//        private TopMenuBarPanel topMenuBarPanel;
-//        private ProductDataPanel productDataPanel;
+    // TODO implement multiple panels and store every filePanel in a list
+    private FilePanel filePanel;
 
     // UI related fields
     private static Color selectedColor = Color.cyan;
@@ -33,28 +29,22 @@ public class GUI extends JFrame {
     // Constructor to pass the CFReportEditor instance
     public GUI(AndrasCommander andrasCommanderInstance) {
         this.andrasCommanderInstance = andrasCommanderInstance;
-        this.actionListener = new UIActionListener(this); // passing UI to action so the Panel classes can be reached
-        this.propertyReader = new PropertyReader();
+        this.actionListener = new UIActionListener(this); // passing UI to action so the FilePanel classes can be reached
     }
 
-
-    // This is called by CFReportEditor to initialize the GUI on the event dispatch thread
+    // This is called by AndrasCommander to initialize the GUI on the event dispatch thread
     public void initGUI() {
+
         // instantiate the UI classes
-//            topMenuBarPanel = new TopMenuBarPanel(this); // pass the instance of CFReportEditorUI
-//            bottomRowPanel = new BottomRowPanel(this);
-//            productSelectPanel = new ProductSelectPanel(this);
-//            productDataPanel = new ProductDataPanel(this);
-        windowTitle = new WindowTitle();
+        filePanel = new FilePanel(this);
 
         // call the init method when adding UI elements to the contentPane
-//            frame.getContentPane().add(BorderLayout.NORTH, topMenuBarPanel.initTopMenuBar());
-//            frame.getContentPane().add(BorderLayout.SOUTH, bottomRowPanel.initBottomRow());
-//            frame.getContentPane().add(BorderLayout.WEST, productSelectPanel.initProductSelectPanel());
-//            frame.getContentPane().add(BorderLayout.CENTER, productDataPanel.initProductDataPanel());
+        frame.getContentPane().add(BorderLayout.NORTH, filePanel.initPanel("File Panel"));
 
+        windowTitle = new WindowTitle();
         setWindowTitle();
-        frame.setSize(1600, 700);
+
+        frame.setSize(1600, 800);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -86,6 +76,10 @@ public class GUI extends JFrame {
         return unselectedColor;
     }
 
+    public AndrasCommander getAndrasCommanderInstance() {
+        return andrasCommanderInstance;
+    }
+
     public class WindowTitle {
 
         private String applicationName;
@@ -94,7 +88,7 @@ public class GUI extends JFrame {
 
         public WindowTitle() {
             applicationName = "Andras Commander";
-            version = propertyReader.readProperty("VERSION");
+            version = andrasCommanderInstance.getPropertyReader().readProperty("VERSION");
         }
 
         public String getApplicationName() {
@@ -108,11 +102,6 @@ public class GUI extends JFrame {
 
         public String getVersion() {
             return version;
-        }
-
-        public WindowTitle setVersion(String version) {
-            this.version = version;
-            return this;
         }
 
     }

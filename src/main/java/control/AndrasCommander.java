@@ -1,4 +1,4 @@
-package andrasCommander;
+package control;
 
 import gui.GUI;
 import org.apache.logging.log4j.LogManager;

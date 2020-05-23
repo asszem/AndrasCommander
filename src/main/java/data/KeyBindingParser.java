@@ -4,54 +4,73 @@ import gui.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import static java.lang.System.exit;
 
+
+// This class must be independent of anything GUI related (no Swing/AWT stuff)
 public class KeyBindingParser {
     private static Logger logger = LogManager.getLogger(KeyBindingParser.class);
     private GUI guiInstance;
+    private ArrayList<String> pressedKeysList;
+    private String lastKeyPressed;
 
-    // TODO get the list of pressed keys and match it against existing bindings
-    // If match is found, return the command and reset the list
     public KeyBindingParser(GUI guiInstance) {
         this.guiInstance = guiInstance;
+        pressedKeysList = new ArrayList<>();
     }
 
-    public void parseKeysList(ArrayList<KeyEvent> pressedKeysList) {
+    public KeyBindingParser setLastPressedKey(String key) {
+        lastKeyPressed = key;
+        return this;
+    }
 
-        StringBuilder listOfPressedKeys = new StringBuilder();
-        pressedKeysList.forEach(keyEvent -> {
-            listOfPressedKeys.append(keyEvent.getKeyChar());
-        });
-        // TODO Refaktor this switch to avoid code repetition
-        switch (listOfPressedKeys.toString()) {
+    public String parseKeys() {
+        String matchedCommand = null;
+//        logger.debug("last pressed key = " + lastKeyPressed);
+
+        // Check for special keystrokes first
+        switch (lastKeyPressed) {
+            case "<ESC>":
+                logger.debug("ESC key press passed");
+                matchedCommand = "ESC";
+                pressedKeysList.clear();
+                return matchedCommand;
+        }
+
+        pressedKeysList.add(lastKeyPressed);
+        String listString = String.join("", pressedKeysList); // Convert the ArrayList to a concatenated list of strings
+        switch (listString) {
             case "j":
-                logger.debug("j pressed.");
-                guiInstance.getFilePanel().moveHighlightedFile("down");
-                guiInstance.getKeyListener().resetPressedKeysList();
+                logger.debug("j matched");
+                matchedCommand = "down";
                 break;
             case "k":
-                logger.debug("k pressed.");
-                guiInstance.getFilePanel().moveHighlightedFile("up");
-                guiInstance.getKeyListener().resetPressedKeysList();
+                logger.debug("k matched");
+                matchedCommand = "up";
                 break;
             case "G":
-                logger.debug("G pressed.");
-                guiInstance.getFilePanel().moveHighlightedFile("bottom");
-                guiInstance.getKeyListener().resetPressedKeysList();
+                logger.debug("G matched");
+                matchedCommand = "bottom";
                 break;
             case "gg":
-                logger.debug("gg pressed.");
-                guiInstance.getFilePanel().moveHighlightedFile("top");
-                guiInstance.getKeyListener().resetPressedKeysList();
+                logger.debug("gg matched");
+                matchedCommand = "top";
                 break;
-            case "quit": // TODO make only enter to exit
-                logger.debug(":q pressed.");
+            case "quit": // TODO implement :Q<ENTER>
+                logger.debug("quit matched");
                 exit(0);
                 break;
-
         }
+        // if match was found, erase the pressedKeysList
+        if (matchedCommand!=null){
+            pressedKeysList.clear();
+        }
+        return matchedCommand;
+    }
+
+    public ArrayList<String> getPressedKeysList() {
+        return pressedKeysList;
     }
 }

@@ -1,6 +1,6 @@
 package gui;
 
-import andrasCommander.AndrasCommander;
+import control.AndrasCommander;
 import data.FileList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,19 +28,18 @@ public class FilePanel {
 
     //Constructor
     public FilePanel(GUI guiInstance) {
-        logger.debug("FilePanel Constructor");
         this.guiInstance = guiInstance;
         this.frame = guiInstance.getFrame();
         this.andrasCommander = guiInstance.getAndrasCommanderInstance();
     }
 
     public JPanel initPanel(String panelTitle) {
-        logger.debug("--> Inside initPanel");
+//        logger.debug("--> Inside initPanel");
         String startfolder = andrasCommander.getPropertyReader().readProperty("STARTFOLDER");
-        folderPath=startfolder;
+        folderPath = startfolder;
         fileList = new FileList();
         highlightedFile = fileList.getFilesAndFolders(startfolder).get(0);
-        highlightedFileIndex=0;
+        highlightedFileIndex = 0;
 
         // Create the mainFilePanel that will hold the fileListPanel which is the viewport of the fileListScrollPane
         mainFilePanel = new JPanel();
@@ -65,7 +64,7 @@ public class FilePanel {
     }
 
     private void displayFolderContent() {
-        logger.debug("--> inside DisplayFiles");
+//        logger.debug("--> inside DisplayFiles");
         fileListPanel.removeAll();
         fileList.getFilesAndFolders(folderPath).forEach(file -> {
             JLabel label = new JLabel();
@@ -85,36 +84,36 @@ public class FilePanel {
 //        frame.setVisible(true);
     }
 
-    public void moveHighlightedFile(String direction){
-        switch (direction){
+    public void moveCursor(String direction) {
+        switch (direction) {
             case "down":
-                if (highlightedFileIndex==fileList.getFilesAndFolders(folderPath).size()-1){
-                    highlightedFileIndex=0;
+                if (highlightedFileIndex == fileList.getFilesAndFolders(folderPath).size() - 1) {
+                    highlightedFileIndex = 0;
                 } else {
                     highlightedFileIndex++;
                 }
                 break;
             case "up":
-                if (highlightedFileIndex==0){
-                    highlightedFileIndex=fileList.getFilesAndFolders(folderPath).size()-1; // index starts at 0
+                if (highlightedFileIndex == 0) {
+                    highlightedFileIndex = fileList.getFilesAndFolders(folderPath).size() - 1; // index starts at 0
                 } else {
                     highlightedFileIndex--;
                 }
                 break;
             case "top":
-                highlightedFileIndex=0;
+                highlightedFileIndex = 0;
                 break;
             case "bottom":
-                highlightedFileIndex=fileList.getFilesAndFolders(folderPath).size()-1;
+                highlightedFileIndex = fileList.getFilesAndFolders(folderPath).size() - 1;
                 break;
         }
-       highlightedFile=fileList.getFilesAndFolders(folderPath).get(highlightedFileIndex);
-       displayFolderContent();
-       frame.repaint();
-       frame.setVisible(true);
+        highlightedFile = fileList.getFilesAndFolders(folderPath).get(highlightedFileIndex);
+        displayFolderContent();
+        frame.repaint();
+        frame.setVisible(true);
     }
 
-    public JPanel getMainFilePanel(){
+    public JPanel getFileListPanel() {
         return fileListPanel;
     }
 }

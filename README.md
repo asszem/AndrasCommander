@@ -42,6 +42,7 @@ At this point it should be an actually usable product.
 ### Version 1.0 - Improved display - File Details
  - [ ] Display file details (size in human readable format, modified date)
  - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
+ - [ ] Display folders first, then files
  - [ ] Display line numbers for files
  - [ ] VIM like: jump to line with #linenumber"g"
 
@@ -57,9 +58,15 @@ At this point it should be an actually usable product.
 
 ### Version 1.3 - Improved File Actions - select, copy, move, delete
 - [ ] NC like: select multiple files under cursor with "Ins"
-- [ ] Copy / move selected file(s)
+- [ ] Copy / move / delete selected file(s)
+
+### Version 1.4 - Preview Panels
+ - [ ] File preview panel - open and close with a command
+ - [ ] Folder preview panel - display5 last changed file in highlighted folder
+ - [ ] Display scrollable content of highlighted file
 
 ## Future Feature Plans
+- set full word alias for actions (if typed quickly before the keypress is parsed)
 - Basic Theming (background, foreground color, cursor color, file color)
 - Bookmarks (VIM like marks and named bookmarks and a bookmark panel)
 - File colors based on properties (last changed, type, etc)

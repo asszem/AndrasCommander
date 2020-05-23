@@ -29,7 +29,7 @@ public class KeyInfoPanel {
 
         //Pressed Key Panel
         pressedKeyPanel = new JPanel();
-        pressedKeyPanel.setBorder(BorderFactory.createTitledBorder("Pressed Key"));
+        pressedKeyPanel.setBorder(BorderFactory.createTitledBorder("Pressed Key (Code)"));
         pressedKeyPanel.setPreferredSize(new Dimension(200,50));
 
         pressedKeyLabel = new JLabel("Nothing pressed");
@@ -61,11 +61,11 @@ public class KeyInfoPanel {
         guiInstance.getFrame().setVisible(true);
     }
 
-    public void displayAllPressedKeys(ArrayList<KeyEvent> pressedKeysList){
+    public void displayAllPressedKeys(ArrayList<String> pressedKeysList){
         pressedKeysListPanel.removeAll();
         StringBuilder listOfPressedKeys = new StringBuilder();
-        pressedKeysList.forEach(keyEvent -> {
-           listOfPressedKeys.append(keyEvent.getKeyChar()) ;
+        pressedKeysList.forEach(key -> {
+           listOfPressedKeys.append(key) ;
         });
         pressedKeysListLabel = new JLabel(listOfPressedKeys.toString());
         pressedKeysListPanel.add(pressedKeysListLabel);

@@ -1,6 +1,6 @@
 package gui;
 
-import andrasCommander.AndrasCommander;
+import control.AndrasCommander;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,7 +49,7 @@ public class GUI extends JFrame {
         // call the init method when adding UI elements to the contentPane
         frame.getContentPane().add(BorderLayout.NORTH, filePanel.initPanel("File Panel"));
         frame.getContentPane().add(BorderLayout.SOUTH, keyInfoPanel.initPanel("Key Info Panel"));
-//        filePanel.getMainFilePanel().addKeyListener(keyListener);
+//        filePanel.getFileListPanel().addKeyListener(keyListener);
         frame.addKeyListener(keyListener);
 
         windowTitle = new WindowTitle();

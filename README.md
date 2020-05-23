@@ -9,9 +9,10 @@ This is a learning project, nothing serious :)
 - [x] Display files from a directory 
     - [x] Highlight the first file
 - [ ] Implement VIM like keystroke detection (normal mode)
-    - [x] Display pressed key
-    - [ ] Handle single and multiple keystrokes
+    - [x] Display last pressed key and pressed keys list
+    - [x] Handle single and multiple keystrokes
     - [x] VIM like: be able to move the cursor with "j"/"k" 
+    - [ ] Handle parsing special keys (ESC, Shift, Enter, etc)
     - [ ] VIM like: be able to move the cursor to the top/bottom with "gg"/"G"
 - [ ] Scrollpane viewport follows cursor
 - [ ] Execute the highlighted file when "Enter" key pressed

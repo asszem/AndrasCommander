@@ -32,6 +32,23 @@ public class KeyListener implements java.awt.event.KeyListener {
 //        logger.debug("Key pressed event " + e.getKeyCode());
         pressedKeysList.add(e);
         guiInstance.getKeyInfoPanel().displayPressedKey(e);
+        // TODO this is actually parsing, so this validation should go to parser
+
+        // TODO TO BE CONTINUED FROM HERE
+       // Key pressed
+       // Parser called
+       // Special key validation (Enter, ESC, Shift, etc)
+       // Single keystroke validation
+       // Multiple keystroke validation
+       // If no match found, add to pressedKeysList
+       // If match found, reset pressed keys list
+
+
+
+
+
+
+
         //Esc is pressed
         if (e.getKeyCode()==27){
            resetPressedKeysList();

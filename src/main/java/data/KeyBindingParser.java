@@ -25,6 +25,7 @@ public class KeyBindingParser {
         pressedKeysList.forEach(keyEvent -> {
             listOfPressedKeys.append(keyEvent.getKeyChar());
         });
+        // TODO Refaktor this switch to avoid code repetition
         switch (listOfPressedKeys.toString()) {
             case "j":
                 logger.debug("j pressed.");
@@ -46,7 +47,7 @@ public class KeyBindingParser {
                 guiInstance.getFilePanel().moveHighlightedFile("top");
                 guiInstance.getKeyListener().resetPressedKeysList();
                 break;
-            case ":q": // TODO make only enter to exit
+            case "quit": // TODO make only enter to exit
                 logger.debug(":q pressed.");
                 exit(0);
                 break;

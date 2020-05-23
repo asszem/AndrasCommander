@@ -66,8 +66,13 @@ public class GUI extends JFrame {
     public FilePanel getFilePanel() {
         return filePanel;
     }
-    public KeyInfoPanel getKeyInfoPanel(){
+
+    public KeyInfoPanel getKeyInfoPanel() {
         return keyInfoPanel;
+    }
+
+    public KeyListener getKeyListener() {
+        return keyListener;
     }
 
     public WindowTitle getWindowTitle() {

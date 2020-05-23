@@ -15,7 +15,7 @@ This is a learning project, nothing serious :)
     - [ ] VIM like: be able to move the cursor to the top/bottom with "gg"/"G"
 - [ ] Scrollpane viewport follows cursor
 - [ ] Execute the highlighted file when "Enter" key pressed
-- [ ] Save the current directory and start AC in it at next launch
+- [ ] Quit with ":q" ENTER
 
 ### Version 0.2 - Basic Search
 - [ ] Implement a basic search invoked with space key
@@ -30,6 +30,7 @@ This is a learning project, nothing serious :)
 - [ ] VIM like: "gu" for go up one folder 
 - [ ] VIM like: "gb" for go back to prev folder
 - [ ] VIM like: ":e" for refreshing the panel
+- [ ] Start AC from last opened folder
     
 ### Version 0.4 - Basic File Actions - Rename
 - [ ] VIM like: rename highlighted file with "r"

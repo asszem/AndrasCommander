@@ -102,8 +102,10 @@ public class FilePanel {
                 }
                 break;
             case "top":
+                highlightedFileIndex=0;
                 break;
             case "bottom":
+                highlightedFileIndex=fileList.getFilesAndFolders(folderPath).size()-1;
                 break;
         }
        highlightedFile=fileList.getFilesAndFolders(folderPath).get(highlightedFileIndex);

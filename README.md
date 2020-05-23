@@ -15,7 +15,7 @@ This is a learning project, nothing serious :)
     - [x] Handle parsing special keys (ESC, Shift, Enter, etc)
     - [x] VIM like: be able to move the cursor to the top/bottom with "gg"/"G"
 - [x] Quit with ":q" ENTER
-- [ ] Execute the highlighted file when "Enter" key pressed
+- [x] Execute the highlighted file when "Enter" key pressed
 - [ ] Scrollpane viewport follows cursor
 
 ### Version 0.2 - Basic Search
@@ -28,6 +28,9 @@ This is a learning project, nothing serious :)
     
 ### Version 0.3 - Basic Folder Navigation
 - [ ] Display .. for parent folder
+- [ ] Display folders first, then files
+- [ ] Pressing Enter on a folder goes to the folder
+- [ ] Pressing Enter on .. goes up one folder
 - [ ] VIM like: "gu" for go up one folder 
 - [ ] VIM like: "gb" for go back to prev folder
 - [ ] VIM like: ":e" for refreshing the panel
@@ -42,7 +45,6 @@ At this point it should be an actually usable product.
 ### Version 1.0 - Improved display - File Details
  - [ ] Display file details (size in human readable format, modified date)
  - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
- - [ ] Display folders first, then files
  - [ ] Display line numbers for files
  - [ ] VIM like: jump to line with #linenumber"g"
 
@@ -66,18 +68,18 @@ At this point it should be an actually usable product.
  - [ ] Display scrollable content of highlighted file
 
 ## Future Feature Plans
-- set full word alias for actions (if typed quickly before the keypress is parsed)
+- Keyboard shortcuts panel (with random reminders, least used commands, basic command) that can set permanent
+- Aliases. Set full word aliases for actions (if typed quickly before the keypress is parsed)
 - Basic Theming (background, foreground color, cursor color, file color)
-- Bookmarks (VIM like marks and named bookmarks and a bookmark panel)
-- File colors based on properties (last changed, type, etc)
+- Bookmarks (VIM like marks, named bookmarks and a NerdTree like Bookmark panel)
+- File coloring based on properties (last changed, type, etc)
 - Remap keys (with conflict warnings)
 - VIM like command mode invoked with ":" 
 - Improved Multiple panes
     - Resize panes with VIM like Ctrl-W "+" and "-" and ">" and "<" keys
     - Rename panes 
 - Tabs 
-- File preview (for text files)
-- Ranger like behaviour when entering a directory (new pane opens to the right)
+- Ranger like behaviour when entering a folder (new pane opens to the right)
 
 ## Forbidden features
 - Mouse support

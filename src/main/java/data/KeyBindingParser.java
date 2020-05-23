@@ -4,6 +4,9 @@ import gui.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static java.lang.System.exit;
@@ -42,6 +45,20 @@ public class KeyBindingParser {
                 wasShiftPressed = true;
                 return null;
             case "<ENTER>":
+                // Execute the file under the cursor if no key(s) were pressed, otherwise add <ENTER> to the pressedKeysList
+                if (pressedKeysList.isEmpty()){
+                    File fileToBeExecuted = guiInstance.getFilePanel().getHighlightedFile();
+                    logger.debug("Executing file = " +fileToBeExecuted.getAbsolutePath());
+                    Desktop desktop = Desktop.getDesktop();
+                    try {
+                        desktop.open(fileToBeExecuted);
+                    } catch (IOException e) {
+                        logger.debug("ERROR in File Execution");
+                        e.printStackTrace();
+                    } finally {
+                        return null; //to make sure no command was interpreted and keep listening
+                    }
+                }
                 break;
         }
 

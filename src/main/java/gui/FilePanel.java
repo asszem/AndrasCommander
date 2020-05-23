@@ -116,5 +116,9 @@ public class FilePanel {
     public JPanel getFileListPanel() {
         return fileListPanel;
     }
+
+    public File getHighlightedFile(){
+        return highlightedFile;
+    }
 }
 

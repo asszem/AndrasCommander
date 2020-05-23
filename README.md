@@ -8,14 +8,14 @@ This is a learning project, nothing serious :)
 ### Version 0.1 - Basic File Display and Navigation
 - [x] Display files from a directory 
     - [x] Highlight the first file
-- [ ] Implement VIM like keystroke detection (normal mode)
+- [x] Implement VIM like keystroke detection (normal mode)
     - [x] Display last pressed key and pressed keys list
     - [x] Handle single and multiple keystrokes
     - [x] VIM like: be able to move the cursor with "j"/"k" 
     - [x] Handle parsing special keys (ESC, Shift, Enter, etc)
     - [x] VIM like: be able to move the cursor to the top/bottom with "gg"/"G"
+- [x] Quit with ":q" ENTER
 - [ ] Execute the highlighted file when "Enter" key pressed
-- [ ] Quit with ":q" ENTER
 - [ ] Scrollpane viewport follows cursor
 
 ### Version 0.2 - Basic Search

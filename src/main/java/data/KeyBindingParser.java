@@ -20,7 +20,7 @@ public class KeyBindingParser {
     public KeyBindingParser(GUI guiInstance) {
         this.guiInstance = guiInstance;
         pressedKeysList = new ArrayList<>();
-        wasShiftPressed=false;
+        wasShiftPressed = false;
     }
 
     public KeyBindingParser setLastPressedKey(String key) {
@@ -30,7 +30,6 @@ public class KeyBindingParser {
 
     public String parseKeys() {
         String matchedCommand = null;
-        logger.debug("last pressed key = " + lastKeyPressed);
 
         // Check for special keystrokes first
         switch (lastKeyPressed) {
@@ -40,43 +39,42 @@ public class KeyBindingParser {
                 pressedKeysList.clear();
                 return matchedCommand;
             case "<SHIFT>":
-                wasShiftPressed=true;
+                wasShiftPressed = true;
                 return null;
+            case "<ENTER>":
+                break;
         }
 
         // This code can only be reached by the next keystroke after shift pressed
-        if (wasShiftPressed){
+        if (wasShiftPressed) {
             lastKeyPressed = lastKeyPressed.toUpperCase();
-            logger.debug("Shift was pressed, converting input to uppercase");
-            logger.debug("last pressed key = " + lastKeyPressed);
-            wasShiftPressed=false;
+            wasShiftPressed = false;
         }
         pressedKeysList.add(lastKeyPressed);
         String listString = String.join("", pressedKeysList); // Convert the ArrayList to a concatenated list of strings
         switch (listString) {
+            case ":":
+                logger.debug(": matched");
+                break;
             case "j":
-                logger.debug("j matched");
                 matchedCommand = "down";
                 break;
             case "k":
-                logger.debug("k matched");
                 matchedCommand = "up";
                 break;
             case "G":
-                logger.debug("G matched");
                 matchedCommand = "bottom";
                 break;
             case "gg":
-                logger.debug("gg matched");
                 matchedCommand = "top";
                 break;
-            case "quit": // TODO implement :Q<ENTER>
-                logger.debug("quit matched");
+            case ":q<ENTER>":
+            case "quit":
                 exit(0);
                 break;
         }
         // if match was found, erase the pressedKeysList
-        if (matchedCommand!=null){
+        if (matchedCommand != null) {
             pressedKeysList.clear();
         }
         return matchedCommand;

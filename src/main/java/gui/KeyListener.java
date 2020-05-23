@@ -80,6 +80,10 @@ public class KeyListener implements java.awt.event.KeyListener {
         // SHIFT pressed (left or right)
         else if (e.getKeyCode() == 16) {
             result = "<SHIFT>";
+        }
+        // ENTER pressed
+        else if (e.getKeyCode() == 10) {
+            result = "<ENTER>";
         } else {
             result = Character.toString((e.getKeyChar()));
         }

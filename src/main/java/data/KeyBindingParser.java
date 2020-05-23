@@ -15,10 +15,12 @@ public class KeyBindingParser {
     private GUI guiInstance;
     private ArrayList<String> pressedKeysList;
     private String lastKeyPressed;
+    private boolean wasShiftPressed;
 
     public KeyBindingParser(GUI guiInstance) {
         this.guiInstance = guiInstance;
         pressedKeysList = new ArrayList<>();
+        wasShiftPressed=false;
     }
 
     public KeyBindingParser setLastPressedKey(String key) {
@@ -28,7 +30,7 @@ public class KeyBindingParser {
 
     public String parseKeys() {
         String matchedCommand = null;
-//        logger.debug("last pressed key = " + lastKeyPressed);
+        logger.debug("last pressed key = " + lastKeyPressed);
 
         // Check for special keystrokes first
         switch (lastKeyPressed) {
@@ -37,8 +39,18 @@ public class KeyBindingParser {
                 matchedCommand = "ESC";
                 pressedKeysList.clear();
                 return matchedCommand;
+            case "<SHIFT>":
+                wasShiftPressed=true;
+                return null;
         }
 
+        // This code can only be reached by the next keystroke after shift pressed
+        if (wasShiftPressed){
+            lastKeyPressed = lastKeyPressed.toUpperCase();
+            logger.debug("Shift was pressed, converting input to uppercase");
+            logger.debug("last pressed key = " + lastKeyPressed);
+            wasShiftPressed=false;
+        }
         pressedKeysList.add(lastKeyPressed);
         String listString = String.join("", pressedKeysList); // Convert the ArrayList to a concatenated list of strings
         switch (listString) {

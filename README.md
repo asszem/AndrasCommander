@@ -12,11 +12,11 @@ This is a learning project, nothing serious :)
     - [x] Display last pressed key and pressed keys list
     - [x] Handle single and multiple keystrokes
     - [x] VIM like: be able to move the cursor with "j"/"k" 
-    - [ ] Handle parsing special keys (ESC, Shift, Enter, etc)
-    - [ ] VIM like: be able to move the cursor to the top/bottom with "gg"/"G"
-- [ ] Scrollpane viewport follows cursor
+    - [x] Handle parsing special keys (ESC, Shift, Enter, etc)
+    - [x] VIM like: be able to move the cursor to the top/bottom with "gg"/"G"
 - [ ] Execute the highlighted file when "Enter" key pressed
 - [ ] Quit with ":q" ENTER
+- [ ] Scrollpane viewport follows cursor
 
 ### Version 0.2 - Basic Search
 - [ ] Implement a basic search invoked with space key

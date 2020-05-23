@@ -1,3 +1,7 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
 TODO - Implement using Java's EventListener if KeyBindingParser matches a pattern
+TODO - Refactor special key handling by using Key Released action as well
+    - If special key press detected, the Action listener should not send the key to the parser
+    - Instead it should collect any additional keys pressed and convert them according to the modified key
+    - When Shift is released, the collected keys should be sent

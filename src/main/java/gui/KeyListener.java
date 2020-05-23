@@ -51,7 +51,7 @@ public class KeyListener implements java.awt.event.KeyListener {
                 guiInstance.getFilePanel().moveCursor("top");
                 break;
             case "bottom":
-                guiInstance.getFilePanel().moveCursor("down");
+                guiInstance.getFilePanel().moveCursor("bottom");
                 break;
             case "pageDown":
                 //TODO implement pageDown move action
@@ -76,6 +76,10 @@ public class KeyListener implements java.awt.event.KeyListener {
         // ESC pressed
         if (e.getKeyCode() == 27) {
             result = "<ESC>";
+        }
+        // SHIFT pressed (left or right)
+        else if (e.getKeyCode() == 16) {
+            result = "<SHIFT>";
         } else {
             result = Character.toString((e.getKeyChar()));
         }

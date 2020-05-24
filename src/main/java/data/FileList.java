@@ -5,13 +5,13 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.Vector;
 import java.util.Vector;
 
 public class FileList {
     private static Logger logger = LogManager.getLogger(FileList.class);
-    private ArrayList<File> filesAndFolders;
-    private ArrayList<File> filesOnly;
+    private Vector<File> filesAndFolders;
+    private Vector<File> filesOnly;
     private Vector<File> foldersOnly;
     private Vector<File> foldersFirstThenFiles;
 
@@ -32,14 +32,14 @@ public class FileList {
        return foldersOnly;
     }
 
-    public ArrayList<File> getFilesOnly(String folderPath) {
+    public Vector<File> getFilesOnly(String folderPath) {
         if (filesOnly == null) {
             loadFiles(folderPath);
         }
         return filesOnly;
     }
 
-    public ArrayList<File> getFilesAndFolders(String folderPath) {
+    public Vector<File> getFilesAndFolders(String folderPath) {
         if (filesAndFolders == null) {
             loadFiles(folderPath);
         }
@@ -50,9 +50,9 @@ public class FileList {
         logger.debug("Loading files and folders from folder = " + folderPath);
         File[] fileList = new File(folderPath).listFiles();
         //create a new list every time this method is called
-        filesOnly = new ArrayList<File>();
+        filesOnly = new Vector<File>();
         foldersOnly = new Vector<File>();
-        filesAndFolders = new ArrayList<File>();
+        filesAndFolders = new Vector<File>();
 
 
         for (File file : fileList) {

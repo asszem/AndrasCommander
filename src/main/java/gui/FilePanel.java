@@ -17,7 +17,6 @@ public class FilePanel {
     //DATA fields
     private FileList fileList;
     private File highlightedFile;
-    private int highlightedFileIndex;
     private String folderPath;
 
     //GUI Fields
@@ -42,16 +41,14 @@ public class FilePanel {
 //        fileListPanel.setLayout(new BoxLayout(fileListPanel, BoxLayout.Y_AXIS));
 
         // Create JLIST
-        fileJList = new JList();
-        fileJList.setListData(fileList.getFoldersFirstThenFiles(folderPath));
+        fileJList = getFileListWithFoldersFirst();
         fileJList.addKeyListener(guiInstance.getKeyListener());
         fileJList.addListSelectionListener(guiInstance.getKeyListener()); // to handle cursor and HOME and END keys as well
         fileJList.setSelectedIndex(0);
         fileJList.setVisibleRowCount(20);
 
         // Set the initial highlighted file
-        highlightedFileIndex = fileJList.getSelectedIndex();
-        highlightedFile = fileList.getFoldersFirstThenFiles(folderPath).get(highlightedFileIndex);
+        highlightedFile = fileList.getFoldersFirstThenFiles(folderPath).get(fileJList.getSelectedIndex());
 
         // Remap the cursor keys for fileJlist
         RemapCursorNavigation.remapCursors(fileJList);
@@ -70,17 +67,23 @@ public class FilePanel {
 
 
     private JList getFileListWithFoldersFirst() {
+        // the Jlist size must equal with the size of fileList.getFoldersAndThenFiles
+        logger.debug("getFoldersFirstAndThenFiles size = " + fileList.getFoldersFirstThenFiles(folderPath).size());
         JList result = new JList();
-        result.setListData(fileList.getFoldersOnly(folderPath));
 
-        highlightedFileIndex = 0;
+        result.setListData(fileList.getFoldersFirstThenFiles(folderPath));
+        logger.debug("fileList size = " + result.getModel().getSize() );
+
+        // Decorate every folder
+
         return result;
     }
 
     public void moveCursor(String direction) {
 //        logger.debug("move cursor order received = " + direction);
         int currentIndex = fileJList.getSelectedIndex();
-        int maxIndex = fileList.getFilesAndFolders(folderPath).size() - 1;
+        int maxIndex = fileJList.getModel().getSize()-1;
+        System.out.println("maxindex = " + maxIndex);
         switch (direction) {
             case "down":
                 if (currentIndex == maxIndex) {
@@ -89,7 +92,6 @@ public class FilePanel {
                 } else {
                     fileJList.setSelectedIndex(currentIndex + 1);
                 }
-                highlightedFileIndex = fileJList.getSelectedIndex();
                 break;
             case "up":
                 if (currentIndex == 0) {
@@ -98,20 +100,17 @@ public class FilePanel {
                 } else {
                     fileJList.setSelectedIndex(currentIndex - 1);
                 }
-                highlightedFileIndex = fileJList.getSelectedIndex();
                 break;
             case "top":
                 fileJList.setSelectedIndex(0);
-                highlightedFileIndex = 0;
                 break;
             case "bottom":
+                System.out.println("bottom maxIndex = " + maxIndex);
                 fileJList.setSelectedIndex(maxIndex);
-                highlightedFileIndex = fileList.getFoldersFirstThenFiles(folderPath).size() - 1;
                 break;
         }
         fileJList.ensureIndexIsVisible(fileJList.getSelectedIndex());
-        highlightedFile = fileList.getFoldersFirstThenFiles(folderPath).get(highlightedFileIndex);
-//        logger.debug("highlighted File is " + highlightedFile.getAbsolutePath());
+        highlightedFile = fileList.getFoldersFirstThenFiles(folderPath).get(fileJList.getSelectedIndex());
     }
 
     public JPanel getFileListPanel() {

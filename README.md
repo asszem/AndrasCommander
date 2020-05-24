@@ -19,23 +19,23 @@ This is a learning project, nothing serious :)
 - [x] Scrollpane viewport follows cursor
 - [x] Remap cursor keys toj j/k
 
-### Version 0.2 - Basic Search
+### Version 0.2 - Basic Folder Navigation
+- [x] Display folders first, then files
+- [ ] Pressing Enter on a folder goes to the folder
+- [ ] Display .. for parent folder
+- [ ] Pressing Enter on .. goes up one folder
+- [ ] VIM like: "gu" for go up one folder 
+- [ ] VIM like: "gb" for go back to prev folder
+- [ ] VIM like: ":e" for refreshing the panel
+- [ ] Start AC from last opened folder
+
+### Version 0.3 - Basic Search
 - [ ] Implement a basic search invoked with space key
     - [ ] search term completed with enter key 
     - [ ] first matching item selected
     - [ ] VIM like: "n"/"N" keys selects next / prev matching item
     - [ ] highlight other matching items
     - [ ] VIM like: :noh (no highlight) to clear search results
-    
-### Version 0.3 - Basic Folder Navigation
-- [ ] Display .. for parent folder
-- [ ] Display folders first, then files
-- [ ] Pressing Enter on a folder goes to the folder
-- [ ] Pressing Enter on .. goes up one folder
-- [ ] VIM like: "gu" for go up one folder 
-- [ ] VIM like: "gb" for go back to prev folder
-- [ ] VIM like: ":e" for refreshing the panel
-- [ ] Start AC from last opened folder
     
 ### Version 0.4 - Basic File Actions - Rename
 - [ ] VIM like: rename highlighted file with "r"

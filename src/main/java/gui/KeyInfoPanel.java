@@ -13,11 +13,15 @@ public class KeyInfoPanel {
     private GUI guiInstance;
 
     private JPanel keyInfoPanel;
+
     private JPanel pressedKeyPanel;
     private JLabel pressedKeyLabel;
 
     private JPanel pressedKeysListPanel;
     private JLabel pressedKeysListLabel;
+
+    private JPanel highlightedFilePanel;
+    private JLabel highlightedFileLabel;
 
     public KeyInfoPanel(GUI guiInstance) {
         this.guiInstance = guiInstance;
@@ -30,7 +34,7 @@ public class KeyInfoPanel {
         //Pressed Key Panel
         pressedKeyPanel = new JPanel();
         pressedKeyPanel.setBorder(BorderFactory.createTitledBorder("Pressed Key (Code)"));
-        pressedKeyPanel.setPreferredSize(new Dimension(200,50));
+        pressedKeyPanel.setPreferredSize(new Dimension(200, 50));
 
         pressedKeyLabel = new JLabel("Nothing pressed");
         pressedKeyPanel.add(pressedKeyLabel);
@@ -38,21 +42,37 @@ public class KeyInfoPanel {
         //Pressed Keys List Panel
         pressedKeysListPanel = new JPanel();
         pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder("Pressed Keys List"));
-        pressedKeysListPanel.setPreferredSize(new Dimension(200,50));
+        pressedKeysListPanel.setPreferredSize(new Dimension(200, 50));
 
         pressedKeysListLabel = new JLabel("Pressed keys list is empty.");
         pressedKeysListPanel.add(pressedKeysListLabel);
 
+        highlightedFilePanel = new JPanel();
+        highlightedFilePanel.setBorder(BorderFactory.createTitledBorder("Highlighted file"));
+        highlightedFilePanel.setPreferredSize(new Dimension(200, 50));
+        displayHighlightedFile();
+
+
+        keyInfoPanel.add(highlightedFilePanel);
         keyInfoPanel.add(pressedKeyPanel);
         keyInfoPanel.add(pressedKeysListPanel);
 
         return keyInfoPanel;
     }
 
+    public void displayHighlightedFile() {
+        highlightedFilePanel.removeAll();
+        highlightedFileLabel = new JLabel(guiInstance.getFilePanel().getHighlightedFile().getName());
+        highlightedFilePanel.add(highlightedFileLabel);
+        logger.debug(guiInstance.getFilePanel().getHighlightedFile().getAbsolutePath());
+        guiInstance.getFrame().repaint();
+        guiInstance.getFrame().setVisible(true);
+    }
+
     public void displayPressedKey(KeyEvent pressedKey) {
         pressedKeyPanel.removeAll();
         if (pressedKey != null) {
-            pressedKeyLabel = new JLabel(Character.toString(pressedKey.getKeyChar())+" ("+pressedKey.getKeyCode()+")");
+            pressedKeyLabel = new JLabel(Character.toString(pressedKey.getKeyChar()) + " (" + pressedKey.getKeyCode() + ")");
         } else {
             pressedKeyLabel = new JLabel("No keypress event passed");
         }
@@ -61,11 +81,11 @@ public class KeyInfoPanel {
         guiInstance.getFrame().setVisible(true);
     }
 
-    public void displayAllPressedKeys(ArrayList<String> pressedKeysList){
+    public void displayAllPressedKeys(ArrayList<String> pressedKeysList) {
         pressedKeysListPanel.removeAll();
         StringBuilder listOfPressedKeys = new StringBuilder();
         pressedKeysList.forEach(key -> {
-           listOfPressedKeys.append(key) ;
+            listOfPressedKeys.append(key);
         });
         pressedKeysListLabel = new JLabel(listOfPressedKeys.toString());
         pressedKeysListPanel.add(pressedKeysListLabel);

@@ -1,6 +1,5 @@
 package gui;
 
-import control.AndrasCommander;
 import data.FileList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,10 +45,15 @@ public class FilePanel {
         // 2. Create JLIST
         fileJList = new JList(fileList.getFilesAndFolders(folderPath).toArray());
         fileJList.addKeyListener(guiInstance.getKeyListener());
+        fileJList.addListSelectionListener(guiInstance.getKeyListener()); // to handle cursor and HOME and END keys as well
+        fileJList.setSelectedIndex(0);
+        fileJList.setVisibleRowCount(20);
+
+
         // 3. Create SCROLLPANE for JLIST
         fileListScrollPane = new JScrollPane(fileJList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         fileListScrollPane.setBorder(BorderFactory.createTitledBorder(startfolder));
-        Dimension scrollPaneSize = new Dimension(700,300);
+        Dimension scrollPaneSize = new Dimension(700, 100);
         fileListScrollPane.setMinimumSize(scrollPaneSize);
 
         // 4. Add SCROLLPANE to PANEL
@@ -66,32 +70,40 @@ public class FilePanel {
     }
 
     public void moveCursor(String direction) {
+//        logger.debug("move cursor order received = " + direction);
+        int currentIndex = fileJList.getSelectedIndex();
+        int maxIndex = fileList.getFilesAndFolders(folderPath).size() - 1;
         switch (direction) {
             case "down":
-                if (highlightedFileIndex == fileList.getFilesAndFolders(folderPath).size() - 1) {
-                    highlightedFileIndex = 0;
+                if (currentIndex == maxIndex) {
+                    fileJList.setSelectedIndex(0);
+                    currentIndex = 0;
                 } else {
-                    highlightedFileIndex++;
+                    fileJList.setSelectedIndex(currentIndex + 1);
                 }
+                highlightedFileIndex = fileJList.getSelectedIndex();
                 break;
             case "up":
-                if (highlightedFileIndex == 0) {
-                    highlightedFileIndex = fileList.getFilesAndFolders(folderPath).size() - 1; // index starts at 0
+                if (currentIndex == 0) {
+                    fileJList.setSelectedIndex(maxIndex);
+                    currentIndex = maxIndex;
                 } else {
-                    highlightedFileIndex--;
+                    fileJList.setSelectedIndex(currentIndex - 1);
                 }
+                highlightedFileIndex = fileJList.getSelectedIndex();
                 break;
             case "top":
+                fileJList.setSelectedIndex(0);
                 highlightedFileIndex = 0;
                 break;
             case "bottom":
+                fileJList.setSelectedIndex(maxIndex);
                 highlightedFileIndex = fileList.getFilesAndFolders(folderPath).size() - 1;
                 break;
         }
+        fileJList.ensureIndexIsVisible(fileJList.getSelectedIndex());
         highlightedFile = fileList.getFilesAndFolders(folderPath).get(highlightedFileIndex);
-        displayFolderContent();
-        guiInstance.getFrame().repaint();
-        guiInstance.getFrame().setVisible(true);
+//        logger.debug("highlighted File is " + highlightedFile.getAbsolutePath());
     }
 
     public JPanel getFileListPanel() {

@@ -16,7 +16,8 @@ This is a learning project, nothing serious :)
     - [x] VIM like: be able to move the cursor to the top/bottom with "gg"/"G"
 - [x] Quit with ":q" ENTER
 - [x] Execute the highlighted file when "Enter" key pressed
-- [ ] Scrollpane viewport follows cursor
+- [x] Scrollpane viewport follows cursor
+- [ ] Disable or remap cursor, end, home, pgup, pgdown keys
 
 ### Version 0.2 - Basic Search
 - [ ] Implement a basic search invoked with space key

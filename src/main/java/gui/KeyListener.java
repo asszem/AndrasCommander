@@ -36,6 +36,7 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
             sendCommandToGui(matchedCommandReturned);
         }
         guiInstance.getKeyInfoPanel().displayAllPressedKeys(keyBindingParser.getPressedKeysList());
+        guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
     // later not only the moveCursor command will be invoked
@@ -85,6 +86,14 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
         // ENTER pressed
         else if (e.getKeyCode() == 10) {
             result = "<ENTER>";
+        }
+        // CURSOR Down
+        else if (e.getKeyCode() == 40) {
+            result = "j"; // TODO remove hardcoded keybinding
+        }
+        // CURSOR UP
+        else if (e.getKeyCode() == 38) {
+            result = "k";
         } else {
             result = Character.toString((e.getKeyChar()));
         }
@@ -103,6 +112,6 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        System.out.println("key pressed" + e.toString());
+        // nothing implemented here yet
     }
 }

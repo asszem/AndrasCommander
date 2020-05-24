@@ -4,11 +4,13 @@ import data.KeyBindingParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.KeyEvent;
 
 import static java.lang.System.exit;
 
-public class KeyListener implements java.awt.event.KeyListener {
+public class KeyListener implements java.awt.event.KeyListener, ListSelectionListener {
     private static Logger logger = LogManager.getLogger(KeyListener.class);
 
     private GUI guiInstance;
@@ -97,5 +99,10 @@ public class KeyListener implements java.awt.event.KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
 //        logger.debug("Key released event " + e.getKeyCode());
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        System.out.println("key pressed" + e.toString());
     }
 }

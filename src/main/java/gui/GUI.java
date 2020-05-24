@@ -35,7 +35,7 @@ public class GUI extends JFrame {
         this.andrasCommanderInstance = andrasCommanderInstance;
 
         // passing GUI instance to action listeners so they can get every GUI element
-        this.actionListener = new UIActionListener(this);
+//        this.actionListener = new UIActionListener(this);
         this.keyListener = new KeyListener(this);
     }
 
@@ -50,7 +50,7 @@ public class GUI extends JFrame {
         frame.getContentPane().add(BorderLayout.NORTH, filePanel.initPanel("File Panel"));
         frame.getContentPane().add(BorderLayout.SOUTH, keyInfoPanel.initPanel("Key Info Panel"));
 //        filePanel.getFileListPanel().addKeyListener(keyListener);
-        frame.addKeyListener(keyListener);
+//        frame.addKeyListener(keyListener);
 
         windowTitle = new WindowTitle();
         setWindowTitle();

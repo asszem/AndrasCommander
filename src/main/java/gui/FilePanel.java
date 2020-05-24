@@ -6,14 +6,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.io.File;
 
 public class FilePanel {
+    private static Logger logger = LogManager.getLogger(FilePanel.class);
 
     //DATA fields
-    private static Logger logger = LogManager.getLogger(FilePanel.class);
-    private AndrasCommander andrasCommander;
     private FileList fileList;
     private File highlightedFile;
     private int highlightedFileIndex;
@@ -21,83 +22,47 @@ public class FilePanel {
 
     //GUI Fields
     private GUI guiInstance;
-    private JFrame frame;
-    private JPanel mainFilePanel;
     private JPanel fileListPanel;
     private JScrollPane fileListScrollPane;
+    private JList fileJList;
 
     //Constructor
     public FilePanel(GUI guiInstance) {
         this.guiInstance = guiInstance;
-        this.frame = guiInstance.getFrame();
-        this.andrasCommander = guiInstance.getAndrasCommanderInstance();
     }
 
     public JPanel initPanel(String panelTitle) {
 //        logger.debug("--> Inside initPanel");
-        String startfolder = andrasCommander.getPropertyReader().readProperty("STARTFOLDER");
+        String startfolder = guiInstance.getAndrasCommanderInstance().getPropertyReader().readProperty("STARTFOLDER");
         folderPath = startfolder;
         fileList = new FileList();
         highlightedFile = fileList.getFilesAndFolders(startfolder).get(0);
         highlightedFileIndex = 0;
 
-        // Create the mainFilePanel that will hold the fileListPanel which is the viewport of the fileListScrollPane
-        mainFilePanel = new JPanel();
-        mainFilePanel.setBorder(BorderFactory.createTitledBorder("File Panel"));
-
-        // Create the fileListPanel
+        // 1. Create JPANEL
         fileListPanel = new JPanel();
-        fileListPanel.setLayout(new BoxLayout(fileListPanel, BoxLayout.Y_AXIS));
+//        fileListPanel.setLayout(new BoxLayout(fileListPanel, BoxLayout.Y_AXIS));
 
-        // Create the scroll pane for fileListPanel
-        fileListScrollPane = new JScrollPane(fileListPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        // 2. Create JLIST
+        fileJList = new JList(fileList.getFilesAndFolders(folderPath).toArray());
+        fileJList.addKeyListener(guiInstance.getKeyListener());
+        // 3. Create SCROLLPANE for JLIST
+        fileListScrollPane = new JScrollPane(fileJList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         fileListScrollPane.setBorder(BorderFactory.createTitledBorder(startfolder));
-        fileListScrollPane.setPreferredSize(new Dimension(900, 700));
-        Cursor cursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
-        fileListScrollPane.setCursor(cursor);
-        fileListScrollPane.setAutoscrolls(true);
+        Dimension scrollPaneSize = new Dimension(700,300);
+        fileListScrollPane.setMinimumSize(scrollPaneSize);
 
-
-        // Populate the fileListPanel with files
-        displayFolderContent();
-
-        // Add the fileListScrollPane to the mainFilePanel
-        mainFilePanel.add(fileListScrollPane);
-
-        return mainFilePanel;
+        // 4. Add SCROLLPANE to PANEL
+        fileListPanel.add(fileListScrollPane);
+        return fileListPanel;
     }
 
-    private int fileLabelsHeightSummary;
-    private int currentHighlightedFileHeight;
 
     private void displayFolderContent() {
 //        logger.debug("--> inside DisplayFiles");
-        fileLabelsHeightSummary = 0;
-        fileListPanel.removeAll();
-        fileList.getFilesAndFolders(folderPath).forEach(file -> {
-            JLabel label = new JLabel();
-            label.setSize(300, 100);
-            if (file.equals(highlightedFile)) {
-                // TODO find out why label background doesn't work
-                label.setBackground(Color.GREEN);
-                label.setForeground(Color.RED);
-                label.setText("[" + file.getName() + "]");
-                currentHighlightedFileHeight = fileLabelsHeightSummary;
-            } else {
-                label.setText(file.getName());
-            }
-
-            fileListPanel.add(label);
-            fileLabelsHeightSummary += label.getHeight();
-        });
-        if (currentHighlightedFileHeight>4100){
-            logger.debug("scrolling should be happening now");
-            fileListScrollPane.scrollRectToVisible(fileListPanel.getBounds());
-//            fileListScrollPane.getViewport().setCursor();
-        }
-//        logger.debug("filePanelHeight           =" + fileListScrollPane.getPreferredSize().height);
-//        logger.debug("fileLabelsHeightSummary   = " + fileLabelsHeightSummary);
-//        logger.debug("highlighted file height   = " + currentHighlightedFileHeight);
+//        fileListPanel.removeAll();
+        fileJList.removeAll();
+        fileJList = new JList(fileList.getFilesAndFolders(folderPath).toArray());
     }
 
     public void moveCursor(String direction) {
@@ -125,8 +90,8 @@ public class FilePanel {
         }
         highlightedFile = fileList.getFilesAndFolders(folderPath).get(highlightedFileIndex);
         displayFolderContent();
-        frame.repaint();
-        frame.setVisible(true);
+        guiInstance.getFrame().repaint();
+        guiInstance.getFrame().setVisible(true);
     }
 
     public JPanel getFileListPanel() {

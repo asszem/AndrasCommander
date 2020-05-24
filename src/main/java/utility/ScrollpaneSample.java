@@ -33,7 +33,8 @@ public class ScrollpaneSample {
         }
 
         jListA = new JList(listContent.toArray());
-        jListA.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        jListA.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jListA.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jListA.setSelectedIndex(0);
 
         listSelectionListenerA = new ListSelectionListener() {
@@ -42,15 +43,13 @@ public class ScrollpaneSample {
                 System.out.println("selection event happened " + e.toString());
             }
         };
-
         jListA.addListSelectionListener(listSelectionListenerA);
 
         panelA.add(jListA);
 
-//        JScrollPane listScrollPane = new JScrollPane(list);
-//        picture = new JLabel();
-//        picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
-//        picture.setHorizontalAlignment(JLabel.CENTER);
+        scrollPaneA = new JScrollPane(jListA);
+        scrollPaneA.setMinimumSize(panelAsize);
+        panelA.add(scrollPaneA);
 
 
 

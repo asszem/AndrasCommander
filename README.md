@@ -5,7 +5,7 @@ This is a learning project, nothing serious :)
 
 ## MVP Feature Plans
 
-### Version 0.1 - Basic File Display and Navigation
+[**DONE**] Version 0.1 - Basic File Display and Navigation
 - [x] Display files from a directory 
     - [x] Highlight the first file
 - [x] Implement VIM like keystroke detection (normal mode)
@@ -17,7 +17,7 @@ This is a learning project, nothing serious :)
 - [x] Quit with ":q" ENTER
 - [x] Execute the highlighted file when "Enter" key pressed
 - [x] Scrollpane viewport follows cursor
-- [ ] Disable or remap cursor, end, home, pgup, pgdown keys
+- [x] Remap cursor keys toj j/k
 
 ### Version 0.2 - Basic Search
 - [ ] Implement a basic search invoked with space key
@@ -68,6 +68,9 @@ At this point it should be an actually usable product.
  - [ ] File preview panel - open and close with a command
  - [ ] Folder preview panel - display5 last changed file in highlighted folder
  - [ ] Display scrollable content of highlighted file
+ 
+### Version 1.5 - Improved QoL
+- [ ] Remap Home, End, PageUp, PageDown
 
 ## Future Feature Plans
 - Keyboard shortcuts panel (with random reminders, least used commands, basic command) that can set permanent

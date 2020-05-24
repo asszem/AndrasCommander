@@ -1,21 +1,12 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
-TODO - Relearn how to use JScrollPane and JTable and JCursor to have a good solution for focus follows cursor
-    - Create a simple project class with main
-    - Create the area
-    - Reread Horton's book / Schildt book
-TODO - Update GUI handling
-    - static frame cration class
-    - static frame
-TODO - Implement using Java's EventListener if KeyBindingParser matches a pattern
+TODO - Refactor remapping cursor keys
+    - remove hardcoded keys
+    - find an alternative solution to using Robot
 TODO - Improve File Open method in KeyBindingParser
     - Do not open Directories in file
     - Currently using Java AWT Desktop
     - Will open every type of file
-TODO - Refactor special key handling by using Key Released action as well
-    - If special key press detected, the Action listener should not send the key to the parser
-    - Instead it should collect any additional keys pressed and convert them according to the modified key
-    - When Shift is released, the collected keys should be sent
 TODO - Implement GUI using JavaFX
 
 

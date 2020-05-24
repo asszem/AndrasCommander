@@ -5,9 +5,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 public class FilePanel {
@@ -49,9 +49,7 @@ public class FilePanel {
         fileJList.setSelectedIndex(0);
         fileJList.setVisibleRowCount(20);
 
-        //Disable CURSOR Keys
         RemapCursorNavigation.remapCursors(fileJList);
-
 
         // 3. Create SCROLLPANE for JLIST
         fileListScrollPane = new JScrollPane(fileJList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -61,6 +59,8 @@ public class FilePanel {
 
         // 4. Add SCROLLPANE to PANEL
         fileListPanel.add(fileListScrollPane);
+
+
         return fileListPanel;
     }
 

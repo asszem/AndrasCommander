@@ -87,14 +87,14 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
         else if (e.getKeyCode() == 10) {
             result = "<ENTER>";
         }
-//        // CURSOR Down
-//        else if (e.getKeyCode() == 40) {
+        // CURSOR Down
+        else if (e.getKeyCode() == 40) { // when down key is pressed, do not send a j because RemapCursorNavigation already sent a j
 //            result = "j";
-//        }
-//        // CURSOR UP
-//        else if (e.getKeyCode() == 38) {
-//            result = "k";
-//        }
+        }
+        // CURSOR UP
+        else if (e.getKeyCode() == 38) {
+//            result = "k";              // when up key is pressed, do not send a k because RemapCursorNavigation already sent a k
+        }
         else {
             result = Character.toString((e.getKeyChar()));
         }

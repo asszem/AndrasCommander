@@ -87,14 +87,15 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
         else if (e.getKeyCode() == 10) {
             result = "<ENTER>";
         }
-        // CURSOR Down
-        else if (e.getKeyCode() == 40) {
-            result = "j"; // TODO remove hardcoded keybinding
-        }
-        // CURSOR UP
-        else if (e.getKeyCode() == 38) {
-            result = "k";
-        } else {
+//        // CURSOR Down
+//        else if (e.getKeyCode() == 40) {
+//            result = "j";
+//        }
+//        // CURSOR UP
+//        else if (e.getKeyCode() == 38) {
+//            result = "k";
+//        }
+        else {
             result = Character.toString((e.getKeyChar()));
         }
         return result;

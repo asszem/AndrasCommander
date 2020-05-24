@@ -49,6 +49,9 @@ public class FilePanel {
         fileJList.setSelectedIndex(0);
         fileJList.setVisibleRowCount(20);
 
+        //Disable CURSOR Keys
+        RemapCursorNavigation.remapCursors(fileJList);
+
 
         // 3. Create SCROLLPANE for JLIST
         fileListScrollPane = new JScrollPane(fileJList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

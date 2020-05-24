@@ -13,6 +13,7 @@ public class ScrollpaneSample {
     private static JScrollPane scrollPaneA;
     private static JList jListA;
     private static ListSelectionListener listSelectionListenerA;
+
     private static JPanel initJpanelA() {
         panelA = new JPanel();
         panelA.setBackground(Color.YELLOW);
@@ -28,11 +29,12 @@ public class ScrollpaneSample {
 
 
         ArrayList<String> listContent = new ArrayList<>();
-        for (int i=0;i<15;i++){
+        for (int i = 0; i < 15; i++) {
             listContent.add("This is a line item number " + i);
         }
 
         jListA = new JList(listContent.toArray());
+        jListA.setSelectedIndex(3);
 //        jListA.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jListA.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jListA.setSelectedIndex(0);
@@ -44,30 +46,36 @@ public class ScrollpaneSample {
             }
         };
         jListA.addListSelectionListener(listSelectionListenerA);
-
+        disableDownCursor();
+        remapUpCursorToK();
         panelA.add(jListA);
 
         scrollPaneA = new JScrollPane(jListA);
         scrollPaneA.setMinimumSize(panelAsize);
         panelA.add(scrollPaneA);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         return panelA;
     }
 
+
+    static void disableDownCursor() {
+        KeyStroke removeDown = KeyStroke.getKeyStroke("DOWN");
+        InputMap im = jListA.getInputMap();
+        im.put(removeDown, "none");
+        InputMap im2 = scrollPaneA.getInputMap();
+        im2.put(removeDown, "none");
+    }
+
+    static void remapUpCursorToK() {
+        KeyStroke remapUP = KeyStroke.getKeyStroke("UP");
+        InputMap im = jListA.getInputMap();
+        im.put(remapUP, "k");
+
+    }
+
+
     private static JPanel panelB;
+
     private static JPanel initJpanelB() {
         panelB = new JPanel();
         panelB.setBackground(Color.cyan);
@@ -82,6 +90,7 @@ public class ScrollpaneSample {
     }
 
     private static JFrame frame;
+
     private static void createAndShowGUI() {
         frame = new JFrame("Scrollpane Sample");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -55,6 +55,7 @@ public class FilePanel {
         fileListScrollPane.setPreferredSize(new Dimension(900, 700));
         Cursor cursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
         fileListScrollPane.setCursor(cursor);
+        fileListScrollPane.setAutoscrolls(true);
 
 
         // Populate the fileListPanel with files

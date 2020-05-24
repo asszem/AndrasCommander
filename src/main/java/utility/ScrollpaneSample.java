@@ -1,18 +1,98 @@
 package utility;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ScrollpaneSample {
 
+    private static JPanel panelA;
+    private static JPanel panelAa;
+    private static JScrollPane scrollPaneA;
+    private static JList jListA;
+    private static ListSelectionListener listSelectionListenerA;
+    private static JPanel initJpanelA() {
+        panelA = new JPanel();
+        panelA.setBackground(Color.YELLOW);
+        Dimension panelAsize = new Dimension(400, 200);
+        panelA.setMinimumSize(panelAsize);
+        panelA.setPreferredSize(panelAsize);
+        panelA.setMaximumSize(panelAsize);
+        panelA.setSize(panelAsize);
+        String info = panelA.getSize().toString();
+        panelA.setBorder(BorderFactory.createTitledBorder("Panel A - " + info));
+
+        scrollPaneA = new JScrollPane();
 
 
+        ArrayList<String> listContent = new ArrayList<>();
+        for (int i=0;i<15;i++){
+            listContent.add("This is a line item number " + i);
+        }
+
+        jListA = new JList(listContent.toArray());
+        jListA.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jListA.setSelectedIndex(0);
+
+        listSelectionListenerA = new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                System.out.println("selection event happened " + e.toString());
+            }
+        };
+
+        jListA.addListSelectionListener(listSelectionListenerA);
+
+        panelA.add(jListA);
+
+//        JScrollPane listScrollPane = new JScrollPane(list);
+//        picture = new JLabel();
+//        picture.setFont(picture.getFont().deriveFont(Font.ITALIC));
+//        picture.setHorizontalAlignment(JLabel.CENTER);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return panelA;
+    }
+
+    private static JPanel panelB;
+    private static JPanel initJpanelB() {
+        panelB = new JPanel();
+        panelB.setBackground(Color.cyan);
+        Dimension panelBsize = new Dimension(400, 200);
+        panelB.setMinimumSize(panelBsize);
+        panelB.setPreferredSize(panelBsize);
+        panelB.setMaximumSize(panelBsize);
+        panelB.setSize(panelBsize);
+        String info = panelB.getSize().toString();
+        panelB.setBorder(BorderFactory.createTitledBorder("Panel B - " + info));
+        return panelB;
+    }
+
+    private static JFrame frame;
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Scrollpane Sample");
+        frame = new JFrame("Scrollpane Sample");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(700,500));
-        frame.setLocation(900,0);
+        frame.setSize(new Dimension(700, 500));
+        frame.setLocation(900, 0);
         frame.setBackground(Color.darkGray);
+
+        frame.getContentPane().add(BorderLayout.WEST, initJpanelA());
+        frame.getContentPane().add(BorderLayout.EAST, initJpanelB());
+
         frame.pack();
         frame.setVisible(true);
     }

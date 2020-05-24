@@ -3,7 +3,10 @@ This list has elements that are not related to a specific part of the source cod
 TODO - Relearn how to use JScrollPane and JTable and JCursor to have a good solution for focus follows cursor
     - Create a simple project class with main
     - Create the area
-    - Reread Horton's book
+    - Reread Horton's book / Schildt book
+TODO - Update GUI handling
+    - static frame cration class
+    - static frame
 TODO - Implement using Java's EventListener if KeyBindingParser matches a pattern
 TODO - Improve File Open method in KeyBindingParser
     - Do not open Directories in file

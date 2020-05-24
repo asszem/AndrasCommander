@@ -1,0 +1,11 @@
+imap ii <Esc>
+imap jk <Esc>
+noremap H ^
+noremap L $
+set ideajoin
+noremap gb <C-Left>
+let mapleader = ","
+noremap <leader>R :action Run<cr>
+noremap <leader>r :action Rerun<cr>
+nmap <leader>v :action Tool_External Tools_gvim<cr>
+

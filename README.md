@@ -47,6 +47,7 @@ At this point it should be an actually usable product.
  - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
  - [ ] Display line numbers for files
  - [ ] VIM like: jump to line with #linenumber"g"
+ - [ ] Automatically size column width to fit data (file name, date modified, etc)
 
 ### Version 1.1 - Improved search - Auto Jump
  - [ ] "insert" mode: disable VIM bindings ant enable Auto Jump

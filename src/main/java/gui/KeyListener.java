@@ -30,7 +30,6 @@ public class KeyListener implements java.awt.event.KeyListener {
 
         // Check if pressed key(s) can be matched against any command
         String matchedCommandReturned = keyBindingParser.setLastPressedKey(lastKeyPressedConverted).parseKeys();
-        logger.debug("matchedCommandReturned = " + matchedCommandReturned);
         if (matchedCommandReturned != null) { // Send the GUI the action to be performed
             sendCommandToGui(matchedCommandReturned);
         }
@@ -39,7 +38,7 @@ public class KeyListener implements java.awt.event.KeyListener {
 
     // later not only the moveCursor command will be invoked
     private void sendCommandToGui(String command) {
-        logger.debug("command send to GUI = " + command);
+//        logger.debug("command send to GUI = " + command);
         switch (command) {
             case "down":
                 guiInstance.getFilePanel().moveCursor("down");

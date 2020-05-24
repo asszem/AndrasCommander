@@ -53,6 +53,9 @@ public class FilePanel {
         fileListScrollPane = new JScrollPane(fileListPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         fileListScrollPane.setBorder(BorderFactory.createTitledBorder(startfolder));
         fileListScrollPane.setPreferredSize(new Dimension(900, 700));
+        Cursor cursor = new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR);
+        fileListScrollPane.setCursor(cursor);
+
 
         // Populate the fileListPanel with files
         displayFolderContent();
@@ -63,25 +66,37 @@ public class FilePanel {
         return mainFilePanel;
     }
 
+    private int fileLabelsHeightSummary;
+    private int currentHighlightedFileHeight;
+
     private void displayFolderContent() {
 //        logger.debug("--> inside DisplayFiles");
+        fileLabelsHeightSummary = 0;
         fileListPanel.removeAll();
         fileList.getFilesAndFolders(folderPath).forEach(file -> {
             JLabel label = new JLabel();
+            label.setSize(300, 100);
             if (file.equals(highlightedFile)) {
                 // TODO find out why label background doesn't work
                 label.setBackground(Color.GREEN);
                 label.setForeground(Color.RED);
                 label.setText("[" + file.getName() + "]");
+                currentHighlightedFileHeight = fileLabelsHeightSummary;
             } else {
                 label.setText(file.getName());
             }
 
             fileListPanel.add(label);
+            fileLabelsHeightSummary += label.getHeight();
         });
-//        frame.repaint();
-//        frame.revalidate();
-//        frame.setVisible(true);
+        if (currentHighlightedFileHeight>4100){
+            logger.debug("scrolling should be happening now");
+            fileListScrollPane.scrollRectToVisible(fileListPanel.getBounds());
+//            fileListScrollPane.getViewport().setCursor();
+        }
+//        logger.debug("filePanelHeight           =" + fileListScrollPane.getPreferredSize().height);
+//        logger.debug("fileLabelsHeightSummary   = " + fileLabelsHeightSummary);
+//        logger.debug("highlighted file height   = " + currentHighlightedFileHeight);
     }
 
     public void moveCursor(String direction) {
@@ -117,7 +132,7 @@ public class FilePanel {
         return fileListPanel;
     }
 
-    public File getHighlightedFile(){
+    public File getHighlightedFile() {
         return highlightedFile;
     }
 }

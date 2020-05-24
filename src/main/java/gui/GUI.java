@@ -56,11 +56,12 @@ public class GUI extends JFrame {
         setWindowTitle();
 
         frame.setSize(1000, 900);
-        frame.setLocationRelativeTo(null);
+//        frame.setLocationRelativeTo(null);
+        frame.setLocation(900, 0);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // Setting the frame visible
-        frame.setVisible(true);
+        frame.pack(); //sizes the frame so that all its contents are at or above their preferred sizes
+        frame.setVisible(true); // Setting the frame visible
     }
 
     public FilePanel getFilePanel() {

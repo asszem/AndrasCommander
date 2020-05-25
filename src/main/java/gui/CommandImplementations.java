@@ -10,60 +10,56 @@ import java.io.File;
 public class CommandImplementations {
     private static Logger logger = LogManager.getLogger(CommandImplementations.class);
     private GUI guiInstance;
-    private JList fileJList;
-    private File highlightedFile;
-    private String folderPath;
-    private FolderContent folderContent;
+    private FilePanel filePanel;
 
     public CommandImplementations(GUI guiInstance) {
         this.guiInstance = guiInstance;
-        this.fileJList = guiInstance.getFilePanel().getFileJList();
-        this.highlightedFile = guiInstance.getFilePanel().getHighlightedFile();
-        this.folderPath = guiInstance.getFilePanel().getFolderPath();
-        this.folderContent = guiInstance.getFilePanel().getFolderContent();
-        logger.debug("highlighted file = " + highlightedFile);
-        logger.debug("fileJlist index = " + fileJList.getSelectedIndex());
+        this.filePanel=guiInstance.getFilePanel();
     }
 
     public void moveCursor(String direction) {
         logger.debug("move cursor order received = " + direction);
-        int currentIndex = fileJList.getSelectedIndex();
-        int maxIndex = fileJList.getModel().getSize() - 1;
+        int currentIndex = filePanel.getFileJList().getSelectedIndex();
+        int maxIndex = filePanel.getFileJList().getModel().getSize() - 1;
         logger.debug("current fileJlist getSelectedIndex = " + currentIndex);
         logger.debug("maxindex - fileJList size -1 = " + maxIndex);
         switch (direction) {
             case "down":
                 if (currentIndex == maxIndex) {
-                    fileJList.setSelectedIndex(0);
+                    filePanel.getFileJList().setSelectedIndex(0);
                     currentIndex = 0;
                 } else {
-                    fileJList.setSelectedIndex(currentIndex + 1);
+                    filePanel.getFileJList().setSelectedIndex(currentIndex + 1);
                 }
                 break;
             case "up":
                 if (currentIndex == 0) {
-                    fileJList.setSelectedIndex(maxIndex);
+                    filePanel.getFileJList().setSelectedIndex(maxIndex);
                     currentIndex = maxIndex;
                 } else {
-                    fileJList.setSelectedIndex(currentIndex - 1);
+                    filePanel.getFileJList().setSelectedIndex(currentIndex - 1);
                 }
                 break;
             case "top":
-                fileJList.setSelectedIndex(0);
+                filePanel.getFileJList().setSelectedIndex(0);
                 break;
             case "bottom":
-                fileJList.setSelectedIndex(maxIndex);
+                filePanel.getFileJList().setSelectedIndex(maxIndex);
                 break;
         }
-        guiInstance.getFilePanel().getFileJList().ensureIndexIsVisible(fileJList.getSelectedIndex());
-        logger.debug("getSelectedIndex after move command = " + fileJList.getSelectedIndex());
-        guiInstance.getFilePanel().setHighlightedFile( folderContent.getFoldersFirstThenFiles(folderPath).get(fileJList.getSelectedIndex()));
-        logger.debug("Highlighted file is set to = " + highlightedFile.getName());
+        guiInstance.getFilePanel().getFileJList().ensureIndexIsVisible(filePanel.getFileJList().getSelectedIndex());
+        String folderPath = guiInstance.getFilePanel().getFolderPath();
+        int newIndex = filePanel.getFileJList().getSelectedIndex();
+        File newHighlightedFile = guiInstance.getFilePanel().getFolderContent().getFoldersFirstThenFiles(folderPath).get(newIndex);
+        guiInstance.getFilePanel().setHighlightedFile(newHighlightedFile);
     }
 
     public void goUpToParentFolder() {
         logger.debug("Go Up To parent folder command received" );
-
+        File parentFolder = new File(guiInstance.getFilePanel().getFolderPath()).getParentFile();
+        if (parentFolder!=null) {
+            guiInstance.getFilePanel().setFolderPath(parentFolder.getAbsolutePath());
+        }
     }
 
 

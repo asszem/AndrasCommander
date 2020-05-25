@@ -24,7 +24,7 @@ This is a learning project, nothing serious :)
 - [x] Pressing Enter on a folder opens the folder
 - [x] Display .. for parent folder
 - [x] Pressing Enter on .. goes up one folder
-- [ ] VIM like: "gu" for go up one folder 
+- [x] VIM like: "gu" for go up one folder 
 - [ ] VIM like: "gb" for go back to prev folder
 - [ ] VIM like: ":e" for refreshing the panel
 - [ ] Start AC from last opened folder
@@ -87,7 +87,6 @@ At this point it should be an actually usable product.
 ## Future Feature Plans
 - Aliases. Set full word aliases for actions (if typed quickly before the keypress is parsed)
 - Basic Theming (background, foreground color, cursor color, file color)
-- Bookmarks (VIM like marks, named bookmarks and a NerdTree like Bookmark panel)
 - File coloring based on properties (last changed, type, etc)
 - Remap keys (with conflict warnings)
 - VIM like command mode invoked with ":" 
@@ -96,6 +95,7 @@ At this point it should be an actually usable product.
     - Rename panes 
 - Tabs 
 - Ranger like behaviour when entering a folder (new pane opens to the right)
+- History (searchable, actionable)
 
 ## Forbidden features
 - Mouse support

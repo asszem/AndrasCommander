@@ -58,6 +58,9 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
             case "go up":
                 guiInstance.getFilePanel().getCommandImplementations().goUpToParentFolder();
                 break;
+            case "go back":
+                guiInstance.getFilePanel().getCommandImplementations().goBackInHistory();
+                break;
             case "pageDown":
                 //TODO implement pageDown move action
                 break;

@@ -47,6 +47,7 @@ public class CommandImplementations {
                 filePanel.getFileJList().setSelectedIndex(maxIndex);
                 break;
         }
+        // TODO This part is ugly. Refactor when possible
         guiInstance.getFilePanel().getFileJList().ensureIndexIsVisible(filePanel.getFileJList().getSelectedIndex());
         String folderPath = guiInstance.getFilePanel().getFolderPath();
         int newIndex = filePanel.getFileJList().getSelectedIndex();
@@ -62,5 +63,10 @@ public class CommandImplementations {
         }
     }
 
+    public void goBackInHistory(){
+        logger.debug("Go back in History command received" );
+        // get the history file
+        // set the actual folder to the previous folder
+    }
 
 }

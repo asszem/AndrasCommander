@@ -118,6 +118,7 @@ public class FilePanel {
     }
 
     public void setFolderPath(String folderPath) {
+        // TODO Save current folderpath to History file
         this.folderPath = folderPath;
         folderContent.loadFiles(folderPath); // to make sure the folderContent is repopulated
         displayPanel();

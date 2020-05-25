@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class FilePanel {
     private static Logger logger = LogManager.getLogger(FilePanel.class);
@@ -64,53 +63,39 @@ public class FilePanel {
         return fileListPanel;
     }
 
-//    DefaultListModel model;
-    ArrayList<String> l;
-    String displayedItem="kukac";
     private JList createJField() {
-        // the Jlist size must equal with the size of fileList.getFoldersAndThenFiles
-        l=new ArrayList<>();
-//        model = new DefaultListModel();
+        ArrayList<String> jListItemListStrings = new ArrayList<>();
+        String toDisableJListJumpToTypedCharInStringLists = "\u0000";
+//        String toDisableJListJumpToTypedCharInStringLists = "";
         fileList.getFoldersFirstThenFiles(folderPath).forEach(file -> {
+            String displayedItem;
             if (file.isDirectory()) {
-                displayedItem="[" + file.getAbsolutePath() + "]";
+                displayedItem = toDisableJListJumpToTypedCharInStringLists + "[" + file.getAbsolutePath() + "]";
             } else {
-                displayedItem="gluglu" + file.getName();
+                displayedItem = toDisableJListJumpToTypedCharInStringLists + file.getName();
             }
-//            model.addElement(new JLabel(displayedItem).getText());
-            l.add(displayedItem);
+            jListItemListStrings.add(displayedItem);
         });
-        l.forEach(item -> System.out.println(item));
-
-//        l=new ArrayList<>();
-//        for (int i=0;i<45;i++){
-//            l.add("This is item " +i );
-//        }
-
-        JList result = new JList(l.toArray());
-        System.out.println("fileList size = " + fileList.getFoldersFirstThenFiles(folderPath).size());
-        System.out.println("Jlist size = " + result.getModel().getSize());
-
+        JList result = new JList(jListItemListStrings.toArray());
+//        logger.debug("fileList size = " + fileList.getFoldersFirstThenFiles(folderPath).size());
+//        logger.debug("Jlist size = " + result.getModel().getSize());
         return result;
-//        return new JList(fileList.getFoldersFirstThenFiles(folderPath).toArray());
     }
 
     public void moveCursor(String direction) {
         logger.debug("move cursor order received = " + direction);
         int currentIndex = fileJList.getSelectedIndex();
         int maxIndex = fileJList.getModel().getSize() - 1;
-        System.out.println("current index = " + currentIndex);
-        System.out.println("maxindex = " + maxIndex);
+//        logger.debug("current index = " + currentIndex);
+//        logger.debug("maxindex = " + maxIndex);
         switch (direction) {
             case "down":
                 if (currentIndex == maxIndex) {
                     fileJList.setSelectedIndex(0);
                     currentIndex = 0;
                 } else {
-                    System.out.println("current index before down = " + currentIndex);
                     fileJList.setSelectedIndex(currentIndex + 1);
                 }
-                System.out.println("fileJlist index after down = " + fileJList.getSelectedIndex());
                 break;
             case "up":
                 if (currentIndex == 0) {
@@ -127,13 +112,8 @@ public class FilePanel {
                 fileJList.setSelectedIndex(maxIndex);
                 break;
         }
-        System.out.println("fileJlist before setting visible = " + fileJList.getSelectedIndex());
         fileJList.ensureIndexIsVisible(fileJList.getSelectedIndex());
         highlightedFile = fileList.getFoldersFirstThenFiles(folderPath).get(fileJList.getSelectedIndex());
-        fileJList.repaint();
-//        guiInstance.getFrame().repaint();
-//        guiInstance.getFrame().setVisible(true);
-        System.out.println("fileJlist index after setting visible = " + fileJList.getSelectedIndex());
     }
 
     public JPanel getFileListPanel() {
@@ -144,7 +124,7 @@ public class FilePanel {
         return highlightedFile;
     }
 
-    public int getHighlightedFileIndex(){
+    public int getHighlightedFileIndex() {
         return fileJList.getSelectedIndex();
     }
 }

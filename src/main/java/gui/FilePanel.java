@@ -42,7 +42,7 @@ public class FilePanel {
         return fileListPanel;
     }
 
-    private void displayPanel() {
+    public void displayPanel() {
         // Remove previous content from the panel
         fileListPanel.removeAll();
 
@@ -117,8 +117,9 @@ public class FilePanel {
         return fileJList.getSelectedIndex();
     }
 
+    // TODO Consider moving this to the CommandImplementation class
     public void setFolderPath(String folderPath) {
-        // TODO Save current folderpath to History file
+        guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(this.folderPath); // save history
         this.folderPath = folderPath;
         folderContent.loadFiles(folderPath); // to make sure the folderContent is repopulated
         displayPanel();

@@ -95,7 +95,7 @@ At this point it should be an actually usable product.
     - Rename panes 
 - Tabs 
 - Ranger like behaviour when entering a folder (new pane opens to the right)
-- History Panel (searchable, actionable, bookmarkable)
+- History Panel (searchable, actionable, bookmarkable, panel specific and Global history)
 
 ## Forbidden features
 - Mouse support

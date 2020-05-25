@@ -64,6 +64,7 @@ public class HistoryWriter {
         return list.get(index);
     }
 
+    // For testing purposes
     public static void main(String[] args) {
         HistoryWriter historyWriter = new HistoryWriter();
         historyWriter.createHistoryFileIfNotExist();

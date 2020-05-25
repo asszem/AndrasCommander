@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class KeyInfoPanel {
-    private static Logger logger = LogManager.getLogger(FilePanel.class);
+    private static Logger logger = LogManager.getLogger(KeyInfoPanel.class);
     private GUI guiInstance;
 
     private JPanel keyInfoPanel;
@@ -64,9 +64,9 @@ public class KeyInfoPanel {
         highlightedFilePanel.removeAll();
         highlightedFileLabel = new JLabel(guiInstance.getFilePanel().getHighlightedFile().getName() + " ("+guiInstance.getFilePanel().getHighlightedFileIndex()+")" );
 
-        logger.debug("Highlighted file index = " + guiInstance.getFilePanel().getHighlightedFileIndex() );
+//        logger.debug("Highlighted file index = " + guiInstance.getFilePanel().getHighlightedFileIndex() );
         highlightedFilePanel.add(highlightedFileLabel);
-        logger.debug("Highlighted file abs path = " + guiInstance.getFilePanel().getHighlightedFile().getAbsolutePath());
+//        logger.debug("Highlighted file abs path = " + guiInstance.getFilePanel().getHighlightedFile().getAbsolutePath());
         guiInstance.getFrame().repaint();
         guiInstance.getFrame().setVisible(true);
     }

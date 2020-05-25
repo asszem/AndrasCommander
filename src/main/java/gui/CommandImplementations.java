@@ -18,11 +18,11 @@ public class CommandImplementations {
     }
 
     public void moveCursor(String direction) {
-        logger.debug("move cursor order received = " + direction);
+//        logger.debug("move cursor order received = " + direction);
         int currentIndex = filePanel.getFileJList().getSelectedIndex();
         int maxIndex = filePanel.getFileJList().getModel().getSize() - 1;
-        logger.debug("current fileJlist getSelectedIndex = " + currentIndex);
-        logger.debug("maxindex - fileJList size -1 = " + maxIndex);
+//        logger.debug("current fileJlist getSelectedIndex = " + currentIndex);
+//        logger.debug("maxindex - fileJList size -1 = " + maxIndex);
         switch (direction) {
             case "down":
                 if (currentIndex == maxIndex) {
@@ -56,7 +56,7 @@ public class CommandImplementations {
     }
 
     public void goUpToParentFolder() {
-        logger.debug("Go Up To parent folder command received" );
+//        logger.debug("Go Up To parent folder command received" );
         File parentFolder = new File(guiInstance.getFilePanel().getFolderPath()).getParentFile();
         if (parentFolder!=null) {
             guiInstance.getFilePanel().setFolderPath(parentFolder.getAbsolutePath());
@@ -65,7 +65,18 @@ public class CommandImplementations {
 
     public void goBackInHistory(){
         logger.debug("Go back in History command received" );
-        // get the history file
+        String prevFolder = guiInstance.getAndrasCommanderInstance().getHistoryWriter().getLastHistoryItem();
+        logger.debug("Last History Item = " + prevFolder);
+        // Validation
+        File prevFolderCheck = new File(prevFolder);
+        if (prevFolderCheck.exists() && prevFolderCheck.isDirectory()){
+//            guiInstance.getFilePanel().setFolderPath(prevFolder);
+            guiInstance.getFilePanel().getFolderContent().loadFiles(prevFolder);
+            guiInstance.getFilePanel().displayPanel();
+            guiInstance.getFilePanel().getFileJList().grabFocus();
+        } else{
+           logger.debug("prev Folder is not a valid Directory");
+        }
         // set the actual folder to the previous folder
     }
 

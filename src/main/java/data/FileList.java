@@ -4,8 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.util.Vector;
 import java.util.Vector;
 
 public class FileList {
@@ -53,6 +51,14 @@ public class FileList {
         filesOnly = new Vector<File>();
         foldersOnly = new Vector<File>();
         filesAndFolders = new Vector<File>();
+
+        // Add the parent directory as the first element (index 0) of the foldersOnly list
+        File currentDir = new File(folderPath);
+        if (currentDir.getParent()!=null){
+            foldersOnly.add(currentDir.getParentFile());
+        } else {
+            foldersOnly.add(currentDir); // Return itself if there is now upper folder in file hierarchy
+        }
 
 
         for (File file : fileList) {

@@ -69,18 +69,27 @@ public class FilePanel {
         fileListPanel.add(fileListScrollPane);
     }
 
+    int counter;
     private JList populateFileJList() {
         ArrayList<String> jListItemListStrings = new ArrayList<>();
         String toDisableJListJumpToTypedCharInStringLists = "\u0000";
 //        String toDisableJListJumpToTypedCharInStringLists = "";
+
+        counter=0;
         fileList.getFoldersFirstThenFiles(folderPath).forEach(file -> {
             String displayedItem;
             if (file.isDirectory()) {
-                displayedItem = toDisableJListJumpToTypedCharInStringLists + "[" + file.getAbsolutePath() + "]";
+                // The first item in the list is always the parent folder if exists, or itself, if no parent
+                if (counter==0){
+                    displayedItem="..";
+                } else {
+                    displayedItem = toDisableJListJumpToTypedCharInStringLists + "[" + file.getName() + "]";
+                }
             } else {
                 displayedItem = toDisableJListJumpToTypedCharInStringLists + file.getName();
             }
             jListItemListStrings.add(displayedItem);
+            counter++;
         });
 //        jListItemListStrings.forEach(item -> System.out.println(item));
         JList result = new JList(jListItemListStrings.toArray());

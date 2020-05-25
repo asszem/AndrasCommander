@@ -21,9 +21,9 @@ This is a learning project, nothing serious :)
 
 ### Version 0.2 - Basic Folder Navigation
 - [x] Display folders first, then files
-- [x] Pressing Enter on a folder goes to the folder
-- [ ] Display .. for parent folder
-- [ ] Pressing Enter on .. goes up one folder
+- [x] Pressing Enter on a folder opens the folder
+- [x] Display .. for parent folder
+- [x] Pressing Enter on .. goes up one folder
 - [ ] VIM like: "gu" for go up one folder 
 - [ ] VIM like: "gb" for go back to prev folder
 - [ ] VIM like: ":e" for refreshing the panel

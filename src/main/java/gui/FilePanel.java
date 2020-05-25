@@ -33,13 +33,21 @@ public class FilePanel {
         String startfolder = guiInstance.getAndrasCommanderInstance().getPropertyReader().readProperty("STARTFOLDER");
         folderPath = startfolder;
         fileList = new FileList();
-
-        // Create JPANEL
         fileListPanel = new JPanel();
-//        fileListPanel.setLayout(new BoxLayout(fileListPanel, BoxLayout.Y_AXIS));
 
-        // Create JLIST
-        fileJList = createJField();
+        displayPanel();
+        System.out.println("fileJListObject = " + fileJList.getClass());
+
+        return fileListPanel;
+    }
+
+    private void displayPanel() {
+        // Remove previous content from the panel
+        fileListPanel.removeAll();
+
+        // Create a and populate new Jlist object
+        fileJList = new JList();
+        fileJList = populateFileJList();
         fileJList.addKeyListener(guiInstance.getKeyListener());
         fileJList.addListSelectionListener(guiInstance.getKeyListener()); // to handle cursor and HOME and END keys as well
         fileJList.setSelectedIndex(0);
@@ -53,17 +61,15 @@ public class FilePanel {
 
         // Create SCROLLPANE for JLIST
         fileListScrollPane = new JScrollPane(fileJList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        fileListScrollPane.setBorder(BorderFactory.createTitledBorder(startfolder));
+        fileListScrollPane.setBorder(BorderFactory.createTitledBorder(folderPath));
         Dimension scrollPaneSize = new Dimension(700, 100);
         fileListScrollPane.setMinimumSize(scrollPaneSize);
 
         // Add SCROLLPANE to PANEL
         fileListPanel.add(fileListScrollPane);
-
-        return fileListPanel;
     }
 
-    private JList createJField() {
+    private JList populateFileJList() {
         ArrayList<String> jListItemListStrings = new ArrayList<>();
         String toDisableJListJumpToTypedCharInStringLists = "\u0000";
 //        String toDisableJListJumpToTypedCharInStringLists = "";
@@ -76,9 +82,11 @@ public class FilePanel {
             }
             jListItemListStrings.add(displayedItem);
         });
+//        jListItemListStrings.forEach(item -> System.out.println(item));
         JList result = new JList(jListItemListStrings.toArray());
 //        logger.debug("fileList size = " + fileList.getFoldersFirstThenFiles(folderPath).size());
 //        logger.debug("Jlist size = " + result.getModel().getSize());
+        result.setSelectedIndex(0);
         return result;
     }
 
@@ -126,6 +134,17 @@ public class FilePanel {
 
     public int getHighlightedFileIndex() {
         return fileJList.getSelectedIndex();
+    }
+
+    public void setFolderPath(String folderPath) {
+        this.folderPath = folderPath;
+        fileList.loadFiles(folderPath); // to make sure the fileList is repopulated
+        displayPanel();
+        fileJList.grabFocus();
+    }
+
+    public String getFolderPath() {
+        return folderPath;
     }
 }
 

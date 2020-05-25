@@ -1,9 +1,11 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
+TODO - Edge case handling - folders without files, full empty folders, only files, top folder reached, etc
+TODO - Set filapanel size to have always the title bar visible
+
 TODO - Refactor separation of files and folders
     - Rethink how the FileList class handles file data and metadata
     - When a list is created, the files and folders should be separated visually
-
 TODO - Refactor remapping cursor keys
     - remove hardcoded keys
     - find an alternative solution to using Robot

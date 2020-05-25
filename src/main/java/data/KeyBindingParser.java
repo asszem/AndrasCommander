@@ -45,20 +45,27 @@ public class KeyBindingParser {
                 wasShiftPressed = true;
                 return null;
             case "<ENTER>":
-                // Execute the file under the cursor if no key(s) were pressed, otherwise add <ENTER> to the pressedKeysList
-                if (pressedKeysList.isEmpty()){
+                // If ENTER after empty commands - open file OR go to Directory
+                // If ENTER after commands - execute bindings with an <ENTER> key
+                if (pressedKeysList.isEmpty()) {
                     File fileToBeExecuted = guiInstance.getFilePanel().getHighlightedFile();
-                    logger.debug("Executing file = " +fileToBeExecuted.getAbsolutePath());
-                    Desktop desktop = Desktop.getDesktop();
-                    try {
-                        desktop.open(fileToBeExecuted);
-                    } catch (IOException e) {
-                        logger.debug("ERROR in File Execution");
-                        e.printStackTrace();
-                    } finally {
-                        return null; //to make sure no command was interpreted and keep listening
+                    if (fileToBeExecuted.isDirectory()) {
+                        guiInstance.getFilePanel().setFolderPath(fileToBeExecuted.getAbsolutePath());
+                        return null;
+                    } else {
+                        logger.debug("Executing file = " + fileToBeExecuted.getAbsolutePath());
+                        Desktop desktop = Desktop.getDesktop();
+                        try {
+                            desktop.open(fileToBeExecuted);
+                        } catch (IOException e) {
+                            logger.debug("ERROR in File Execution");
+                            e.printStackTrace();
+                        } finally {
+                            return null; //to make sure no command was interpreted and keep listening
+                        }
                     }
                 }
+                // Execute the file under the cursor if no key(s) were pressed, otherwise add <ENTER> to the pressedKeysList
                 break;
         }
 

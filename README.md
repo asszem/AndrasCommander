@@ -21,7 +21,7 @@ This is a learning project, nothing serious :)
 
 ### Version 0.2 - Basic Folder Navigation
 - [x] Display folders first, then files
-- [ ] Pressing Enter on a folder goes to the folder
+- [x] Pressing Enter on a folder goes to the folder
 - [ ] Display .. for parent folder
 - [ ] Pressing Enter on .. goes up one folder
 - [ ] VIM like: "gu" for go up one folder 
@@ -71,9 +71,11 @@ At this point it should be an actually usable product.
  
 ### Version 1.5 - Improved QoL
 - [ ] Remap Home, End, PageUp, PageDown
+- [ ] Toggle keybindings list
+    - [ ] Static info of available commands
+    - [ ] Dinamic info with random reminders, least used commands, etc
 
 ## Future Feature Plans
-- Keyboard shortcuts panel (with random reminders, least used commands, basic command) that can set permanent
 - Aliases. Set full word aliases for actions (if typed quickly before the keypress is parsed)
 - Basic Theming (background, foreground color, cursor color, file color)
 - Bookmarks (VIM like marks, named bookmarks and a NerdTree like Bookmark panel)

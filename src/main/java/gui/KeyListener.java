@@ -44,16 +44,19 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
 //        logger.debug("command send to GUI = " + command);
         switch (command) {
             case "down":
-                guiInstance.getFilePanel().moveCursor("down");
+                guiInstance.getFilePanel().getCommandImplementations().moveCursor("down");
                 break;
             case "up":
-                guiInstance.getFilePanel().moveCursor("up");
+                guiInstance.getFilePanel().getCommandImplementations().moveCursor("up");
                 break;
             case "top":
-                guiInstance.getFilePanel().moveCursor("top");
+                guiInstance.getFilePanel().getCommandImplementations().moveCursor("top");
                 break;
             case "bottom":
-                guiInstance.getFilePanel().moveCursor("bottom");
+                guiInstance.getFilePanel().getCommandImplementations().moveCursor("bottom");
+                break;
+            case "go up":
+                guiInstance.getFilePanel().getCommandImplementations().goUpToParentFolder();
                 break;
             case "pageDown":
                 //TODO implement pageDown move action

@@ -50,15 +50,15 @@ At this point it should be an actually usable product.
  - [ ] VIM like: jump to line with #linenumber"g"
  - [ ] Automatically size column width to fit data (file name, date modified, etc)
 
-### Version 1.1 - Improved search - Auto Jump
- - [ ] "insert" mode: disable VIM bindings ant enable Auto Jump
- - [ ] In insert mode jump automatically to the first matching result
-
-### Version 1.2 - Improved display - Basic Multiple Panes
+### Version 1.1 - Improved display - Basic Multiple Panes
 - [ ] VIM like: "sp" and "vs" to add a new viewing pane
 - [ ] VIM like: jump between panes with Ctrl-W and "h"/"j"/"k"/"l"
 - [ ] VIM like: :on (only) maximize current pane (but remember previous panes)
 - [ ] :res (reset) - reset the previous displayed pane(s)
+
+### Version 1.2 - Improved search - Auto Jump
+ - [ ] "insert" mode: disable VIM bindings ant enable Auto Jump
+ - [ ] In insert mode jump automatically to the first matching result
 
 ### Version 1.3 - Improved File Actions - select, copy, move, delete
 - [ ] NC like: select multiple files under cursor with "Ins"
@@ -69,11 +69,20 @@ At this point it should be an actually usable product.
  - [ ] Folder preview panel - display5 last changed file in highlighted folder
  - [ ] Display scrollable content of highlighted file
  
-### Version 1.5 - Improved QoL
+### Version 1.5 - Nerdtree like Bookmarks panel and Vim like marks
+- [ ] - Toggle bookmark pane
+- [ ] - Add files/folders to bookmarks
+- [ ] - Open bookmarks
+- [ ] - Name and rename bookmarks
+
+### Version 1.6 - QoL imporvements
 - [ ] Remap Home, End, PageUp, PageDown
 - [ ] Toggle keybindings list
     - [ ] Static info of available commands
     - [ ] Dinamic info with random reminders, least used commands, etc
+- [ ] Open system file explorer in current directory
+- [ ] yank (copy) absolute path to current file / directory
+- [ ] open shell (cmd, bash, conemu)
 
 ## Future Feature Plans
 - Aliases. Set full word aliases for actions (if typed quickly before the keypress is parsed)

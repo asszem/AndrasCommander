@@ -1,6 +1,6 @@
 package gui;
 
-import data.FileList;
+import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,9 +13,10 @@ public class FilePanel {
     private static Logger logger = LogManager.getLogger(FilePanel.class);
 
     //DATA fields
-    private FileList fileList;
+    private FolderContent folderContent;
     private File highlightedFile;
     private String folderPath;
+    private CommandImplementations commandImplementations;
 
     //GUI Fields
     private GUI guiInstance;
@@ -32,12 +33,12 @@ public class FilePanel {
 //        logger.debug("--> Inside initPanel");
         String startfolder = guiInstance.getAndrasCommanderInstance().getPropertyReader().readProperty("STARTFOLDER");
         folderPath = startfolder;
-        fileList = new FileList();
+        folderContent = new FolderContent();
         fileListPanel = new JPanel();
 
         displayPanel();
-        System.out.println("fileJListObject = " + fileJList.getClass());
 
+        commandImplementations = new CommandImplementations(guiInstance);
         return fileListPanel;
     }
 
@@ -54,7 +55,7 @@ public class FilePanel {
         fileJList.setVisibleRowCount(20);
 
         // Set the initial highlighted file
-        highlightedFile = fileList.getFoldersFirstThenFiles(folderPath).get(fileJList.getSelectedIndex());
+        highlightedFile = folderContent.getFoldersFirstThenFiles(folderPath).get(fileJList.getSelectedIndex());
 
         // Remap the cursor keys for fileJlist
         RemapCursorNavigation.remapCursors(fileJList);
@@ -70,18 +71,19 @@ public class FilePanel {
     }
 
     int counter;
+
     private JList populateFileJList() {
         ArrayList<String> jListItemListStrings = new ArrayList<>();
         String toDisableJListJumpToTypedCharInStringLists = "\u0000";
 //        String toDisableJListJumpToTypedCharInStringLists = "";
 
-        counter=0;
-        fileList.getFoldersFirstThenFiles(folderPath).forEach(file -> {
+        counter = 0;
+        folderContent.getFoldersFirstThenFiles(folderPath).forEach(file -> {
             String displayedItem;
             if (file.isDirectory()) {
                 // The first item in the list is always the parent folder if exists, or itself, if no parent
-                if (counter==0){
-                    displayedItem="..";
+                if (counter == 0) {
+                    displayedItem = "..";
                 } else {
                     displayedItem = toDisableJListJumpToTypedCharInStringLists + "[" + file.getName() + "]";
                 }
@@ -93,45 +95,12 @@ public class FilePanel {
         });
 //        jListItemListStrings.forEach(item -> System.out.println(item));
         JList result = new JList(jListItemListStrings.toArray());
-//        logger.debug("fileList size = " + fileList.getFoldersFirstThenFiles(folderPath).size());
+//        logger.debug("folderContent size = " + folderContent.getFoldersFirstThenFiles(folderPath).size());
 //        logger.debug("Jlist size = " + result.getModel().getSize());
         result.setSelectedIndex(0);
         return result;
     }
 
-    public void moveCursor(String direction) {
-        logger.debug("move cursor order received = " + direction);
-        int currentIndex = fileJList.getSelectedIndex();
-        int maxIndex = fileJList.getModel().getSize() - 1;
-//        logger.debug("current index = " + currentIndex);
-//        logger.debug("maxindex = " + maxIndex);
-        switch (direction) {
-            case "down":
-                if (currentIndex == maxIndex) {
-                    fileJList.setSelectedIndex(0);
-                    currentIndex = 0;
-                } else {
-                    fileJList.setSelectedIndex(currentIndex + 1);
-                }
-                break;
-            case "up":
-                if (currentIndex == 0) {
-                    fileJList.setSelectedIndex(maxIndex);
-                    currentIndex = maxIndex;
-                } else {
-                    fileJList.setSelectedIndex(currentIndex - 1);
-                }
-                break;
-            case "top":
-                fileJList.setSelectedIndex(0);
-                break;
-            case "bottom":
-                fileJList.setSelectedIndex(maxIndex);
-                break;
-        }
-        fileJList.ensureIndexIsVisible(fileJList.getSelectedIndex());
-        highlightedFile = fileList.getFoldersFirstThenFiles(folderPath).get(fileJList.getSelectedIndex());
-    }
 
     public JPanel getFileListPanel() {
         return fileListPanel;
@@ -140,6 +109,9 @@ public class FilePanel {
     public File getHighlightedFile() {
         return highlightedFile;
     }
+    public void setHighlightedFile(File highlightedFile){
+        this.highlightedFile=highlightedFile;
+    }
 
     public int getHighlightedFileIndex() {
         return fileJList.getSelectedIndex();
@@ -147,13 +119,31 @@ public class FilePanel {
 
     public void setFolderPath(String folderPath) {
         this.folderPath = folderPath;
-        fileList.loadFiles(folderPath); // to make sure the fileList is repopulated
+        folderContent.loadFiles(folderPath); // to make sure the folderContent is repopulated
         displayPanel();
         fileJList.grabFocus();
     }
 
     public String getFolderPath() {
         return folderPath;
+    }
+
+    public JList getFileJList() {
+        if (fileJList == null) {
+            displayPanel();
+        }
+        return fileJList;
+    }
+    public void setFileJList(JList fileJList){
+        this.fileJList=fileJList;
+    }
+
+    public FolderContent getFolderContent() {
+        return folderContent;
+    }
+
+    public CommandImplementations getCommandImplementations() {
+        return commandImplementations;
     }
 }
 

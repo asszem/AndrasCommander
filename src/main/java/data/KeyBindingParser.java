@@ -92,6 +92,15 @@ public class KeyBindingParser {
             case "gg":
                 matchedCommand = "top";
                 break;
+            case "gu":
+                matchedCommand = "go up";
+                break;
+            case "gb":
+                matchedCommand = "go back";
+                break;
+            case ":e<ENTER>":
+                matchedCommand = "refresh filelist";
+                break;
             case ":q<ENTER>":
             case "quit":
                 exit(0);

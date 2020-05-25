@@ -23,10 +23,6 @@ public class GUI extends JFrame {
     private FilePanel filePanel;
     private KeyInfoPanel keyInfoPanel;
 
-    // UI related fields
-    private static Color selectedColor = Color.cyan;
-    private static Color unselectedColor = Color.gray;
-
     // This frame is to hold the entire UI
     private JFrame frame = new JFrame();
 
@@ -90,14 +86,6 @@ public class GUI extends JFrame {
 
     public JFrame getFrame() {
         return frame;
-    }
-
-    public Color getSelectedColor() {
-        return selectedColor;
-    }
-
-    public Color getUnselectedColor() {
-        return unselectedColor;
     }
 
     public AndrasCommander getAndrasCommanderInstance() {

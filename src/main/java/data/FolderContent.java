@@ -6,8 +6,8 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.util.Vector;
 
-public class FileList {
-    private static Logger logger = LogManager.getLogger(FileList.class);
+public class FolderContent {
+    private static Logger logger = LogManager.getLogger(FolderContent.class);
     private Vector<File> filesAndFolders;
     private Vector<File> filesOnly;
     private Vector<File> foldersOnly;
@@ -44,7 +44,7 @@ public class FileList {
         return filesAndFolders;
     }
 
-    public FileList loadFiles(String folderPath) {
+    public FolderContent loadFiles(String folderPath) {
         logger.debug("Loading files and folders from folder = " + folderPath);
         File[] fileList = new File(folderPath).listFiles();
         //create a new list every time this method is called

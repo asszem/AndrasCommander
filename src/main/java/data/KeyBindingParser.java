@@ -1,8 +1,8 @@
 package data;
 
-import swingGUI.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import swingGUI.GUI;
 
 import java.awt.*;
 import java.io.File;
@@ -37,11 +37,13 @@ public class KeyBindingParser {
         // Check for special keystrokes first
         switch (lastKeyPressed) {
             case "<ESC>":
-                logger.debug("ESC key press passed");
+//                logger.debug("ESC key press passed");
                 matchedCommand = "ESC";
                 pressedKeysList.clear();
+                guiInstance.getKeyInfoPanel().displayCommand(matchedCommand);
                 return matchedCommand;
             case "<SHIFT>":
+                guiInstance.getKeyInfoPanel().displayCommand("SHIFT pressed");
                 wasShiftPressed = true;
                 return null;
             case "<ENTER>":
@@ -50,9 +52,11 @@ public class KeyBindingParser {
                 if (pressedKeysList.isEmpty()) {
                     File fileToBeExecuted = guiInstance.getFilePanel().getHighlightedFile();
                     if (fileToBeExecuted.isDirectory()) {
+                        guiInstance.getKeyInfoPanel().displayCommand("ENTER to go to Folder " + fileToBeExecuted.getName());
                         guiInstance.getFilePanel().setFolderPath(fileToBeExecuted.getAbsolutePath());
                         return null;
                     } else {
+                        guiInstance.getKeyInfoPanel().displayCommand("ENTER to execute File " + fileToBeExecuted.getName());
                         logger.debug("Executing file = " + fileToBeExecuted.getAbsolutePath());
                         Desktop desktop = Desktop.getDesktop();
                         try {
@@ -110,6 +114,7 @@ public class KeyBindingParser {
         if (matchedCommand != null) {
             pressedKeysList.clear();
         }
+        guiInstance.getKeyInfoPanel().displayCommand(matchedCommand);
         return matchedCommand;
     }
 

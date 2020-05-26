@@ -1,8 +1,8 @@
 package swingGUI.keyListener;
 
-import swingGUI.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import swingGUI.GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +24,9 @@ public class KeyInfoPanel {
     private JPanel highlightedFilePanel;
     private JLabel highlightedFileLabel;
 
+    private JPanel commandPanel;
+    private JLabel commandLabel;
+
     public KeyInfoPanel(GUI guiInstance) {
         this.guiInstance = guiInstance;
     }
@@ -34,8 +37,8 @@ public class KeyInfoPanel {
 
         //Pressed Key Panel
         pressedKeyPanel = new JPanel();
-        pressedKeyPanel.setBorder(BorderFactory.createTitledBorder("Pressed Key (Code)"));
-        pressedKeyPanel.setPreferredSize(new Dimension(200, 50));
+        pressedKeyPanel.setBorder(BorderFactory.createTitledBorder("Last Key (Code)"));
+        pressedKeyPanel.setPreferredSize(new Dimension(130, 50));
 
         pressedKeyLabel = new JLabel("Nothing pressed");
         pressedKeyPanel.add(pressedKeyLabel);
@@ -53,17 +56,33 @@ public class KeyInfoPanel {
         highlightedFilePanel.setPreferredSize(new Dimension(200, 50));
         displayHighlightedFile();
 
+        commandPanel = new JPanel();
+        commandPanel.setBorder(BorderFactory.createTitledBorder("Last command"));
+        commandLabel = new JLabel("Last command is empty");
+        commandPanel.add(commandLabel);
 
-        keyInfoPanel.add(highlightedFilePanel);
-        keyInfoPanel.add(pressedKeyPanel);
-        keyInfoPanel.add(pressedKeysListPanel);
+        BorderLayout keyInfoLayout = new BorderLayout();
+        keyInfoPanel.setLayout(keyInfoLayout);
+        Dimension keyInfoPanelSize = new Dimension(800,130);
+        keyInfoPanel.setPreferredSize(keyInfoPanelSize);
+        keyInfoPanel.add(highlightedFilePanel, BorderLayout.NORTH);
+        keyInfoPanel.add(pressedKeyPanel, BorderLayout.WEST);
+        keyInfoPanel.add(pressedKeysListPanel, BorderLayout.EAST);
+        keyInfoPanel.add(commandPanel, BorderLayout.CENTER);
 
         return keyInfoPanel;
     }
 
+    public void displayCommand(String command) {
+        System.out.println("displayCommand called to display = " + command);
+        commandLabel.setText(command);
+        guiInstance.getFrame().repaint();
+        guiInstance.getFrame().setVisible(true);
+    }
+
     public void displayHighlightedFile() {
         highlightedFilePanel.removeAll();
-        highlightedFileLabel = new JLabel(guiInstance.getFilePanel().getHighlightedFile().getName() + " ("+guiInstance.getFilePanel().getHighlightedFileIndex()+")" );
+        highlightedFileLabel = new JLabel(guiInstance.getFilePanel().getHighlightedFile().getName() + " (" + guiInstance.getFilePanel().getHighlightedFileIndex() + ")");
 
 //        logger.debug("Highlighted file index = " + guiInstance.getFilePanel().getHighlightedFileIndex() );
         highlightedFilePanel.add(highlightedFileLabel);

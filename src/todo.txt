@@ -1,9 +1,8 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
 Tasks
-TODO - Implement History
-TODO - Edge case handling - folders without files, full empty folders, only files, top folder reached, etc
 TODO - Set filapanel size to have always the title bar visible
+TODO - Edge case handling - folders without files, full empty folders, only files, top folder reached, etc
 
 Refactor
 TODO - Refactor CommandImplementations to avoid long and ugly chain of commands

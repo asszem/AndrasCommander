@@ -70,7 +70,7 @@ public class CommandImplementations {
         // Validation
         File prevFolderCheck = new File(prevFolder);
         if (prevFolderCheck.exists() && prevFolderCheck.isDirectory()){
-//            guiInstance.getFilePanel().setFolderPath(prevFolder);
+            guiInstance.getFilePanel().setFolderPath(prevFolder);
             guiInstance.getFilePanel().getFolderContent().loadFiles(prevFolder);
             guiInstance.getFilePanel().displayPanel();
             guiInstance.getFilePanel().getFileJList().grabFocus();

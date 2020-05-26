@@ -25,7 +25,7 @@ This is a learning project, nothing serious :)
 - [x] Display .. for parent folder
 - [x] Pressing Enter on .. goes up one folder
 - [x] VIM like: "gu" for go up one folder 
-- [ ] VIM like: "gb" for go back to prev folder
+- [x] VIM like: "gb" for go back to prev folder
 - [ ] VIM like: ":e" for refreshing the panel
 - [ ] Start AC from last opened folder
 
@@ -36,6 +36,8 @@ This is a learning project, nothing serious :)
     - [ ] VIM like: "n"/"N" keys selects next / prev matching item
     - [ ] highlight other matching items
     - [ ] VIM like: :noh (no highlight) to clear search results
+ - [ ] "insert" mode: disable VIM bindings ant enable Auto Jump
+ - [ ] In insert mode jump automatically to the first matching result
     
 ### Version 0.4 - Basic File Actions - Rename
 - [ ] VIM like: rename highlighted file with "r"
@@ -56,9 +58,13 @@ At this point it should be an actually usable product.
 - [ ] VIM like: :on (only) maximize current pane (but remember previous panes)
 - [ ] :res (reset) - reset the previous displayed pane(s)
 
-### Version 1.2 - Improved search - Auto Jump
- - [ ] "insert" mode: disable VIM bindings ant enable Auto Jump
- - [ ] In insert mode jump automatically to the first matching result
+### Version 1.2 - Nerdtree like Bookmarks panel and Vim like marks
+- [ ] - VIM like: "m" for adding local marks and "'"<char> for jumping to mark
+- [ ] - VIM like: "M" for adding global marks and "'"<char> for jumping to mark
+- [ ] - Toggle bookmark pane
+- [ ] - Add files/folders to bookmarks
+- [ ] - Open bookmarks
+- [ ] - Name and rename bookmarks
 
 ### Version 1.3 - Improved File Actions - select, copy, move, delete
 - [ ] NC like: select multiple files under cursor with "Ins"
@@ -69,13 +75,7 @@ At this point it should be an actually usable product.
  - [ ] Folder preview panel - display5 last changed file in highlighted folder
  - [ ] Display scrollable content of highlighted file
  
-### Version 1.5 - Nerdtree like Bookmarks panel and Vim like marks
-- [ ] - Toggle bookmark pane
-- [ ] - Add files/folders to bookmarks
-- [ ] - Open bookmarks
-- [ ] - Name and rename bookmarks
-
-### Version 1.6 - QoL imporvements
+### Version 1.x - QoL imporvements
 - [ ] Remap Home, End, PageUp, PageDown
 - [ ] Toggle keybindings list
     - [ ] Static info of available commands
@@ -96,6 +96,7 @@ At this point it should be an actually usable product.
 - Tabs 
 - Ranger like behaviour when entering a folder (new pane opens to the right)
 - History Panel (searchable, actionable, bookmarkable, panel specific and Global history)
+- Compressed file handling - opening zip, rar, tar.gz, 7z, etc files
 
 ## Forbidden features
 - Mouse support

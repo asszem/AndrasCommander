@@ -1,5 +1,6 @@
-package gui;
+package swingGUI.keyListener;
 
+import swingGUI.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,12 +18,6 @@ public class UIActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         logger.debug("-> Inside actionPerformed. Action event = " + e.getActionCommand());
-        switch (e.getActionCommand()) {
-            case "OpenThis":
-            case "OpenFile":
-//                guiInstance.getBottomRowPanel().openAction(e);
-                break;
-        }
         logger.debug("<- Return from actionPerformed. Action event = " + e.getActionCommand());
     }
 }

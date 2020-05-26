@@ -48,9 +48,9 @@ At this point it should be an actually usable product.
 ### Version 1.0 - Improved display - File Details
  - [ ] Display file details (size in human readable format, modified date)
  - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
+ - [ ] Automatically size column width to fit data (file name, date modified, etc)
  - [ ] Display line numbers for files
  - [ ] VIM like: jump to line with #linenumber"g"
- - [ ] Automatically size column width to fit data (file name, date modified, etc)
 
 ### Version 1.1 - Improved display - Basic Multiple Panes
 - [ ] VIM like: "sp" and "vs" to add a new viewing pane

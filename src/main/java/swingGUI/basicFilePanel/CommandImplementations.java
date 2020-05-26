@@ -1,10 +1,9 @@
-package gui;
+package swingGUI.basicFilePanel;
 
-import data.FolderContent;
+import swingGUI.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.*;
 import java.io.File;
 
 public class CommandImplementations {

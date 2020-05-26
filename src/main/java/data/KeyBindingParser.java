@@ -1,6 +1,6 @@
 package data;
 
-import gui.GUI;
+import swingGUI.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -99,7 +99,7 @@ public class KeyBindingParser {
                 matchedCommand = "go back";
                 break;
             case ":e<ENTER>":
-                matchedCommand = "refresh filelist";
+                matchedCommand = "refresh panel";
                 break;
             case ":q<ENTER>":
             case "quit":

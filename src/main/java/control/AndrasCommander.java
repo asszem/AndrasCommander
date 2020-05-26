@@ -1,6 +1,6 @@
 package control;
 
-import gui.GUI;
+import swingGUI.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utility.HistoryWriter;
@@ -25,7 +25,7 @@ public class AndrasCommander {
         historyWriter.createHistoryFileIfNotExist();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                gui.GUI gui = new GUI(andrasCommanderInstance);
+                swingGUI.GUI gui = new GUI(andrasCommanderInstance);
                 gui.initGUI();
             }
         });

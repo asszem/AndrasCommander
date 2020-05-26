@@ -1,6 +1,7 @@
-package gui;
+package swingGUI.keyListener;
 
 import data.KeyBindingParser;
+import swingGUI.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

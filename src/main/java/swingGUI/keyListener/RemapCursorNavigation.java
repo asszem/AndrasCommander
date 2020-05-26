@@ -1,4 +1,4 @@
-package gui;
+package swingGUI.keyListener;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,10 @@
-package gui;
+package swingGUI;
 
 import control.AndrasCommander;
+import swingGUI.basicFilePanel.FilePanel;
+import swingGUI.keyListener.KeyInfoPanel;
+import swingGUI.keyListener.KeyListener;
+import swingGUI.keyListener.UIActionListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

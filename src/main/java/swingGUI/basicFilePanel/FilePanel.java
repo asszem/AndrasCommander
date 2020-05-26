@@ -1,6 +1,8 @@
-package gui;
+package swingGUI.basicFilePanel;
 
 import data.FolderContent;
+import swingGUI.GUI;
+import swingGUI.keyListener.RemapCursorNavigation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

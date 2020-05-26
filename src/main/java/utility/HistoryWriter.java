@@ -38,7 +38,7 @@ public class HistoryWriter {
         }
     }
 
-    public ArrayList<String> readEntiryHistory() {
+    public ArrayList<String> readEntireHistory() {
         ArrayList<String> result = new ArrayList<>();
         try {
             File historyFile = new File(historyFileName);
@@ -55,12 +55,12 @@ public class HistoryWriter {
     }
 
     public String getLastHistoryItem() {
-        ArrayList<String> list = readEntiryHistory();
+        ArrayList<String> list = readEntireHistory();
         return list.get(list.size() - 1);
     }
 
     public String getLastHistoryAtIndex(int index) {
-        ArrayList<String> list = readEntiryHistory();
+        ArrayList<String> list = readEntireHistory();
         return list.get(index);
     }
 
@@ -72,7 +72,7 @@ public class HistoryWriter {
         for (int i = 0; i < rnd.nextInt(10); i++) {
             historyWriter.appendToHistory("Random addition line " + i);
         }
-        historyWriter.readEntiryHistory().forEach(line -> System.out.println(line));
+        historyWriter.readEntireHistory().forEach(line -> System.out.println(line));
         System.out.println("The last item is = " + historyWriter.getLastHistoryItem());
         System.out.println("the ifirst item is  = " + historyWriter.getLastHistoryAtIndex(0));
     }

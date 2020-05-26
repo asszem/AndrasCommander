@@ -1,9 +1,9 @@
 package swingGUI.keyListener;
 
 import data.KeyBindingParser;
-import swingGUI.GUI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import swingGUI.GUI;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 
 import static java.lang.System.exit;
 
+// This class should server every GUI Panel instances that are made in SWING
 public class KeyListener implements java.awt.event.KeyListener, ListSelectionListener {
     private static Logger logger = LogManager.getLogger(KeyListener.class);
 
@@ -40,7 +41,7 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
-    // later not only the moveCursor command will be invoked
+    // TODO when there are multiple panels, the command should be sent to the FOCUSED panel
     private void sendCommandToGui(String command) {
 //        logger.debug("command send to GUI = " + command);
         switch (command) {
@@ -61,6 +62,9 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
                 break;
             case "go back":
                 guiInstance.getFilePanel().getCommandImplementations().goBackInHistory();
+                break;
+            case "refresh panel":
+                guiInstance.getFilePanel().getCommandImplementations().refreshView();
                 break;
             case "pageDown":
                 //TODO implement pageDown move action
@@ -101,8 +105,7 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
         // CURSOR UP
         else if (e.getKeyCode() == 38) {
 //            result = "k";              // when up key is pressed, do not send a k because RemapCursorNavigation already sent a k
-        }
-        else {
+        } else {
             result = Character.toString((e.getKeyChar()));
         }
         return result;

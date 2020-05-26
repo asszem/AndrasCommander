@@ -3,7 +3,6 @@ package utility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,4 +33,7 @@ public class PropertyReader {
         return properties.getProperty(key);
     }
 
+    public void setProperty(String key, String value) {
+        properties.setProperty(key, value);
+    }
 }

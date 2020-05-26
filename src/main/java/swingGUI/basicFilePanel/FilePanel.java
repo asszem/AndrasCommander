@@ -1,10 +1,11 @@
 package swingGUI.basicFilePanel;
 
 import data.FolderContent;
-import swingGUI.GUI;
-import swingGUI.keyListener.RemapCursorNavigation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import swingGUI.GUI;
+import swingGUI.keyListener.RemapCursorNavigation;
+import utility.PropertyReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,14 @@ public class FilePanel {
 
     public JPanel initPanel(String panelTitle) {
 //        logger.debug("--> Inside initPanel");
-        String startfolder = guiInstance.getAndrasCommanderInstance().getPropertyReader().readProperty("STARTFOLDER");
+        PropertyReader propertyReader = guiInstance.getAndrasCommanderInstance().getPropertyReader();
+        String startfolder;
+        startfolder = propertyReader.readProperty("STARTFOLDER");
+        if (propertyReader.readProperty("START_IN").equalsIgnoreCase("Last folder")) {
+            logger.debug("Last folder from history used as start folder");
+            startfolder = guiInstance.getAndrasCommanderInstance().getHistoryWriter().getLastHistoryItem();
+        }
+
         folderPath = startfolder;
         folderContent = new FolderContent();
         fileListPanel = new JPanel();
@@ -111,8 +119,9 @@ public class FilePanel {
     public File getHighlightedFile() {
         return highlightedFile;
     }
-    public void setHighlightedFile(File highlightedFile){
-        this.highlightedFile=highlightedFile;
+
+    public void setHighlightedFile(File highlightedFile) {
+        this.highlightedFile = highlightedFile;
     }
 
     public int getHighlightedFileIndex() {
@@ -138,8 +147,9 @@ public class FilePanel {
         }
         return fileJList;
     }
-    public void setFileJList(JList fileJList){
-        this.fileJList=fileJList;
+
+    public void setFileJList(JList fileJList) {
+        this.fileJList = fileJList;
     }
 
     public FolderContent getFolderContent() {

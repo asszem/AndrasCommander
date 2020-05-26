@@ -74,7 +74,6 @@ public class KeyInfoPanel {
     }
 
     public void displayCommand(String command) {
-        System.out.println("displayCommand called to display = " + command);
         commandLabel.setText(command);
         guiInstance.getFrame().repaint();
         guiInstance.getFrame().setVisible(true);

@@ -79,4 +79,9 @@ public class CommandImplementations {
         // set the actual folder to the previous folder
     }
 
+    public void refreshView(){
+        logger.debug("Refresh view ");
+        guiInstance.getFilePanel().setFolderPath(guiInstance.getFilePanel().getFolderPath());
+    }
+
 }

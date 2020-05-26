@@ -19,15 +19,15 @@ This is a learning project, nothing serious :)
 - [x] Scrollpane viewport follows cursor
 - [x] Remap cursor keys toj j/k
 
-### Version 0.2 - Basic Folder Navigation
+[**DONE**] Version 0.2 - Basic Folder Navigation
 - [x] Display folders first, then files
 - [x] Pressing Enter on a folder opens the folder
 - [x] Display .. for parent folder
 - [x] Pressing Enter on .. goes up one folder
 - [x] VIM like: "gu" for go up one folder 
 - [x] VIM like: "gb" for go back to prev folder
-- [ ] VIM like: ":e" for refreshing the panel
-- [ ] Start AC from last opened folder
+- [x] VIM like: ":e" for refreshing the panel
+- [x] Start AC from last opened folder
 
 ### Version 0.3 - Basic Search
 - [ ] Implement a basic search invoked with space key
@@ -51,6 +51,7 @@ At this point it should be an actually usable product.
  - [ ] Automatically size column width to fit data (file name, date modified, etc)
  - [ ] Display line numbers for files
  - [ ] VIM like: jump to line with #linenumber"g"
+ - [ ] File thumbnails
 
 ### Version 1.1 - Improved display - Basic Multiple Panes
 - [ ] VIM like: "sp" and "vs" to add a new viewing pane

@@ -45,7 +45,7 @@ public class KeyInfoPanel {
 
         //Pressed Keys List Panel
         pressedKeysListPanel = new JPanel();
-        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder("Pressed Keys List"));
+        setPressedKeysListTitle("Pressed Keys List");
         pressedKeysListPanel.setPreferredSize(new Dimension(200, 50));
 
         pressedKeysListLabel = new JLabel("Pressed keys list is empty.");
@@ -113,4 +113,9 @@ public class KeyInfoPanel {
         guiInstance.getFrame().repaint();
         guiInstance.getFrame().setVisible(true);
     }
+
+    public void setPressedKeysListTitle(String title){
+        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title));
+    }
+
 }

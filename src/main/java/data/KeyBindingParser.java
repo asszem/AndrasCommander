@@ -34,7 +34,7 @@ public class KeyBindingParser {
         // Check if special key was pressed and if yes, break execution and return result accordingly
         String specialKeyCheckResult = checkSpecialKeys();
         logger.debug("special key result = " + specialKeyCheckResult);
-        if (specialKeyCheckResult == null || !specialKeyCheckResult.equalsIgnoreCase("No Special Key Pressed. Continue with parsing")) {
+        if (specialKeyCheckResult == null || !specialKeyCheckResult.equalsIgnoreCase("No Special Key Pressed")) {
             return specialKeyCheckResult;
         }
 
@@ -58,17 +58,18 @@ public class KeyBindingParser {
     }
 
     private String checkSpecialKeys() {
-        String returnInstruction = "No Special Key Pressed. Continue with parsing";
+        String specialKeyCheckResult = "No Special Key Pressed";
         // Check for special keystrokes first
         switch (lastKeyPressed) {
             case "<ESC>":
 //                logger.debug("ESC key press passed");
-                returnInstruction = "ESC";
+                specialKeyCheckResult = "ESC";
                 pressedKeysList.clear();
                 searchTerm = null;
                 inSearchMode = false;
-                guiInstance.getKeyInfoPanel().displayCommand(returnInstruction);
-                return returnInstruction;
+                guiInstance.getKeyInfoPanel().displayCommand(specialKeyCheckResult);
+                guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
+                return specialKeyCheckResult;
             case "<SHIFT>":
                 guiInstance.getKeyInfoPanel().displayCommand("SHIFT pressed");
                 wasShiftPressed = true;
@@ -98,7 +99,7 @@ public class KeyBindingParser {
                 }
                 break;
         }
-        return returnInstruction; //if this is reached, return instruction was not changed
+        return specialKeyCheckResult; //if this is reached, return instruction was not changed
     }
 
 
@@ -132,6 +133,8 @@ public class KeyBindingParser {
                 break;
             case "<SPACE>": // Enter search mode only when space is pressed in an empty pressedKeyList
                 matchedCommand = "searchMode";
+                inSearchMode=true;
+                guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
                 break;
             case ":q<ENTER>":
             case "quit":

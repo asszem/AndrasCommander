@@ -31,6 +31,7 @@ This is a learning project, nothing serious :)
 
 ### Version 0.3 - Basic Search
 - [ ] Implement a basic search invoked with space key
+    - [x] toggle search mode with space key
     - [ ] search term completed with enter key 
     - [ ] first matching item selected
     - [ ] VIM like: "n"/"N" keys selects next / prev matching item
@@ -78,6 +79,7 @@ At this point it should be an actually usable product.
  - [ ] Display scrollable content of highlighted file
  
 ### Version 2.x - QoL imporvements
+- [ ] VIM like: "gf" - going forward (and not goto file!) in history
 - [ ] Remap Home, End, PageUp, PageDown
 - [ ] Toggle keybindings list
     - [ ] Static info of available commands

@@ -1,5 +1,17 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
+Fix
+TODO - Fix going back ping-ponging between last two directory
+    - When gb is pressed, it should go back in history, but the
+    a
+    b
+    c
+    d -> gb pressed here
+    c -> gb pressed here
+    b -> it should go back to b, instead of c.
+    - Also a gf - going forward (and not goto file) command should be implemented to navigate forwards in History
+
+
 Tasks
 TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible

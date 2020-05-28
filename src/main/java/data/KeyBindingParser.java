@@ -29,13 +29,35 @@ public class KeyBindingParser {
         inSearchMode = false;
     }
 
-    public KeyBindingParser setLastPressedKey(String key) {
-        lastKeyPressed = key;
-        return this;
+    public String parseKeys() {
+
+        // Check if special key was pressed and if yes, break execution and return result accordingly
+        String specialKeyCheckResult = checkSpecialKeys();
+        logger.debug("special key result = " + specialKeyCheckResult);
+        if (specialKeyCheckResult == null || !specialKeyCheckResult.equalsIgnoreCase("No Special Key Pressed. Continue with parsing")) {
+            return specialKeyCheckResult;
+        }
+
+        // Toggle uppercase if shift mode is on
+        if (wasShiftPressed) {
+            lastKeyPressed = lastKeyPressed.toUpperCase();
+            wasShiftPressed = false;
+        }
+
+        pressedKeysList.add(lastKeyPressed);
+
+        String matchedCommand = matchKeyToCommand();
+
+        // If a match was found, the pressedKeyList must be cleared
+        if (matchedCommand != null) {
+            pressedKeysList.clear();
+        }
+
+        guiInstance.getKeyInfoPanel().displayCommand(matchedCommand);
+        return matchedCommand;
     }
 
-
-    private String checkSpecialKeys(){
+    private String checkSpecialKeys() {
         String returnInstruction = "No Special Key Pressed. Continue with parsing";
         // Check for special keystrokes first
         switch (lastKeyPressed) {
@@ -43,8 +65,8 @@ public class KeyBindingParser {
 //                logger.debug("ESC key press passed");
                 returnInstruction = "ESC";
                 pressedKeysList.clear();
-                searchTerm=null;
-                inSearchMode=false;
+                searchTerm = null;
+                inSearchMode = false;
                 guiInstance.getKeyInfoPanel().displayCommand(returnInstruction);
                 return returnInstruction;
             case "<SHIFT>":
@@ -80,22 +102,8 @@ public class KeyBindingParser {
     }
 
 
-    public String parseKeys() {
+    private String matchKeyToCommand() {
         String matchedCommand = null;
-
-        // Check if special key was pressed and if yes, break execution and return result accordingly
-        String specialKeyCheckResult = checkSpecialKeys();
-        logger.debug("special key result = " + specialKeyCheckResult);
-        if (specialKeyCheckResult== null || !specialKeyCheckResult.equalsIgnoreCase("No Special Key Pressed. Continue with parsing")){
-            return specialKeyCheckResult;
-        }
-
-        // This code can only be reached by the next keystroke after shift pressed
-        if (wasShiftPressed) {
-            lastKeyPressed = lastKeyPressed.toUpperCase();
-            wasShiftPressed = false;
-        }
-        pressedKeysList.add(lastKeyPressed);
         String listString = String.join("", pressedKeysList); // Convert the ArrayList to a concatenated list of strings
         switch (listString) {
             case ":":
@@ -132,15 +140,15 @@ public class KeyBindingParser {
                 exit(0);
                 break;
         }
-        // if match was found, erase the pressedKeysList
-        if (matchedCommand != null) {
-            pressedKeysList.clear();
-        }
-        guiInstance.getKeyInfoPanel().displayCommand(matchedCommand);
         return matchedCommand;
     }
 
     public ArrayList<String> getPressedKeysList() {
         return pressedKeysList;
+    }
+
+    public KeyBindingParser setLastPressedKey(String key) {
+        lastKeyPressed = key;
+        return this;
     }
 }

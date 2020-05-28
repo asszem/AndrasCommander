@@ -12,6 +12,15 @@ import java.awt.event.KeyEvent;
 import static java.lang.System.exit;
 
 // This class should server every GUI Panel instances that are made in SWING
+/*1. Detects if a key is pressed
+* 2. Checks if it's a special key and converts it to a string or sends the pressed key's string to KeyBindingParser
+* 3. KeyBindingParser checks whether the string matches any commands
+* 4. If yes, KeyBindingParserj returns it as a command string, if not, it adds to the pressedKeysList
+* 5. KeyListener sends back the command string to the GUI
+*
+*Pressed KeyCode -> Key String -> Command String if matched -> Command String back to GUI
+*
+* */
 public class KeyListener implements java.awt.event.KeyListener, ListSelectionListener {
     private static Logger logger = LogManager.getLogger(KeyListener.class);
 
@@ -105,7 +114,12 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
         // CURSOR UP
         else if (e.getKeyCode() == 38) {
 //            result = "k";              // when up key is pressed, do not send a k because RemapCursorNavigation already sent a k
-        } else {
+        }
+        // SPACE
+        else if (e.getKeyCode() == 32){
+            result = "<SPACE>";
+        }
+        else {
             result = Character.toString((e.getKeyChar()));
         }
         return result;

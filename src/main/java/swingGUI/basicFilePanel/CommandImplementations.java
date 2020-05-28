@@ -46,7 +46,7 @@ public class CommandImplementations {
                 filePanel.getFileJList().setSelectedIndex(maxIndex);
                 break;
         }
-        // TODO This part is ugly. Refactor when possible
+        // TODO This part is ugly. Refactor when possible - use ineheritance from FilePanel
         guiInstance.getFilePanel().getFileJList().ensureIndexIsVisible(filePanel.getFileJList().getSelectedIndex());
         String folderPath = guiInstance.getFilePanel().getFolderPath();
         int newIndex = filePanel.getFileJList().getSelectedIndex();

@@ -1,11 +1,15 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
 Tasks
-TODO - Fix Layout Manager to entire frame so borderlayout on KeyInfoPanel doesnt mess up the entire GUI
+TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible
 TODO - Edge case handling - folders without files, full empty folders, only files, top folder reached, etc
 
 Refactor
+TODO - Refactor GUI code to use class inheritance
+    - Read books about inheritance
+    - Key Listener package
+    - File Panel package
 TODO - Refactor CommandImplementations to avoid long and ugly chain of commands
     - Find out why passing the objects in the constructor to a variable did not reflected the changes on that object
 TODO - Refactor separation of files and folders

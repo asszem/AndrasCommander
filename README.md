@@ -36,7 +36,7 @@ This is a learning project, nothing serious :)
     - [ ] VIM like: "n"/"N" keys selects next / prev matching item
     - [ ] highlight other matching items
     - [ ] VIM like: :noh (no highlight) to clear search results
- - [ ] "insert" mode: disable VIM bindings ant enable Auto Jump
+ - [ ] "insert" mode: disable VIM bindings and enable JList's built in Auto Jump
  - [ ] In insert mode jump automatically to the first matching result
     
 ### Version 0.4 - Basic File Actions - Rename
@@ -54,7 +54,8 @@ At this point it should be an actually usable product.
  - [ ] File thumbnails
 
 ### Version 1.1 - Improved display - Basic Multiple Panes
-- [ ] VIM like: "sp" and "vs" to add a new viewing pane
+- [ ] Get default panel position, width and height from config file
+- [ ] VIM like: "sp" and "vs" to add a new horizontal or vertical viewing pane
 - [ ] VIM like: jump between panes with Ctrl-W and "h"/"j"/"k"/"l"
 - [ ] VIM like: :on (only) maximize current pane (but remember previous panes)
 - [ ] :res (reset) - reset the previous displayed pane(s)
@@ -76,14 +77,15 @@ At this point it should be an actually usable product.
  - [ ] Folder preview panel - display5 last changed file in highlighted folder
  - [ ] Display scrollable content of highlighted file
  
-### Version 1.x - QoL imporvements
+### Version 2.x - QoL imporvements
 - [ ] Remap Home, End, PageUp, PageDown
 - [ ] Toggle keybindings list
     - [ ] Static info of available commands
     - [ ] Dinamic info with random reminders, least used commands, etc
 - [ ] Open system file explorer in current directory
 - [ ] yank (copy) absolute path to current file / directory
-- [ ] open shell (cmd, bash, conemu)
+- [ ] open shell (cmd, bash, conemu) at current location
+- [ ] Save and load panel layout
 
 ## Future Feature Plans
 - Aliases. Set full word aliases for actions (if typed quickly before the keypress is parsed)
@@ -94,7 +96,8 @@ At this point it should be an actually usable product.
 - Improved Multiple panes
     - Resize panes with VIM like Ctrl-W "+" and "-" and ">" and "<" keys
     - Rename panes 
-- Tabs 
+    - Set panel colors (focused, background, foreground)
+- Tabs (add, switch)
 - Ranger like behaviour when entering a folder (new pane opens to the right)
 - History Panel (searchable, actionable, bookmarkable, panel specific and Global history)
 - Compressed file handling - opening zip, rar, tar.gz, 7z, etc files

@@ -105,6 +105,9 @@ public class KeyBindingParser {
             case ":e<ENTER>":
                 matchedCommand = "refresh panel";
                 break;
+            case "<SPACE>": // Enter search mode only when space is pressed in an empty pressedKeyList
+                matchedCommand = "searchMode";
+                break;
             case ":q<ENTER>":
             case "quit":
                 // Saving the last folder to history

@@ -19,11 +19,14 @@ public class KeyBindingParser {
     private ArrayList<String> pressedKeysList;
     private String lastKeyPressed;
     private boolean wasShiftPressed;
+    private boolean inSearchMode; //if true, every keypress should be added to searchTerm string, instead of parsing until Enter or ESC
+    private StringBuilder searchTerm;
 
     public KeyBindingParser(GUI guiInstance) {
         this.guiInstance = guiInstance;
         pressedKeysList = new ArrayList<>();
         wasShiftPressed = false;
+        inSearchMode = false;
     }
 
     public KeyBindingParser setLastPressedKey(String key) {
@@ -31,17 +34,19 @@ public class KeyBindingParser {
         return this;
     }
 
-    public String parseKeys() {
-        String matchedCommand = null;
 
+    private String checkSpecialKeys(){
+        String returnInstruction = "No Special Key Pressed. Continue with parsing";
         // Check for special keystrokes first
         switch (lastKeyPressed) {
             case "<ESC>":
 //                logger.debug("ESC key press passed");
-                matchedCommand = "ESC";
+                returnInstruction = "ESC";
                 pressedKeysList.clear();
-                guiInstance.getKeyInfoPanel().displayCommand(matchedCommand);
-                return matchedCommand;
+                searchTerm=null;
+                inSearchMode=false;
+                guiInstance.getKeyInfoPanel().displayCommand(returnInstruction);
+                return returnInstruction;
             case "<SHIFT>":
                 guiInstance.getKeyInfoPanel().displayCommand("SHIFT pressed");
                 wasShiftPressed = true;
@@ -69,8 +74,20 @@ public class KeyBindingParser {
                         }
                     }
                 }
-                // Execute the file under the cursor if no key(s) were pressed, otherwise add <ENTER> to the pressedKeysList
                 break;
+        }
+        return returnInstruction; //if this is reached, return instruction was not changed
+    }
+
+
+    public String parseKeys() {
+        String matchedCommand = null;
+
+        // Check if special key was pressed and if yes, break execution and return result accordingly
+        String specialKeyCheckResult = checkSpecialKeys();
+        logger.debug("special key result = " + specialKeyCheckResult);
+        if (specialKeyCheckResult== null || !specialKeyCheckResult.equalsIgnoreCase("No Special Key Pressed. Continue with parsing")){
+            return specialKeyCheckResult;
         }
 
         // This code can only be reached by the next keystroke after shift pressed

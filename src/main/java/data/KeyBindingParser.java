@@ -33,7 +33,6 @@ public class KeyBindingParser {
 
         // Check if special key was pressed and if yes, break execution and return result accordingly
         String specialKeyCheckResult = checkSpecialKeys();
-        logger.debug("special key result = " + specialKeyCheckResult);
         if (specialKeyCheckResult == null || !specialKeyCheckResult.equalsIgnoreCase("No Special Key Pressed")) {
             return specialKeyCheckResult;
         }
@@ -44,11 +43,22 @@ public class KeyBindingParser {
             wasShiftPressed = false;
         }
 
-        pressedKeysList.add(lastKeyPressed);
 
-        String matchedCommand = matchKeyToCommand();
+        // Check if in Search Mode
+        String matchedCommand = null;
+        pressedKeysList.add(lastKeyPressed); // so it is displayed in KeyInfoPanel
+        if (inSearchMode) {
+            if (searchTerm==null){
+                searchTerm = new StringBuilder();
+            }
+            searchTerm.append(lastKeyPressed);
+        }
+        // Only parse the pressed key when not in search mode
+        else {
+            matchedCommand = matchKeyToCommand();
+        }
 
-        // If a match was found, the pressedKeyList must be cleared
+        // Clear the Pressed Keys List if a command match was found
         if (matchedCommand != null) {
             pressedKeysList.clear();
         }
@@ -97,6 +107,19 @@ public class KeyBindingParser {
                         }
                     }
                 }
+                // PressedKeys List was not empty and an Enter command was sent
+                if (inSearchMode) {
+                    // TODO Implement this: Execute Search
+                    if (searchTerm.toString() != null) {
+                        logger.debug("Search term = " + searchTerm.toString());
+                    }
+                    searchTerm = null;
+                    inSearchMode = false;
+                    guiInstance.getKeyInfoPanel().displayCommand(specialKeyCheckResult);
+                    guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
+                    pressedKeysList.clear();
+                    specialKeyCheckResult = null;
+                }
                 break;
         }
         return specialKeyCheckResult; //if this is reached, return instruction was not changed
@@ -133,7 +156,7 @@ public class KeyBindingParser {
                 break;
             case "<SPACE>": // Enter search mode only when space is pressed in an empty pressedKeyList
                 matchedCommand = "searchMode";
-                inSearchMode=true;
+                inSearchMode = true;
                 guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
                 break;
             case ":q<ENTER>":

@@ -32,7 +32,7 @@ This is a learning project, nothing serious :)
 ### Version 0.3 - Basic Search
 - [ ] Implement a basic search invoked with space key
     - [x] toggle search mode with space key
-    - [ ] search term completed with enter key 
+    - [x] search term completed with enter key 
     - [ ] first matching item selected
     - [ ] VIM like: "n"/"N" keys selects next / prev matching item
     - [ ] highlight other matching items

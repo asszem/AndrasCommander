@@ -1,6 +1,7 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
 Fix
+TODO - Fix when search mode is empty and Enter is pressed - do not execute
 TODO - Fix going back ping-ponging between last two directory
     - When gb is pressed, it should go back in history, but the
     a

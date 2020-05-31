@@ -29,12 +29,16 @@ public class KeyBindingParser {
         inSearchMode = false;
     }
 
-    public String parseKeys() {
+
+    //The result of parse should be returned always to the CommandImplementations of the FilePanel from GUI
+    //This will do not do any impleementation on keys, just send a string back
+    public void parseKeys() {
 
         // Check if special key was pressed and if yes, break execution and return result accordingly
         String specialKeyCheckResult = checkSpecialKeys();
-        if (specialKeyCheckResult == null || !specialKeyCheckResult.equalsIgnoreCase("No Special Key Pressed")) {
-            return specialKeyCheckResult;
+        if (!specialKeyCheckResult.equals("No Special Key Pressed")) {
+            guiInstance.getFilePanel().getCommandImplementations().handleCommand(specialKeyCheckResult);
+            return; // do not continue with key parsing.
         }
 
         // Toggle uppercase if shift mode is on
@@ -42,7 +46,6 @@ public class KeyBindingParser {
             lastKeyPressed = lastKeyPressed.toUpperCase();
             wasShiftPressed = false;
         }
-
 
         // Check if in Search Mode
         String matchedCommand = null;
@@ -55,16 +58,14 @@ public class KeyBindingParser {
         }
         // Only parse the pressed key when not in search mode
         else {
-            matchedCommand = matchKeyToCommand();
+//            matchedCommand = matchKeyToCommand();
         }
+        matchedCommand = matchKeyToCommand();
 
-        // Clear the Pressed Keys List if a command match was found
-        if (matchedCommand != null) {
-            pressedKeysList.clear();
-        }
 
-        guiInstance.getKeyInfoPanel().displayCommand(matchedCommand);
-        return matchedCommand;
+        System.out.println("Matched command sending to be handled = " + matchedCommand);
+        // It can not be null
+        guiInstance.getFilePanel().getCommandImplementations().handleCommand(matchedCommand);
     }
 
     private String checkSpecialKeys() {
@@ -77,34 +78,17 @@ public class KeyBindingParser {
                 pressedKeysList.clear();
                 searchTerm = null;
                 inSearchMode = false;
-                guiInstance.getKeyInfoPanel().displayCommand(specialKeyCheckResult);
-                guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
-                return specialKeyCheckResult;
+//                return specialKeyCheckResult;
+                break;
             case "<SHIFT>":
                 guiInstance.getKeyInfoPanel().displayCommand("SHIFT pressed");
                 wasShiftPressed = true;
-                return null;
+                break;
+//                return lastKeyPressed;
             case "<ENTER>":
                 // When ENTER was pressed while pressed Keys list was empty - open file OR go to Directory
                 if (pressedKeysList.isEmpty()) {
-                    File fileToBeExecuted = guiInstance.getFilePanel().getHighlightedFile();
-                    if (fileToBeExecuted.isDirectory()) {
-                        guiInstance.getKeyInfoPanel().displayCommand("ENTER to go to Folder " + fileToBeExecuted.getName());
-                        guiInstance.getFilePanel().setFolderPath(fileToBeExecuted.getAbsolutePath());
-                        return null;
-                    } else {
-                        guiInstance.getKeyInfoPanel().displayCommand("ENTER to execute File " + fileToBeExecuted.getName());
-                        logger.debug("Executing file = " + fileToBeExecuted.getAbsolutePath());
-                        Desktop desktop = Desktop.getDesktop();
-                        try {
-                            desktop.open(fileToBeExecuted);
-                        } catch (IOException e) {
-                            logger.debug("ERROR in File Execution");
-                            e.printStackTrace();
-                        } finally {
-                            return null; //to make sure no command was interpreted and keep listening
-                        }
-                    }
+                    specialKeyCheckResult="open";
                 }
                 // When ENTER was pressed while user was in Search Mode - do the search
                 if (inSearchMode) {
@@ -114,22 +98,24 @@ public class KeyBindingParser {
                     }
                     searchTerm = null;
                     inSearchMode = false;
-                    guiInstance.getKeyInfoPanel().displayCommand(specialKeyCheckResult);
-                    guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
+//                    guiInstance.getKeyInfoPanel().displayCommand(specialKeyCheckResult);
+//                    guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
                     pressedKeysList.clear();
-                    specialKeyCheckResult = null;
+                    specialKeyCheckResult = "execute search";
                 }
                 break;
         }
+        guiInstance.getFilePanel().getCommandImplementations().displayCommand(specialKeyCheckResult);
         return specialKeyCheckResult; //if this is reached, return instruction was not changed
     }
 
 
+    //NOTE this is where the hardcoded keys will be replaced when custom keymappings will be implemented
     private String matchKeyToCommand() {
-        String matchedCommand = null;
-        String listString = String.join("", pressedKeysList); // Convert the ArrayList to a concatenated list of strings
-        switch (listString) {
-            case ":":
+        String pressedKeysListAsString = String.join("", pressedKeysList); // Convert the ArrayList to a concatenated list of strings
+        String matchedCommand = pressedKeysListAsString;
+        switch (pressedKeysListAsString) {
+            case "<SHIFT>:":
                 logger.debug(": matched");
                 break;
             case "j":
@@ -154,9 +140,9 @@ public class KeyBindingParser {
                 matchedCommand = "refresh panel";
                 break;
             case "<SPACE>": // Enter search mode only when space is pressed in an empty pressedKeyList
-                matchedCommand = "searchMode";
+                matchedCommand = "enter search mode";
+                System.out.println("entering search mode");
                 inSearchMode = true;
-                guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
                 break;
             case ":q<ENTER>":
             case "quit":
@@ -165,6 +151,11 @@ public class KeyBindingParser {
                 exit(0);
                 break;
         }
+        // If a match was found, the mathched command will not equal the pressedKeysListAsString, so the pressedKeysList can be cleared
+        if (!matchedCommand.equals(pressedKeysListAsString)) {
+            pressedKeysList.clear();
+        }
+        System.out.println("returning matched command " + matchedCommand);
         return matchedCommand;
     }
 

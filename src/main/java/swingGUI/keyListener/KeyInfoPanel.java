@@ -114,6 +114,14 @@ public class KeyInfoPanel {
         guiInstance.getFrame().setVisible(true);
     }
 
+    public void displayAllPressedKeys(String pressedKeysList) {
+        pressedKeysListPanel.removeAll();
+        pressedKeysListLabel = new JLabel(pressedKeysList);
+        pressedKeysListPanel.add(pressedKeysListLabel);
+        guiInstance.getFrame().repaint();
+        guiInstance.getFrame().setVisible(true);
+    }
+
     public void setPressedKeysListTitle(String title){
         pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title));
     }

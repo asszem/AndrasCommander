@@ -46,13 +46,13 @@ public class FilePanel {
         folderContent = new FolderContent();
         fileListPanel = new JPanel();
 
-        displayPanel();
+        updateFilePanelDisplay();
 
         commandImplementations = new CommandImplementations(guiInstance);
         return fileListPanel;
     }
 
-    public void displayPanel() {
+    public void updateFilePanelDisplay() {
         // Remove previous content from the panel
         fileListPanel.removeAll();
 
@@ -111,9 +111,20 @@ public class FilePanel {
         return result;
     }
 
-
+    //Getters and setters
     public JPanel getFileListPanel() {
         return fileListPanel;
+    }
+
+    public JList getFileJList() {
+        if (fileJList == null) {
+            updateFilePanelDisplay();
+        }
+        return fileJList;
+    }
+
+    public void setFileJList(JList fileJList) {
+        this.fileJList = fileJList;
     }
 
     public File getHighlightedFile() {
@@ -128,28 +139,12 @@ public class FilePanel {
         return fileJList.getSelectedIndex();
     }
 
-    // TODO Consider moving this to the CommandImplementation class
-    public void setFolderPath(String folderPath) {
-        guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(this.folderPath); // save history
-        this.folderPath = folderPath;
-        folderContent.loadFiles(folderPath); // to make sure the folderContent is repopulated
-        displayPanel();
-        fileJList.grabFocus();
-    }
-
     public String getFolderPath() {
         return folderPath;
     }
 
-    public JList getFileJList() {
-        if (fileJList == null) {
-            displayPanel();
-        }
-        return fileJList;
-    }
-
-    public void setFileJList(JList fileJList) {
-        this.fileJList = fileJList;
+    public void setFolderPath(String folderPath){
+        this.folderPath=folderPath;
     }
 
     public FolderContent getFolderContent() {

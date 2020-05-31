@@ -1,19 +1,94 @@
 package swingGUI.basicFilePanel;
 
-import swingGUI.GUI;
+import data.CommandsInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import swingGUI.GUI;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
-public class CommandImplementations {
+public class CommandImplementations implements CommandsInterface {
     private static Logger logger = LogManager.getLogger(CommandImplementations.class);
     private GUI guiInstance;
     private FilePanel filePanel;
 
     public CommandImplementations(GUI guiInstance) {
         this.guiInstance = guiInstance;
-        this.filePanel=guiInstance.getFilePanel();
+        this.filePanel = guiInstance.getFilePanel();
+    }
+
+    // this is being called from the KeyBindingParser with the actual command sent as a String
+    public void handleCommand(String command) {
+        guiInstance.getKeyInfoPanel().displayCommand(command);
+        switch (command) {
+            case "down":
+                moveCursor("down");
+                break;
+            case "up":
+                moveCursor("up");
+                break;
+            case "top":
+                moveCursor("top");
+                break;
+            case "bottom":
+                moveCursor("bottom");
+                break;
+            case "go up":
+                goUpToParentFolder();
+                break;
+            case "go back":
+                goBackInHistory();
+                break;
+            case "refresh panel":
+                refreshView();
+                break;
+            case "enter search mode":
+                enterSearchMode();
+                break;
+            case "execute search":
+                executeSearch();
+                break;
+            case "ESC":
+                guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
+                guiInstance.getKeyInfoPanel().displayAllPressedKeys("Pressed Keys list cleared.");
+                break;
+            case "open":
+                openHighlighted();
+                break;
+            case "pageDown":
+                //TODO implement pageDown move action
+                break;
+            case "pageUp":
+                //todo implement pageUp move action
+                break;
+            case "Enter":
+                //todo implement pageUp move action
+                break;
+            default: // if no match was found, then display the commands as the pressed keys list
+                guiInstance.getKeyInfoPanel().displayAllPressedKeys(command);
+                break;
+        }
+    }
+
+    public void openHighlighted() {
+        File fileToBeExecuted = filePanel.getHighlightedFile();
+        if (fileToBeExecuted.isDirectory()) {
+            guiInstance.getKeyInfoPanel().displayCommand("ENTER to go to Folder " + fileToBeExecuted.getName());
+            changeFolder(fileToBeExecuted.getAbsolutePath());
+        } else {
+            guiInstance.getKeyInfoPanel().displayCommand("ENTER to execute File " + fileToBeExecuted.getName());
+            logger.debug("Executing file = " + fileToBeExecuted.getAbsolutePath());
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(fileToBeExecuted);
+            } catch (IOException e) {
+                logger.debug("ERROR in File Execution");
+                e.printStackTrace();
+            }
+        }
     }
 
     public void moveCursor(String direction) {
@@ -57,31 +132,58 @@ public class CommandImplementations {
     public void goUpToParentFolder() {
 //        logger.debug("Go Up To parent folder command received" );
         File parentFolder = new File(guiInstance.getFilePanel().getFolderPath()).getParentFile();
-        if (parentFolder!=null) {
-            guiInstance.getFilePanel().setFolderPath(parentFolder.getAbsolutePath());
+        if (parentFolder != null) {
+            changeFolder(parentFolder.getAbsolutePath());
         }
     }
 
-    public void goBackInHistory(){
-        logger.debug("Go back in History command received" );
+    public void changeFolder(String folderPath) {
+        String originalPath = guiInstance.getFilePanel().getFolderPath();
+        guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(originalPath); // save history
+        guiInstance.getFilePanel().setFolderPath(folderPath);
+        guiInstance.getFilePanel().getFolderContent().loadFiles(folderPath);
+        guiInstance.getFilePanel().updateFilePanelDisplay();
+        guiInstance.getFilePanel().getFileJList().grabFocus();
+    }
+
+    public void goBackInHistory() {
+        logger.debug("Go back in History command received");
         String prevFolder = guiInstance.getAndrasCommanderInstance().getHistoryWriter().getLastHistoryItem();
         logger.debug("Last History Item = " + prevFolder);
         // Validation
         File prevFolderCheck = new File(prevFolder);
-        if (prevFolderCheck.exists() && prevFolderCheck.isDirectory()){
-            guiInstance.getFilePanel().setFolderPath(prevFolder);
-            guiInstance.getFilePanel().getFolderContent().loadFiles(prevFolder);
-            guiInstance.getFilePanel().displayPanel();
-            guiInstance.getFilePanel().getFileJList().grabFocus();
-        } else{
-           logger.debug("prev Folder is not a valid Directory");
+        if (prevFolderCheck.exists() && prevFolderCheck.isDirectory()) {
+            changeFolder(prevFolder);
+        } else {
+            logger.debug("prev Folder is not a valid Directory");
         }
-        // set the actual folder to the previous folder
     }
 
-    public void refreshView(){
+    public void refreshView() {
         logger.debug("Refresh view ");
         guiInstance.getFilePanel().setFolderPath(guiInstance.getFilePanel().getFolderPath());
+    }
+
+    @Override
+    public void highlightSearchResult(ArrayList matchedIndexes) {
+
+    }
+
+    public void pressedESC() {
+
+    }
+
+    public void displayCommand(String command) {
+        guiInstance.getKeyInfoPanel().displayCommand(command);
+    }
+
+    public void enterSearchMode() {
+        guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
+        guiInstance.getKeyInfoPanel().displayAllPressedKeys("<type search term>");
+    }
+
+    public void executeSearch(){
+        guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
     }
 
 }

@@ -42,56 +42,17 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
         String lastKeyPressedConverted = convertKeyEventToString(e);
 
         // Check if pressed key(s) can be matched against any command
-        String matchedCommandReturned = keyBindingParser.setLastPressedKey(lastKeyPressedConverted).parseKeys();
-        if (matchedCommandReturned != null) { // Send the GUI the action to be performed
-            sendCommandToGui(matchedCommandReturned);
-        }
-        guiInstance.getKeyInfoPanel().displayAllPressedKeys(keyBindingParser.getPressedKeysList());
-        guiInstance.getKeyInfoPanel().displayHighlightedFile();
+        keyBindingParser.setLastPressedKey(lastKeyPressedConverted).parseKeys();
+
+        // This ends here. Everything else is handled from the keybindingparser
+
+//        if (matchedCommandReturned != null) { // Send the GUI the action to be performed
+//            sendCommandToGui(matchedCommandReturned);
+//        }
+//        guiInstance.getKeyInfoPanel().displayAllPressedKeys(keyBindingParser.getPressedKeysList());
+//        guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
-    // TODO when there are multiple panels, the command should be sent to the FOCUSED panel
-    private void sendCommandToGui(String command) {
-//        logger.debug("command send to GUI = " + command);
-        switch (command) {
-            case "down":
-                guiInstance.getFilePanel().getCommandImplementations().moveCursor("down");
-                break;
-            case "up":
-                guiInstance.getFilePanel().getCommandImplementations().moveCursor("up");
-                break;
-            case "top":
-                guiInstance.getFilePanel().getCommandImplementations().moveCursor("top");
-                break;
-            case "bottom":
-                guiInstance.getFilePanel().getCommandImplementations().moveCursor("bottom");
-                break;
-            case "go up":
-                guiInstance.getFilePanel().getCommandImplementations().goUpToParentFolder();
-                break;
-            case "go back":
-                guiInstance.getFilePanel().getCommandImplementations().goBackInHistory();
-                break;
-            case "refresh panel":
-                guiInstance.getFilePanel().getCommandImplementations().refreshView();
-                break;
-            case "pageDown":
-                //TODO implement pageDown move action
-                break;
-            case "pageUp":
-                //todo implement pageUp move action
-                break;
-            case "ESC":
-                //todo implement pageUp move action
-                break;
-            case "Enter":
-                //todo implement pageUp move action
-                break;
-            case "quit":
-                exit(0);
-                break;
-        }
-    }
 
     private String convertKeyEventToString(KeyEvent e) {
         String result = "";

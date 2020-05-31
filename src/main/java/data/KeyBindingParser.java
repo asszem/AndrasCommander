@@ -85,8 +85,7 @@ public class KeyBindingParser {
                 wasShiftPressed = true;
                 return null;
             case "<ENTER>":
-                // If ENTER after empty commands - open file OR go to Directory
-                // If ENTER after commands - execute bindings with an <ENTER> key
+                // When ENTER was pressed while pressed Keys list was empty - open file OR go to Directory
                 if (pressedKeysList.isEmpty()) {
                     File fileToBeExecuted = guiInstance.getFilePanel().getHighlightedFile();
                     if (fileToBeExecuted.isDirectory()) {
@@ -107,7 +106,7 @@ public class KeyBindingParser {
                         }
                     }
                 }
-                // PressedKeys List was not empty and an Enter command was sent
+                // When ENTER was pressed while user was in Search Mode - do the search
                 if (inSearchMode) {
                     // TODO Implement this: Execute Search
                     if (searchTerm.toString() != null) {

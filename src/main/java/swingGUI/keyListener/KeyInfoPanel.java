@@ -48,7 +48,7 @@ public class KeyInfoPanel {
         setPressedKeysListTitle("Pressed Keys List");
         pressedKeysListPanel.setPreferredSize(new Dimension(200, 50));
 
-        pressedKeysListLabel = new JLabel("Pressed keys list is empty.");
+        pressedKeysListLabel = new JLabel("<empty>");
         pressedKeysListPanel.add(pressedKeysListLabel);
 
         highlightedFilePanel = new JPanel();

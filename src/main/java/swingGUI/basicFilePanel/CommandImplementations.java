@@ -14,6 +14,7 @@ public class CommandImplementations implements CommandsInterface {
     private static Logger logger = LogManager.getLogger(CommandImplementations.class);
     private GUI guiInstance;
     private FilePanel filePanel;
+    private String searchTerm;
 
     public CommandImplementations(GUI guiInstance) {
         this.guiInstance = guiInstance;
@@ -182,8 +183,13 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<type search term>");
     }
 
-    public void executeSearch(){
-        guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
+    public void executeSearch() {
+        System.out.println("executing search for term " + searchTerm);
+        guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys list");
+        guiInstance.getKeyInfoPanel().displayAllPressedKeys("<empty>");
     }
 
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
 }

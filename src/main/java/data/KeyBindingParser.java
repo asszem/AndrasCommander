@@ -4,9 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import swingGUI.GUI;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static java.lang.System.exit;
@@ -51,20 +48,13 @@ public class KeyBindingParser {
         String matchedCommand = null;
         pressedKeysList.add(lastKeyPressed); // so it is displayed in KeyInfoPanel
         if (inSearchMode) {
-            if (searchTerm==null){
+            if (searchTerm == null) {
                 searchTerm = new StringBuilder();
             }
             searchTerm.append(lastKeyPressed);
         }
-        // Only parse the pressed key when not in search mode
-        else {
-//            matchedCommand = matchKeyToCommand();
-        }
         matchedCommand = matchKeyToCommand();
 
-
-        System.out.println("Matched command sending to be handled = " + matchedCommand);
-        // It can not be null
         guiInstance.getFilePanel().getCommandImplementations().handleCommand(matchedCommand);
     }
 
@@ -78,34 +68,30 @@ public class KeyBindingParser {
                 pressedKeysList.clear();
                 searchTerm = null;
                 inSearchMode = false;
-//                return specialKeyCheckResult;
                 break;
             case "<SHIFT>":
-                guiInstance.getKeyInfoPanel().displayCommand("SHIFT pressed");
+                specialKeyCheckResult = "SHIFT pressed ";
                 wasShiftPressed = true;
                 break;
-//                return lastKeyPressed;
             case "<ENTER>":
                 // When ENTER was pressed while pressed Keys list was empty - open file OR go to Directory
                 if (pressedKeysList.isEmpty()) {
-                    specialKeyCheckResult="open";
+                    specialKeyCheckResult = "open";
                 }
                 // When ENTER was pressed while user was in Search Mode - do the search
                 if (inSearchMode) {
-                    // TODO Implement this: Execute Search
                     if (searchTerm.toString() != null) {
                         logger.debug("Search term = " + searchTerm.toString());
                     }
+                    guiInstance.getFilePanel().getCommandImplementations().setSearchTerm(searchTerm.toString());
                     searchTerm = null;
                     inSearchMode = false;
-//                    guiInstance.getKeyInfoPanel().displayCommand(specialKeyCheckResult);
-//                    guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
                     pressedKeysList.clear();
                     specialKeyCheckResult = "execute search";
                 }
                 break;
         }
-        guiInstance.getFilePanel().getCommandImplementations().displayCommand(specialKeyCheckResult);
+//        guiInstance.getFilePanel().getCommandImplementations().displayCommand(specialKeyCheckResult);
         return specialKeyCheckResult; //if this is reached, return instruction was not changed
     }
 
@@ -115,7 +101,7 @@ public class KeyBindingParser {
         String pressedKeysListAsString = String.join("", pressedKeysList); // Convert the ArrayList to a concatenated list of strings
         String matchedCommand = pressedKeysListAsString;
         switch (pressedKeysListAsString) {
-            case "<SHIFT>:":
+            case ":":
                 logger.debug(": matched");
                 break;
             case "j":
@@ -141,7 +127,6 @@ public class KeyBindingParser {
                 break;
             case "<SPACE>": // Enter search mode only when space is pressed in an empty pressedKeyList
                 matchedCommand = "enter search mode";
-                System.out.println("entering search mode");
                 inSearchMode = true;
                 break;
             case ":q<ENTER>":
@@ -155,7 +140,6 @@ public class KeyBindingParser {
         if (!matchedCommand.equals(pressedKeysListAsString)) {
             pressedKeysList.clear();
         }
-        System.out.println("returning matched command " + matchedCommand);
         return matchedCommand;
     }
 
@@ -166,5 +150,9 @@ public class KeyBindingParser {
     public KeyBindingParser setLastPressedKey(String key) {
         lastKeyPressed = key;
         return this;
+    }
+
+    public String getSearchTerm() {
+        return searchTerm.toString();
     }
 }

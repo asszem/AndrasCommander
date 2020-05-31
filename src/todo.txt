@@ -13,15 +13,11 @@ TODO - Fix going back ping-ponging between last two directory
     - Also a gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 
 Tasks
-TODO - Draw UML diagram
-    - On paper
-    - in draw.io and include to repository
 TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible
 TODO - Edge case handling - folders without files, full empty folders, only files, top folder reached, etc
 
 Refactor
-TODO - Refactor KeyListener and KeyBindingParser to have clearer execution chain
 TODO - Refactor GUI code to use class inheritance
     - Read books about inheritance
     - Key Listener package

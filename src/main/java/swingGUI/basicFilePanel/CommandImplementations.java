@@ -94,39 +94,45 @@ public class CommandImplementations implements CommandsInterface {
 
     public void moveCursor(String direction) {
 //        logger.debug("move cursor order received = " + direction);
-        int currentIndex = filePanel.getFileJList().getSelectedIndex();
-        int maxIndex = filePanel.getFileJList().getModel().getSize() - 1;
+        int currentIndex = filePanel.getFileListDisplayedItems().getSelectedIndex();
+        int maxIndex = filePanel.getFileListDisplayedItems().getModel().getSize() - 1;
 //        logger.debug("current fileJlist getSelectedIndex = " + currentIndex);
 //        logger.debug("maxindex - fileJList size -1 = " + maxIndex);
         switch (direction) {
             case "down":
                 if (currentIndex == maxIndex) {
-                    filePanel.getFileJList().setSelectedIndex(0);
+                    filePanel.getFileListDisplayedItems().setSelectedIndex(0);
                     currentIndex = 0;
                 } else {
-                    filePanel.getFileJList().setSelectedIndex(currentIndex + 1);
+                    filePanel.getFileListDisplayedItems().setSelectedIndex(currentIndex + 1);
                 }
                 break;
             case "up":
                 if (currentIndex == 0) {
-                    filePanel.getFileJList().setSelectedIndex(maxIndex);
+                    filePanel.getFileListDisplayedItems().setSelectedIndex(maxIndex);
                     currentIndex = maxIndex;
                 } else {
-                    filePanel.getFileJList().setSelectedIndex(currentIndex - 1);
+                    filePanel.getFileListDisplayedItems().setSelectedIndex(currentIndex - 1);
                 }
                 break;
             case "top":
-                filePanel.getFileJList().setSelectedIndex(0);
+                filePanel.getFileListDisplayedItems().setSelectedIndex(0);
                 break;
             case "bottom":
-                filePanel.getFileJList().setSelectedIndex(maxIndex);
+                filePanel.getFileListDisplayedItems().setSelectedIndex(maxIndex);
                 break;
         }
         // TODO This part is ugly. Refactor when possible - use ineheritance from FilePanel
-        guiInstance.getFilePanel().getFileJList().ensureIndexIsVisible(filePanel.getFileJList().getSelectedIndex());
-        String folderPath = guiInstance.getFilePanel().getFolderPath();
-        int newIndex = filePanel.getFileJList().getSelectedIndex();
-        File newHighlightedFile = guiInstance.getFilePanel().getFolderContent().getFoldersFirstThenFiles(folderPath).get(newIndex);
+        int newIndex = filePanel.getFileListDisplayedItems().getSelectedIndex();
+        guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(newIndex);
+
+        String newFileName = filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
+        System.out.println("new file name based on fileJList = " + newFileName);
+
+        System.out.println("index of new highlighted file = " + newIndex);
+        // Set the highlighted file in FolderContent and based on that in FilePanel
+        guiInstance.getFilePanel().getFolderContent().setHighlightedFile(newIndex);
+        File newHighlightedFile = guiInstance.getFilePanel().getFolderContent().getHighlightedFile().getFile();
         guiInstance.getFilePanel().setHighlightedFile(newHighlightedFile);
     }
 
@@ -144,7 +150,7 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getFilePanel().setFolderPath(folderPath);
         guiInstance.getFilePanel().getFolderContent().loadFiles(folderPath);
         guiInstance.getFilePanel().updateFilePanelDisplay();
-        guiInstance.getFilePanel().getFileJList().grabFocus();
+        guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
     }
 
     public void goBackInHistory() {
@@ -184,9 +190,11 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void executeSearch() {
-        System.out.println("executing search for term " + searchTerm);
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys list");
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<empty>");
+        guiInstance.getKeyInfoPanel().displayCommand("Executing search");
+        ArrayList<Integer> searchResults = guiInstance.getFilePanel().getFolderContent().getSearchResultsIndex(searchTerm);
+        // TODO implement search term highlight
     }
 
     public void setSearchTerm(String searchTerm) {

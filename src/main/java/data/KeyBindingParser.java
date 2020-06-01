@@ -80,9 +80,6 @@ public class KeyBindingParser {
                 }
                 // When ENTER was pressed while user was in Search Mode - do the search
                 if (inSearchMode) {
-                    if (searchTerm.toString() != null) {
-                        logger.debug("Search term = " + searchTerm.toString());
-                    }
                     guiInstance.getFilePanel().getCommandImplementations().setSearchTerm(searchTerm.toString());
                     searchTerm = null;
                     inSearchMode = false;

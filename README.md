@@ -35,7 +35,7 @@ This is a learning project, nothing serious :)
     - [x] search term completed with enter key 
     - [ ] first matching item selected
     - [ ] VIM like: "n"/"N" keys selects next / prev matching item
-    - [ ] highlight other matching items
+    - [ ] highlight other matching items (after Enter)
     - [ ] VIM like: :noh (no highlight) to clear search results
  - [ ] "insert" mode: disable VIM bindings and enable JList's built in Auto Jump
  - [ ] In insert mode jump automatically to the first matching result
@@ -78,7 +78,8 @@ At this point it should be an actually usable product.
  - [ ] Folder preview panel - display5 last changed file in highlighted folder
  - [ ] Display scrollable content of highlighted file
  
-### Version 2.x - QoL imporvements
+### Version 2.x - QoL improvements
+- [ ] Matched file names are highlighted during typing of search term
 - [ ] VIM like: "gf" - going forward (and not goto file!) in history
 - [ ] Remap Home, End, PageUp, PageDown
 - [ ] Toggle keybindings list

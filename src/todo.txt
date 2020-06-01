@@ -13,6 +13,12 @@ TODO - Fix going back ping-ponging between last two directory
     - Also a gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 
 Tasks
+TODO - Ensure platform independence (Linux / Windows)
+    - Handle Start Folder
+    - Handle creating folder history
+    - Handle empty folder history
+    - Handle history writer
+    - Push and test on Windows
 TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible
 TODO - Edge case handling - folders without files, full empty folders, only files, top folder reached, etc

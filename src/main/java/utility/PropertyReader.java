@@ -21,7 +21,7 @@ public class PropertyReader {
         if (properties == null) {
             properties = new Properties();
             try {
-                inputStream = new FileInputStream("src\\main\\resources\\application.properties");
+                inputStream = new FileInputStream("src/main/resources/application.properties");
                 properties.load(inputStream);
             } catch (IOException e) {
                 e.printStackTrace();

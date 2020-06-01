@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class HistoryWriter {
     private static Logger logger = LogManager.getLogger(HistoryWriter.class);
     private String path = System.getProperty("user.home");
-    private String historyFileName = path + "\\.ac_history";
+    private String historyFileName = path + "/.ac_history";
 
     public void createHistoryFileIfNotExist() {
         try {
@@ -50,6 +50,10 @@ public class HistoryWriter {
             myReader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+        if (result.size()==0){
+            logger.info("History file was empty, opening home directory = " + path);
+            result.add(path);
         }
         return result;
     }

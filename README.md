@@ -88,6 +88,7 @@ At this point it should be an actually usable product.
 - [ ] yank (copy) absolute path to current file / directory
 - [ ] open shell (cmd, bash, conemu) at current location
 - [ ] Save and load panel layout
+- [x] Platform independence (Linux / Windows)
 
 ## Future Feature Plans
 - Aliases. Set full word aliases for actions (if typed quickly before the keypress is parsed)

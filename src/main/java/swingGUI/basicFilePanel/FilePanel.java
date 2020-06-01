@@ -1,6 +1,5 @@
 package swingGUI.basicFilePanel;
 
-import data.FileItem;
 import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,9 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class FilePanel {
     private static Logger logger = LogManager.getLogger(FilePanel.class);
@@ -68,8 +64,8 @@ public class FilePanel {
         fileListDisplayedItems.setSelectedIndex(0);
         fileListDisplayedItems.setVisibleRowCount(20);
 
-        // Set the initial highlighted file
-        highlightedFile = folderContent.getHighlightedFile().getFile();
+        // Set the initial highlighted file to the Parent Folder (so cursor is always at the .. on the top of the file list
+        highlightedFile = folderContent.getParentFolder();
 
         // Remap the cursor keys for fileJlist
         RemapCursorNavigation.remapCursors(fileListDisplayedItems);
@@ -86,40 +82,19 @@ public class FilePanel {
 
     private JList populateFileJList() {
 
-        // get an ordered FileItem list from folder content
-        // create the jlist based on the ordered list
-        // if the index changes in the ordered list, use the ordered fileiItem list to get the next/prev, fist, last etc item
-
-
-        List<FileItem> sortedFileItemList = folderContent.getFileItems() ;
-        System.out.println("\n sorted by name order");
-        sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-        sortedFileItemList.forEach(fileItem -> System.out.println(fileItem.getFile().getName()));
-
-        System.out.println("\n get directories only");
-        List<FileItem> foldersOnly = sortedFileItemList.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
-        foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-        foldersOnly.forEach(fileItem -> System.out.println(fileItem.getFile().getName()));
-
-        System.out.println("\n get files only");
-        List<FileItem> filesOnly = sortedFileItemList.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
-        filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-        filesOnly.forEach(fileItem -> System.out.println(fileItem.getFile().getName()));
 
         ArrayList<String> jListItemListStrings = new ArrayList<>();
         String toDisableJListJumpToTypedCharInStringLists = "\u0000";
 //        String toDisableJListJumpToTypedCharInStringLists = "";
 
+        // First add the parent folder dots to the list
+        jListItemListStrings.add("..");
         // Create the String list
-        folderContent.getFileItems().forEach(fileItem -> {
+        folderContent.sortFileItemsByName().forEach(fileItem -> {
             String displayedItem;
             if (fileItem.getFile().isDirectory()) {
                 // The first item in the list is always the parent folder if exists, or itself, if no parent
-                if (fileItem.isFolderParent()) {
-                    displayedItem = "..";
-                } else {
-                    displayedItem = toDisableJListJumpToTypedCharInStringLists + "[" + fileItem.getFile().getName() + "]";
-                }
+                displayedItem = toDisableJListJumpToTypedCharInStringLists + "[" + fileItem.getFile().getName() + "]";
             } else {
                 displayedItem = toDisableJListJumpToTypedCharInStringLists + fileItem.getFile().getName();
             }

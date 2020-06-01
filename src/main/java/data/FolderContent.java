@@ -5,37 +5,37 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FolderContent {
     private static Logger logger = LogManager.getLogger(FolderContent.class);
-    private ArrayList<FileItem> fileItems;
+    private ArrayList<FileItem> fileItems; // does NOT contain the parent folder!
+    private File parentFolder;
     private String folderPath;
 
     public FolderContent(String folderPath) {
         this.folderPath = folderPath;
-        loadFiles(folderPath);
+        loadFiles(folderPath); // so parentFolder and fileItems are always instantiazed
     }
 
     public FolderContent loadFiles(String folderPath) {
         logger.debug("Loading files and folders from folder = " + folderPath);
 
+        // Set the parent folder
+        File currentDir = new File(folderPath);
+        if (currentDir.getParent() != null) {
+            parentFolder = currentDir.getParentFile();
+        } else {
+            parentFolder = currentDir;
+        }
+
+        // Get the files in the folder
         File[] fileList = new File(folderPath).listFiles();
         fileItems = new ArrayList<>();
-
-        // Add the parent folder (if exists) to the list
-        File currentDir = new File(folderPath);
-        File parentDir;
-        if (currentDir.getParent() != null) {
-            parentDir = currentDir.getParentFile();
-        } else {
-            parentDir = currentDir;
-        }
-        FileItem currentFileItem = new FileItem(currentDir, true, false, true);
-        fileItems.add((currentFileItem));
-
-
+        FileItem currentFileItem;
         for (File file : fileList) {
-            currentFileItem = new FileItem(file, false, false, false);
+            currentFileItem = new FileItem(file, false, false);
             fileItems.add(currentFileItem);
         }
 
@@ -45,6 +45,35 @@ public class FolderContent {
     // TODO handle case when fileItems is empty and folderPath is not known
     public ArrayList<FileItem> getFileItems() {
         return fileItems;
+    }
+    public File getParentFolder(){
+        return parentFolder;
+    }
+
+    // Directories first
+    public ArrayList<FileItem> sortFileItemsByName(){
+        List<FileItem> sortedFileItemList = fileItems;
+//        System.out.println("\n sorted by name order");
+        sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+//        sortedFileItemList.forEach(fileItem -> System.out.println(fileItem.getFile().getName()));
+
+//        System.out.println("\n get directories only");
+        List<FileItem> foldersOnly = sortedFileItemList.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
+        foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+//        foldersOnly.forEach(fileItem -> System.out.println(fileItem.getFile().getName()));
+
+//        System.out.println("\n get files only");
+        List<FileItem> filesOnly = sortedFileItemList.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
+        filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+//        filesOnly.forEach(fileItem -> System.out.println(fileItem.getFile().getName()));
+
+//        System.out.println("\n Sorted Files and Folder, folders first");
+        List<FileItem> sortedFilesAndFolders = new ArrayList<>();
+        sortedFilesAndFolders.addAll(foldersOnly);
+        sortedFilesAndFolders.addAll(filesOnly);
+        sortedFilesAndFolders.forEach(fileItem -> logger.debug(fileItem.getFile().getName()));
+
+        return (ArrayList<FileItem>) sortedFilesAndFolders;
     }
 
     // Consider moving this to the SearchFileList class or delete the class if not needed

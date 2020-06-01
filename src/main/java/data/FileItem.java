@@ -6,13 +6,11 @@ public class FileItem {
     private File file;
     private boolean isHighlighted;
     private boolean isSelected;
-    private boolean isFolderParent;
 
-    public FileItem(File file, boolean isHighlighted, boolean isSelected, boolean isFolderParent) {
+    public FileItem(File file, boolean isHighlighted, boolean isSelected) {
         this.file = file;
         this.isHighlighted = isHighlighted;
         this.isSelected = isSelected;
-        this.isFolderParent= isFolderParent;
     }
 
     public File getFile() {
@@ -39,15 +37,6 @@ public class FileItem {
 
     public FileItem setSelected(boolean selected) {
         isSelected = selected;
-        return this;
-    }
-
-    public boolean isFolderParent(){
-        return isFolderParent;
-    }
-
-    public FileItem setFolderParent(boolean isFolderParent){
-        this.isFolderParent=isFolderParent;
         return this;
     }
 }

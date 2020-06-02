@@ -91,21 +91,40 @@ public class FolderContent {
     }
 
     // If no highlighted item was found, it sets the first item to highlighted
-    public FileItem getHighlightedFile() {
-        return fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).findFirst().orElse(fileItems.get(0).setHighlighted(true));
+    public FileItem getHighlightedFileItem() {
+//        FileItem match = fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).findFirst().orElse(fileItems.get(0).setHighlighted(true));
+//        System.out.println("In getHighlighted File, file name of highlighted file = " + match.getFile().getName());
+//        System.out.println("In getHighlighted File, is this file highlighetd? = " + match.isHighlighted());
+        // TODO find the one line solution for this
+        List<FileItem> result = fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).collect(Collectors.toList());
+        System.out.println("Get highlighted item result size = " + result.size());
+        if (result.size()==0) {
+            return null;
+        }
+//        System.out.println(result.size() + " result(s) found, returning the first item = " + result.get(0).getFile().getName());
+        return result.get(0);
+//        return fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).findFirst().orElse(fileItems.get(0).setHighlighted(true));
     }
 
-    public FolderContent setHighlightedFile(String fileName) {
-        getHighlightedFile().setHighlighted(false);
-        fileItems.stream().filter(fileItem -> fileItem.getFile().getName().equals(fileName)).findFirst().get().setHighlighted(true);
-        System.out.println("highlighted file = " + getHighlightedFile().getFile().getName());
+    public FolderContent setHighlightedFileByDisplayedTitle(String displayedTitle) {
+
+        System.out.println("setting highlighted false in previous file");
+        FileItem previousItem=getHighlightedFileItem();
+        if (previousItem!=null){
+           previousItem.setHighlighted(false);
+            System.out.println(previousItem.getFile().getName()+ " should be false. Is false = " + previousItem.isHighlighted());
+        }
+
+        // Setting new item to highlighted
+        FileItem match =fileItems.stream().filter(fileItem -> fileItem.getDisplayedTitle().equals(displayedTitle)).findFirst().get();
+        match.setHighlighted(true);
         return this;
     }
 
     public FolderContent setHighlightedFile(int index) {
-        getHighlightedFile().setHighlighted(false);
+        getHighlightedFileItem().setHighlighted(false);
         fileItems.get(index).setHighlighted(true);
-        System.out.println("highlighted file = " + getHighlightedFile().getFile().getName());
+        System.out.println("highlighted file = " + getHighlightedFileItem().getFile().getName());
         return this;
     }
 

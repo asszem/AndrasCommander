@@ -1,6 +1,7 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
 Fix
+TODO - Handle situation when the last history folder is not found because it was renamed
 TODO - Fix when search mode is empty and Enter is pressed - do not execute
 TODO - Fix going back ping-ponging between last two directory
     - When gb is pressed, it should go back in history, but the
@@ -13,6 +14,7 @@ TODO - Fix going back ping-ponging between last two directory
     - Also a gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 
 Tasks
+TODO - Fix changing highlighted file property in FileItem when cursor navigation is pressed
 TODO - Update UML after basic search was implemented
 TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible

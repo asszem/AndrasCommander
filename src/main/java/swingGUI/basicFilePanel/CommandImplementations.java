@@ -123,16 +123,27 @@ public class CommandImplementations implements CommandsInterface {
                 break;
         }
         // TODO This part is ugly. Refactor when possible - use ineheritance from FilePanel
+
+        // Set the newly highlighted item visible in scrollpane
         int newIndex = filePanel.getFileListDisplayedItems().getSelectedIndex();
         guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(newIndex);
 
+
+        // Set the according FileItem visible
         // Get the displayed name of the highlighted file
 //        String newFileName = filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
 
         // Set the highlighted file in FolderContent and based on that in FilePanel
-        guiInstance.getFilePanel().getFolderContent().setHighlightedFile(newIndex);
-        File newHighlightedFile = guiInstance.getFilePanel().getFolderContent().getHighlightedFile().getFile();
+        String highlightedItemTitle =filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
+        guiInstance.getFilePanel().getFolderContent().setHighlightedFileByDisplayedTitle(highlightedItemTitle);
+
+        // Set the highlighted file in FilePanel
+        File newHighlightedFile = guiInstance.getFilePanel().getFolderContent().getHighlightedFileItem().getFile();
+        System.out.println("Command Implementation, new highlighted file is = " + newHighlightedFile.getName());
         guiInstance.getFilePanel().setHighlightedFile(newHighlightedFile);
+        System.out.println("Command Implementations: FilePanel Highlighted file is set to = " + guiInstance.getFilePanel().getHighlightedFile().getName());
+
+        // Display the new highlighted file
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 

@@ -6,6 +6,7 @@ public class FileItem {
     private File file;
     private boolean isHighlighted;
     private boolean isSelected;
+    private String displayedTitle; // This is what is displayed in JPanel. Based on this, the search can work
 
     public FileItem(File file, boolean isHighlighted, boolean isSelected) {
         this.file = file;
@@ -37,6 +38,15 @@ public class FileItem {
 
     public FileItem setSelected(boolean selected) {
         isSelected = selected;
+        return this;
+    }
+
+    public String getDisplayedTitle() {
+        return displayedTitle;
+    }
+
+    public FileItem setDisplayedTitle(String displayedTitle) {
+        this.displayedTitle = displayedTitle;
         return this;
     }
 }

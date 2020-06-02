@@ -85,7 +85,7 @@ public class KeyInfoPanel {
 
 //        logger.debug("Highlighted file index = " + guiInstance.getFilePanel().getHighlightedFileIndex() );
         highlightedFilePanel.add(highlightedFileLabel);
-//        logger.debug("Highlighted file abs path = " + guiInstance.getFilePanel().getHighlightedFile().getAbsolutePath());
+//        logger.debug("Highlighted file abs path = " + guiInstance.getFilePanel().getHighlightedFileItem().getAbsolutePath());
         guiInstance.getFrame().repaint();
         guiInstance.getFrame().setVisible(true);
     }

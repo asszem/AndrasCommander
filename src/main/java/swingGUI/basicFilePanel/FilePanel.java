@@ -99,8 +99,10 @@ public class FilePanel {
             } else {
                 displayedItem = toDisableJListJumpToTypedCharInStringLists + fileItem.getFile().getName();
             }
+            fileItem.setDisplayedTitle(displayedItem);
             jListItemListStrings.add(displayedItem);
         });
+//       folderContent.sortFileItemsByName().forEach(fileItem -> System.out.println("Displayed title = " + fileItem.getDisplayedTitle()));
 
         // Order the list
 

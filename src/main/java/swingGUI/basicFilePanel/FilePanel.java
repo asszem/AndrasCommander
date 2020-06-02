@@ -74,7 +74,8 @@ public class FilePanel {
         fileListScrollPane = new JScrollPane(fileListDisplayedItems, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         fileListScrollPane.setBorder(BorderFactory.createTitledBorder(folderPath));
         Dimension scrollPaneSize = new Dimension(700, 100);
-        fileListScrollPane.setMinimumSize(scrollPaneSize);
+//        fileListScrollPane.setMinimumSize(scrollPaneSize);
+        fileListScrollPane.setPreferredSize(scrollPaneSize);
 
         // Add SCROLLPANE to PANEL
         fileListPanel.add(fileListScrollPane);

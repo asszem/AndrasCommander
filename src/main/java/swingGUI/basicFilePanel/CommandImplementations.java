@@ -126,14 +126,14 @@ public class CommandImplementations implements CommandsInterface {
         int newIndex = filePanel.getFileListDisplayedItems().getSelectedIndex();
         guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(newIndex);
 
-        String newFileName = filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
-        System.out.println("new file name based on fileJList = " + newFileName);
+        // Get the displayed name of the highlighted file
+//        String newFileName = filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
 
-        System.out.println("index of new highlighted file = " + newIndex);
         // Set the highlighted file in FolderContent and based on that in FilePanel
         guiInstance.getFilePanel().getFolderContent().setHighlightedFile(newIndex);
         File newHighlightedFile = guiInstance.getFilePanel().getFolderContent().getHighlightedFile().getFile();
         guiInstance.getFilePanel().setHighlightedFile(newHighlightedFile);
+        guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
     public void goUpToParentFolder() {

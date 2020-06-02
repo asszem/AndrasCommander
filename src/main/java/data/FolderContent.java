@@ -71,7 +71,7 @@ public class FolderContent {
         List<FileItem> sortedFilesAndFolders = new ArrayList<>();
         sortedFilesAndFolders.addAll(foldersOnly);
         sortedFilesAndFolders.addAll(filesOnly);
-        sortedFilesAndFolders.forEach(fileItem -> logger.debug(fileItem.getFile().getName()));
+//        sortedFilesAndFolders.forEach(fileItem -> logger.debug(fileItem.getFile().getName()));
 
         return (ArrayList<FileItem>) sortedFilesAndFolders;
     }
@@ -90,21 +90,20 @@ public class FolderContent {
         return searchResults;
     }
 
+    // If no highlighted item was found, it sets the first item to highlighted
     public FileItem getHighlightedFile() {
-        return fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).findFirst().orElse(null);
+        return fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).findFirst().orElse(fileItems.get(0).setHighlighted(true));
     }
 
     public FolderContent setHighlightedFile(String fileName) {
-        //Set the file highlighted based on file name
-        // reset previous item
-        fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).findFirst().get().setHighlighted(false);
+        getHighlightedFile().setHighlighted(false);
         fileItems.stream().filter(fileItem -> fileItem.getFile().getName().equals(fileName)).findFirst().get().setHighlighted(true);
         System.out.println("highlighted file = " + getHighlightedFile().getFile().getName());
         return this;
     }
 
     public FolderContent setHighlightedFile(int index) {
-        fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).findFirst().get().setHighlighted(false);
+        getHighlightedFile().setHighlighted(false);
         fileItems.get(index).setHighlighted(true);
         System.out.println("highlighted file = " + getHighlightedFile().getFile().getName());
         return this;

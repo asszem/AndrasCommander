@@ -1,6 +1,7 @@
 package swingGUI.basicFilePanel;
 
 import data.CommandsInterface;
+import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import swingGUI.GUI;
@@ -14,11 +15,13 @@ public class CommandImplementations implements CommandsInterface {
     private static Logger logger = LogManager.getLogger(CommandImplementations.class);
     private GUI guiInstance;
     private FilePanel filePanel;
+    private FolderContent folderContent;
     private String searchTerm;
 
     public CommandImplementations(GUI guiInstance) {
         this.guiInstance = guiInstance;
         this.filePanel = guiInstance.getFilePanel();
+        this.folderContent = guiInstance.getFilePanel().getFolderContent();
     }
 
     // this is being called from the KeyBindingParser with the actual command sent as a String
@@ -75,7 +78,7 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void openHighlighted() {
-        File fileToBeExecuted = filePanel.getHighlightedFile();
+        File fileToBeExecuted = folderContent.getHighlightedFile();
         if (fileToBeExecuted.isDirectory()) {
             guiInstance.getKeyInfoPanel().displayCommand("ENTER to go to Folder " + fileToBeExecuted.getName());
             changeFolder(fileToBeExecuted.getAbsolutePath());
@@ -93,11 +96,8 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void moveCursor(String direction) {
-//        logger.debug("move cursor order received = " + direction);
         int currentIndex = filePanel.getFileListDisplayedItems().getSelectedIndex();
         int maxIndex = filePanel.getFileListDisplayedItems().getModel().getSize() - 1;
-//        logger.debug("current fileJlist getSelectedIndex = " + currentIndex);
-//        logger.debug("maxindex - fileJList size -1 = " + maxIndex);
         switch (direction) {
             case "down":
                 if (currentIndex == maxIndex) {
@@ -122,46 +122,38 @@ public class CommandImplementations implements CommandsInterface {
                 filePanel.getFileListDisplayedItems().setSelectedIndex(maxIndex);
                 break;
         }
-        // TODO This part is ugly. Refactor when possible - use ineheritance from FilePanel
-
         // Set the newly highlighted item visible in scrollpane
         int newIndex = filePanel.getFileListDisplayedItems().getSelectedIndex();
         guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(newIndex);
 
-
-        // Set the according FileItem visible
-        // Get the displayed name of the highlighted file
-//        String newFileName = filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
-
-        // Set the highlighted file in FolderContent and based on that in FilePanel
+        // Set the highlighted file
         String highlightedItemTitle =filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
-        guiInstance.getFilePanel().getFolderContent().setHighlightedFileByDisplayedTitle(highlightedItemTitle);
-
-        // Set the highlighted file in FilePanel
-        File newHighlightedFile = guiInstance.getFilePanel().getFolderContent().getHighlightedFileItem().getFile();
-        System.out.println("Command Implementation, new highlighted file is = " + newHighlightedFile.getName());
-        guiInstance.getFilePanel().setHighlightedFile(newHighlightedFile);
-        System.out.println("Command Implementations: FilePanel Highlighted file is set to = " + guiInstance.getFilePanel().getHighlightedFile().getName());
+        folderContent.setHighlightedFileByDisplayedTitle(highlightedItemTitle);
 
         // Display the new highlighted file
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
+
+    public void changeFolder(String folderPath) {
+        String originalPath = folderContent.getFolderPath();
+        guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(originalPath); // save history
+
+        folderContent.setFolderPath(folderPath);
+        folderContent.loadFiles(folderPath);
+
+        guiInstance.getFilePanel().setHighlightedFileIndex(0);
+        System.out.println("File index changed to 0 " + guiInstance.getFilePanel().getHighlightedFileIndex());
+        guiInstance.getFilePanel().displayFilePanel();
+        guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
+        guiInstance.getKeyInfoPanel().displayHighlightedFile();
+    }
+
     public void goUpToParentFolder() {
-//        logger.debug("Go Up To parent folder command received" );
-        File parentFolder = new File(guiInstance.getFilePanel().getFolderPath()).getParentFile();
+        File parentFolder = new File(folderContent.getParentFolder().getAbsolutePath());
         if (parentFolder != null) {
             changeFolder(parentFolder.getAbsolutePath());
         }
-    }
-
-    public void changeFolder(String folderPath) {
-        String originalPath = guiInstance.getFilePanel().getFolderPath();
-        guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(originalPath); // save history
-        guiInstance.getFilePanel().setFolderPath(folderPath);
-        guiInstance.getFilePanel().getFolderContent().loadFiles(folderPath);
-        guiInstance.getFilePanel().updateFilePanelDisplay();
-        guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
     }
 
     public void goBackInHistory() {
@@ -179,7 +171,7 @@ public class CommandImplementations implements CommandsInterface {
 
     public void refreshView() {
         logger.debug("Refresh view ");
-        guiInstance.getFilePanel().setFolderPath(guiInstance.getFilePanel().getFolderPath());
+        changeFolder(folderContent.getFolderPath());
     }
 
     @Override

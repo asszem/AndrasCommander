@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 
 public class FolderContent {
     private static Logger logger = LogManager.getLogger(FolderContent.class);
-    private ArrayList<FileItem> fileItems; // does NOT contain the parent folder!
+    private ArrayList<FileItem> fileItems; // does NOT contain the parent folder or the highlighted file item
+    private FileItem highlightedFileItem;
     private File parentFolder;
     private String folderPath;
 
@@ -30,28 +31,24 @@ public class FolderContent {
             parentFolder = currentDir;
         }
 
+        // Whenever the folder content is loaded, set the highlighted file to the first
+        // TODO rethink if this is a good solution here, as it must be kept in sync with JList selected item
+        highlightedFileItem = new FileItem(parentFolder, false);
+
         // Get the files in the folder
         File[] fileList = new File(folderPath).listFiles();
         fileItems = new ArrayList<>();
         FileItem currentFileItem;
         for (File file : fileList) {
-            currentFileItem = new FileItem(file, false, false);
+            currentFileItem = new FileItem(file, false);
             fileItems.add(currentFileItem);
         }
 
         return this; // so it can be chained
     }
 
-    // TODO handle case when fileItems is empty and folderPath is not known
-    public ArrayList<FileItem> getFileItems() {
-        return fileItems;
-    }
-    public File getParentFolder(){
-        return parentFolder;
-    }
-
     // Directories first
-    public ArrayList<FileItem> sortFileItemsByName(){
+    public ArrayList<FileItem> sortFileItemsByName() {
         List<FileItem> sortedFileItemList = fileItems;
 //        System.out.println("\n sorted by name order");
         sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
@@ -90,41 +87,21 @@ public class FolderContent {
         return searchResults;
     }
 
-    // If no highlighted item was found, it sets the first item to highlighted
-    public FileItem getHighlightedFileItem() {
-//        FileItem match = fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).findFirst().orElse(fileItems.get(0).setHighlighted(true));
-//        System.out.println("In getHighlighted File, file name of highlighted file = " + match.getFile().getName());
-//        System.out.println("In getHighlighted File, is this file highlighetd? = " + match.isHighlighted());
-        // TODO find the one line solution for this
-        List<FileItem> result = fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).collect(Collectors.toList());
-        System.out.println("Get highlighted item result size = " + result.size());
-        if (result.size()==0) {
-            return null;
-        }
-//        System.out.println(result.size() + " result(s) found, returning the first item = " + result.get(0).getFile().getName());
-        return result.get(0);
-//        return fileItems.stream().filter(fileItem -> fileItem.isHighlighted()).findFirst().orElse(fileItems.get(0).setHighlighted(true));
+    public File getHighlightedFile() {
+        return highlightedFileItem.getFile();
     }
 
     public FolderContent setHighlightedFileByDisplayedTitle(String displayedTitle) {
 
-        System.out.println("setting highlighted false in previous file");
-        FileItem previousItem=getHighlightedFileItem();
-        if (previousItem!=null){
-           previousItem.setHighlighted(false);
-            System.out.println(previousItem.getFile().getName()+ " should be false. Is false = " + previousItem.isHighlighted());
+        // Handling if the parent folder .. was the highlighted title
+        if (displayedTitle.equals("..")) {
+            highlightedFileItem.setFile(parentFolder);
+            return this;
+        } else {
+            highlightedFileItem = fileItems.stream().filter(fileItem -> fileItem.getDisplayedTitle().equals(displayedTitle)).findFirst().get();
         }
 
         // Setting new item to highlighted
-        FileItem match =fileItems.stream().filter(fileItem -> fileItem.getDisplayedTitle().equals(displayedTitle)).findFirst().get();
-        match.setHighlighted(true);
-        return this;
-    }
-
-    public FolderContent setHighlightedFile(int index) {
-        getHighlightedFileItem().setHighlighted(false);
-        fileItems.get(index).setHighlighted(true);
-        System.out.println("highlighted file = " + getHighlightedFileItem().getFile().getName());
         return this;
     }
 
@@ -135,5 +112,13 @@ public class FolderContent {
     public FolderContent setFolderPath(String folderPath) {
         this.folderPath = folderPath;
         return this;
+    }
+
+    public ArrayList<FileItem> getFileItems() {
+        return fileItems;
+    }
+
+    public File getParentFolder() {
+        return parentFolder;
     }
 }

@@ -81,7 +81,7 @@ public class KeyInfoPanel {
 
     public void displayHighlightedFile() {
         highlightedFilePanel.removeAll();
-        highlightedFileLabel = new JLabel(guiInstance.getFilePanel().getHighlightedFile().getName() + " (" + guiInstance.getFilePanel().getHighlightedFileIndex() + ")");
+        highlightedFileLabel = new JLabel(guiInstance.getFilePanel().getFolderContent().getHighlightedFile().getName() + " (" + guiInstance.getFilePanel().getHighlightedFileIndex() + ")");
 
 //        logger.debug("Highlighted file index = " + guiInstance.getFilePanel().getHighlightedFileIndex() );
         highlightedFilePanel.add(highlightedFileLabel);

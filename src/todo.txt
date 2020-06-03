@@ -14,7 +14,6 @@ TODO - Fix going back ping-ponging between last two directory
     - Also a gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 
 Tasks
-TODO - Fix changing highlighted file property in FileItem when cursor navigation is pressed
 TODO - Update UML after basic search was implemented
 TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible

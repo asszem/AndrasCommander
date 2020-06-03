@@ -129,7 +129,7 @@ public class KeyBindingParser {
             case ":q<ENTER>":
             case "quit":
                 // Saving the last folder to history
-                guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(guiInstance.getFilePanel().getFolderPath());
+                guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(guiInstance.getFilePanel().getFolderContent().getFolderPath());
                 exit(0);
                 break;
         }

@@ -35,7 +35,7 @@ This is a learning project, nothing serious :)
     - [x] search term completed with enter key 
     - [ ] first matching item selected
     - [ ] VIM like: "n"/"N" keys selects next / prev matching item
-    - [ ] highlight other matching items (after Enter)
+    - [x] highlight other matching items (after Enter)
     - [ ] VIM like: :noh (no highlight) to clear search results
  - [ ] "insert" mode: disable VIM bindings and enable JList's built in Auto Jump
  - [ ] In insert mode jump automatically to the first matching result
@@ -85,6 +85,9 @@ At this point it should be an actually usable product.
 
 ### Version 1.3 - Improved File Actions - select, copy, move, delete
 - [ ] NC like: select multiple files under cursor with "Ins"
+- [ ] Select/deselect all files
+- [ ] Select files by wildcards
+- [ ] Select files by specific commands (last changed, above size, etc)
 - [ ] Copy / move / delete selected file(s)
 
 ### Version 1.4 - Preview Panels

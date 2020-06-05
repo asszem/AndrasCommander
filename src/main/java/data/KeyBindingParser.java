@@ -124,6 +124,12 @@ public class KeyBindingParser {
             case "gb":
                 matchedCommand = "go back";
                 break;
+            case "n":
+                matchedCommand="next search result";
+                break;
+            case "N":
+                matchedCommand="prev search result";
+                break;
             case ":e<ENTER>":
                 matchedCommand = "refresh panel";
                 break;

@@ -56,6 +56,12 @@ public class CommandImplementations implements CommandsInterface {
             case "execute search":
                 executeSearch();
                 break;
+            case "next search result":
+                setNextSearchResultHighlighted();
+                break;
+            case "prev search result":
+                setPrevSearchResultHighlighted();
+                break;
             case "ESC":
                 guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
                 guiInstance.getKeyInfoPanel().displayAllPressedKeys("Pressed Keys list cleared.");
@@ -128,7 +134,7 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(newIndex);
 
         // Set the highlighted file
-        String highlightedItemTitle =filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
+        String highlightedItemTitle = filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
         folderContent.setHighlightedFileByDisplayedTitle(highlightedItemTitle);
 
         // Display the new highlighted file
@@ -201,8 +207,12 @@ public class CommandImplementations implements CommandsInterface {
         // Turn on search result display mode in FilePanel
         guiInstance.getFilePanel().setDisplaySearchResultMatches(true);
 
-        // Redraw the filePanel with search mode on, highlighting search results
-        int currentHighlightedIndex=guiInstance.getFilePanel().getHighlightedFileIndex();
+        // Get the first match if there was and select it
+        // The execute search method should not know about whether it was successfull
+        // But this is the implementation, so yes
+        // There should be another methods selecting next and previous results
+        int currentHighlightedIndex = guiInstance.getFilePanel().getHighlightedFileIndex();
+
         guiInstance.getFilePanel().drawFilePanel(currentHighlightedIndex); // Set the current highlighted index
         guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(currentHighlightedIndex);
         guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
@@ -216,5 +226,13 @@ public class CommandImplementations implements CommandsInterface {
 
     public void setSearchTerm(String searchTerm) {
         this.searchTerm = searchTerm;
+    }
+
+    public void setNextSearchResultHighlighted() {
+        logger.debug("setNextSearchResultHighlighted called");
+    }
+
+    public void setPrevSearchResultHighlighted() {
+        logger.debug("setPrevSearchResultHighlighted called");
     }
 }

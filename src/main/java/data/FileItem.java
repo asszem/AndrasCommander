@@ -5,6 +5,7 @@ import java.io.File;
 public class FileItem {
     private File file;
     private boolean isSelected;
+    private boolean isSearchMatched;
     private String displayedTitle; // This is what is displayed in JPanel. Based on this, the search can work
 
     public FileItem(File file, boolean isSelected) {
@@ -36,6 +37,15 @@ public class FileItem {
 
     public FileItem setDisplayedTitle(String displayedTitle) {
         this.displayedTitle = displayedTitle;
+        return this;
+    }
+
+    public boolean getSearchMatched() {
+        return isSearchMatched;
+    }
+
+    public FileItem setSearchMatched(boolean isMatched) {
+        this.isSearchMatched = isMatched;
         return this;
     }
 }

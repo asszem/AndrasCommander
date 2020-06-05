@@ -75,13 +75,17 @@ public class FolderContent {
 
     // Consider moving this to the SearchFileList class or delete the class if not needed
     //TODO Create Unit test for this Method
-    public ArrayList<Integer> getSearchResultsIndex(String searchTerm) {
-        ArrayList<Integer> searchResults = new ArrayList<Integer>();
+    // TODO add settings for different search method = first match, contents, exact match
+    public ArrayList<FileItem> getSearchResults(String searchTerm) {
+        ArrayList<FileItem> searchResults = new ArrayList<>();
         logger.debug("Search term to be looking for = " + searchTerm);
 
-//        List<String> resultList = Arrays.stream(presets)
-//                .filter(x -> x.startsWith("C"))
-//                .collect(Collectors.toList());
+        searchResults = (ArrayList<FileItem>) fileItems.stream().filter(fileItem -> fileItem.getFile().getName().startsWith(searchTerm)).collect(Collectors.toList());
+
+        searchResults.forEach(fileItem -> {
+            System.out.println("matched file item title = [" + fileItem.getDisplayedTitle()+"]");
+            fileItem.setSearchMatched(true);
+        });
 
 //        searchResults.forEach(searchResult -> System.out.println("Index matched = " + searchResult + " file = " + foldersFirstThenFiles.get(searchResult)));
         return searchResults;

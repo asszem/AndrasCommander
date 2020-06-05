@@ -17,6 +17,7 @@ public class FilePanel {
     //DATA fields
     private FolderContent folderContent;
     private CommandImplementations commandImplementations;
+    private boolean displaySearchResultMatches;
 
     //GUI Fields
     private GUI guiInstance;
@@ -41,13 +42,17 @@ public class FilePanel {
         folderContent = new FolderContent(startfolder);
         fileListPanel = new JPanel();
 
-        displayFilePanel();
+        drawFilePanel(0);
 
         commandImplementations = new CommandImplementations(guiInstance);
         return fileListPanel;
     }
 
-    public void displayFilePanel() {
+//    public void drawFilePanel(){
+//       drawFilePanel(0);
+//    }
+
+    public void drawFilePanel(int highlightedIndex) {
         // Remove previous content from the panel
         fileListPanel.removeAll();
 
@@ -56,7 +61,7 @@ public class FilePanel {
         fileListDisplayedItems = populateJList();
         fileListDisplayedItems.addKeyListener(guiInstance.getKeyListener());
         fileListDisplayedItems.addListSelectionListener(guiInstance.getKeyListener()); // to handle cursor and HOME and END keys as well
-        fileListDisplayedItems.setSelectedIndex(0);
+        fileListDisplayedItems.setSelectedIndex(highlightedIndex);
         fileListDisplayedItems.setVisibleRowCount(20);
 
         // Remap the cursor keys for fileJlist
@@ -70,6 +75,13 @@ public class FilePanel {
 
         // Add SCROLLPANE to PANEL
         fileListPanel.add(fileListScrollPane);
+    }
+
+    public void updateFilePanel(){
+        fileListDisplayedItems = populateJList();
+        System.out.println("redraw panel complete");
+//        fileListPanel.revalidate();
+//        fileListPanel.setVisible(true);
     }
 
     private JList populateJList() {
@@ -87,12 +99,19 @@ public class FilePanel {
             } else {
                 displayedItem = toDisableJListJumpToTypedCharInStringLists + fileItem.getFile().getName();
             }
+
+            // Handle search result highlighting
+            if (displaySearchResultMatches){
+                if (fileItem.getSearchMatched()){
+                    displayedItem="-->"+displayedItem;
+                }
+            }
+
             fileItem.setDisplayedTitle(displayedItem);
             jListItemListStrings.add(displayedItem);
         });
 
         JList result = new JList(jListItemListStrings.toArray());
-        result.setSelectedIndex(0);
         return result;
     }
 
@@ -103,7 +122,7 @@ public class FilePanel {
 
     public JList getFileListDisplayedItems() {
         if (fileListDisplayedItems == null) {
-            displayFilePanel();
+            drawFilePanel(0);
         }
         return fileListDisplayedItems;
     }
@@ -127,6 +146,15 @@ public class FilePanel {
 
     public CommandImplementations getCommandImplementations() {
         return commandImplementations;
+    }
+
+    public FilePanel setDisplaySearchResultMatches(boolean displaySearchResultMatches) {
+        this.displaySearchResultMatches = displaySearchResultMatches;
+        return this;
+    }
+
+    public boolean getDisplaySearchResultMatches() {
+        return this.displaySearchResultMatches;
     }
 }
 

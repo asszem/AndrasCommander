@@ -43,16 +43,26 @@ This is a learning project, nothing serious :)
 ### Version 0.4 - Basic File Actions - Rename
 - [ ] VIM like: rename highlighted file with "r"
 
+### Version 0.5 - Basic Info panels
+- [ ] Display History Panel
+- [ ] Display Available Keys Panel
+
 ## MVP Reached
 At this point it should be an actually usable product.
 
-### Version 1.0 - Improved display - File Details
+### Version 1.01 - Improved display - File Details
  - [ ] Display file details (size in human readable format, modified date)
  - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
  - [ ] Automatically size column width to fit data (file name, date modified, etc)
  - [ ] Display line numbers for files
  - [ ] VIM like: jump to line with #linenumber"g"
  - [ ] File thumbnails
+
+### Version 1.02 - Improved search
+- [ ] Implement different search modes (starts with, contains, equals, wildcards, search by Date, size, etc)
+- [ ] Display search mode in FilePanel 
+- [ ] Toggle search mode with Ctrl-S while in Search mode
+- [ ] Trigger serach mode with a VIM like binding (/ or ?)
 
 ### Version 1.1 - Improved display - Basic Multiple Panes
 - [ ] Get default panel position, width and height from config file
@@ -68,6 +78,10 @@ At this point it should be an actually usable product.
 - [ ] - Add files/folders to bookmarks
 - [ ] - Open bookmarks
 - [ ] - Name and rename bookmarks
+
+### Version 1.22 - Actionable History Panel
+- [ ] - History panel can be navigated to, and items can be opened by selecting them with the cursor
+- [ ] - Add keyboard shortcut Quickkey-s to open history items by pressing Ctrl-# of history item 
 
 ### Version 1.3 - Improved File Actions - select, copy, move, delete
 - [ ] NC like: select multiple files under cursor with "Ins"

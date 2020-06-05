@@ -1,6 +1,7 @@
 package swingGUI.basicFilePanel;
 
 import data.CommandsInterface;
+import data.FileItem;
 import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -78,7 +79,7 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void openHighlighted() {
-        File fileToBeExecuted = folderContent.getHighlightedFile();
+        File fileToBeExecuted = guiInstance.getFilePanel().getFolderContent().getHighlightedFile();
         if (fileToBeExecuted.isDirectory()) {
             guiInstance.getKeyInfoPanel().displayCommand("ENTER to go to Folder " + fileToBeExecuted.getName());
             changeFolder(fileToBeExecuted.getAbsolutePath());
@@ -142,10 +143,9 @@ public class CommandImplementations implements CommandsInterface {
         folderContent.setFolderPath(folderPath);
         folderContent.loadFiles(folderPath);
 
-        guiInstance.getFilePanel().setHighlightedFileIndex(0);
-        System.out.println("File index changed to 0 " + guiInstance.getFilePanel().getHighlightedFileIndex());
-        guiInstance.getFilePanel().displayFilePanel();
+        guiInstance.getFilePanel().drawFilePanel(0);
         guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
+
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
@@ -170,7 +170,6 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void refreshView() {
-        logger.debug("Refresh view ");
         changeFolder(folderContent.getFolderPath());
     }
 
@@ -193,11 +192,16 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void executeSearch() {
+        ArrayList<FileItem> searchResults = guiInstance.getFilePanel().getFolderContent().getSearchResults(searchTerm);
+        // Turn on search result display mode in FilePanel
+        guiInstance.getFilePanel().setDisplaySearchResultMatches(true);
+        // Redraw filepanelj
+        guiInstance.getFilePanel().drawFilePanel(filePanel.getHighlightedFileIndex()); // Set the current highlighted index
+        guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
+
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys list");
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<empty>");
-        guiInstance.getKeyInfoPanel().displayCommand("Executing search");
-        ArrayList<Integer> searchResults = guiInstance.getFilePanel().getFolderContent().getSearchResultsIndex(searchTerm);
-        // TODO implement search term highlight
+        guiInstance.getKeyInfoPanel().displayCommand("after search");
     }
 
     public void setSearchTerm(String searchTerm) {

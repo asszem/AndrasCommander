@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class FolderContent {
     private static Logger logger = LogManager.getLogger(FolderContent.class);
     private ArrayList<FileItem> fileItems; // does NOT contain the parent folder or the highlighted file item
+    private ArrayList<FileItem> searchResults;
     private FileItem highlightedFileItem;
     private File parentFolder;
     private String folderPath;
@@ -49,6 +50,10 @@ public class FolderContent {
 
     // Directories first
     public ArrayList<FileItem> sortFileItemsByName() {
+//        System.out.println("Unsorted fileItems content:");
+//        fileItems.forEach(fileItem -> System.out.print(fileItem.getFile().getName()+" |  "));
+//        System.out.println("");
+
         List<FileItem> sortedFileItemList = fileItems;
 //        System.out.println("\n sorted by name order");
         sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
@@ -57,7 +62,8 @@ public class FolderContent {
 //        System.out.println("\n get directories only");
         List<FileItem> foldersOnly = sortedFileItemList.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
         foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-//        foldersOnly.forEach(fileItem -> System.out.println(fileItem.getFile().getName()));
+//        logger.debug("sortFileItemsByName called, folders only list result = ");
+//        foldersOnly.forEach(fileItem -> System.out.println("\t\t"+fileItem.getFile().getName()));
 
 //        System.out.println("\n get files only");
         List<FileItem> filesOnly = sortedFileItemList.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
@@ -68,27 +74,44 @@ public class FolderContent {
         List<FileItem> sortedFilesAndFolders = new ArrayList<>();
         sortedFilesAndFolders.addAll(foldersOnly);
         sortedFilesAndFolders.addAll(filesOnly);
-//        sortedFilesAndFolders.forEach(fileItem -> logger.debug(fileItem.getFile().getName()));
+//        logger.debug("sortFileItemsByName called, sorted folders and files: ");
+//        System.out.println("Sorted fileItems content:");
+//        sortedFilesAndFolders.forEach(fileItem -> System.out.print(fileItem.getFile().getName() + "  |  "));
+//        System.out.println("");
 
         return (ArrayList<FileItem>) sortedFilesAndFolders;
     }
 
-    // Consider moving this to the SearchFileList class or delete the class if not needed
-    //TODO Create Unit test for this Method
-    // TODO add settings for different search method = first match, contents, exact match
-    public ArrayList<FileItem> getSearchResults(String searchTerm) {
-        ArrayList<FileItem> searchResults = new ArrayList<>();
-        logger.debug("Search term to be looking for = " + searchTerm);
+    // Consider moving all search realted methods to the SearchFileList class or delete the class if not needed
+    public ArrayList<FileItem> getSearchResults() {
+        return this.searchResults;
+    }
 
+    public FolderContent clearPreviousSearch() {
+        if (searchResults != null) {
+//            long searchMathched = fileItems.stream().filter(fileItem -> fileItem.getSearchMatched()).count();
+//            System.out.println("Validation: getSearchMatched before clearing = " + searchMathched);
+            searchResults.forEach(fileItem -> fileItem.setSearchMatched(false));
+//            searchMathched = fileItems.stream().filter(fileItem -> fileItem.getSearchMatched()).count();
+//            System.out.println("Validation: zero should have setSearchMatched. Actual = " + searchMathched);
+        }
+        return this;
+    }
+
+    //TODO Create Unit test for this Method
+    //TODO add settings for different search method = first match, contents, exact match
+    public FolderContent executeSearch(String searchTerm) {
+        searchResults = new ArrayList<>();
+        logger.debug("In executeSearch for = " + searchTerm);
+
+        // NOTE Do not forget the non-displaying \u0000 char if matching against displayed title
         searchResults = (ArrayList<FileItem>) fileItems.stream().filter(fileItem -> fileItem.getFile().getName().startsWith(searchTerm)).collect(Collectors.toList());
 
         searchResults.forEach(fileItem -> {
-            System.out.println("matched file item title = [" + fileItem.getDisplayedTitle()+"]");
+//            System.out.println("matched file item title = [" + fileItem.getDisplayedTitle() + "]");
             fileItem.setSearchMatched(true);
         });
-
-//        searchResults.forEach(searchResult -> System.out.println("Index matched = " + searchResult + " file = " + foldersFirstThenFiles.get(searchResult)));
-        return searchResults;
+        return this;
     }
 
     public File getHighlightedFile() {
@@ -96,15 +119,13 @@ public class FolderContent {
     }
 
     public FolderContent setHighlightedFileByDisplayedTitle(String displayedTitle) {
-
         // Handling if the parent folder .. was the highlighted title
         if (displayedTitle.equals("..")) {
             highlightedFileItem.setFile(parentFolder);
             return this;
         } else {
-            highlightedFileItem = fileItems.stream().filter(fileItem -> fileItem.getDisplayedTitle().equals(displayedTitle)).findFirst().get();
+            highlightedFileItem.setFile(fileItems.stream().filter(fileItem -> fileItem.getDisplayedTitle().equals(displayedTitle)).findFirst().get().getFile());
         }
-
         // Setting new item to highlighted
         return this;
     }

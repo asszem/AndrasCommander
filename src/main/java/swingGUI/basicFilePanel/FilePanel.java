@@ -48,10 +48,6 @@ public class FilePanel {
         return fileListPanel;
     }
 
-//    public void drawFilePanel(){
-//       drawFilePanel(0);
-//    }
-
     public void drawFilePanel(int highlightedIndex) {
         // Remove previous content from the panel
         fileListPanel.removeAll();
@@ -77,19 +73,13 @@ public class FilePanel {
         fileListPanel.add(fileListScrollPane);
     }
 
-    public void updateFilePanel(){
-        fileListDisplayedItems = populateJList();
-        System.out.println("redraw panel complete");
-//        fileListPanel.revalidate();
-//        fileListPanel.setVisible(true);
-    }
-
     private JList populateJList() {
         ArrayList<String> jListItemListStrings = new ArrayList<>();
         String toDisableJListJumpToTypedCharInStringLists = "\u0000";
 
         // First add the parent folder dots to the list
         jListItemListStrings.add("..");
+
         // Create the String list
         folderContent.sortFileItemsByName().forEach(fileItem -> {
             String displayedItem;

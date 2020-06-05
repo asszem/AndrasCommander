@@ -192,16 +192,26 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void executeSearch() {
-        ArrayList<FileItem> searchResults = guiInstance.getFilePanel().getFolderContent().getSearchResults(searchTerm);
+        // Reset previous search results, update every FileItem object that was matched true
+        guiInstance.getFilePanel().getFolderContent().clearPreviousSearch();
+
+        //Execute search - search term must be set before this is called
+        guiInstance.getFilePanel().getFolderContent().executeSearch(searchTerm);
+
         // Turn on search result display mode in FilePanel
         guiInstance.getFilePanel().setDisplaySearchResultMatches(true);
-        // Redraw filepanelj
-        guiInstance.getFilePanel().drawFilePanel(filePanel.getHighlightedFileIndex()); // Set the current highlighted index
+
+        // Redraw the filePanel with search mode on, highlighting search results
+        int currentHighlightedIndex=guiInstance.getFilePanel().getHighlightedFileIndex();
+        guiInstance.getFilePanel().drawFilePanel(currentHighlightedIndex); // Set the current highlighted index
+        guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(currentHighlightedIndex);
         guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
 
+        // Set KeyInfoPanel content
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys list");
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<empty>");
-        guiInstance.getKeyInfoPanel().displayCommand("after search");
+        guiInstance.getKeyInfoPanel().displayCommand("Search executed for term " + searchTerm);
+        guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
     public void setSearchTerm(String searchTerm) {

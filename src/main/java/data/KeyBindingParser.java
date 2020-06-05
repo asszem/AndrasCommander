@@ -52,9 +52,10 @@ public class KeyBindingParser {
                 searchTerm = new StringBuilder();
             }
             searchTerm.append(lastKeyPressed);
+            matchedCommand = searchTerm.toString();
+        } else {
+            matchedCommand = matchKeyToCommand();
         }
-        matchedCommand = matchKeyToCommand();
-
         guiInstance.getFilePanel().getCommandImplementations().handleCommand(matchedCommand);
     }
 
@@ -80,11 +81,15 @@ public class KeyBindingParser {
                 }
                 // When ENTER was pressed while user was in Search Mode - do the search
                 if (inSearchMode) {
-                    guiInstance.getFilePanel().getCommandImplementations().setSearchTerm(searchTerm.toString());
+                    if (searchTerm != null) {
+                        guiInstance.getFilePanel().getCommandImplementations().setSearchTerm(searchTerm.toString());
+                        specialKeyCheckResult = "execute search";
+                    } else {
+                        specialKeyCheckResult = "no search term was entered";
+                    }
                     searchTerm = null;
                     inSearchMode = false;
                     pressedKeysList.clear();
-                    specialKeyCheckResult = "execute search";
                 }
                 break;
         }

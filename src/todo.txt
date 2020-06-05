@@ -1,8 +1,6 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
 Now
-TODO - Fix handle when no search result found
-TODO - Fix when search mode is empty and Enter is pressed - do not execute
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well
 
 Fix

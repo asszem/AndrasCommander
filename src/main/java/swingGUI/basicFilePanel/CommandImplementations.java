@@ -199,6 +199,7 @@ public class CommandImplementations implements CommandsInterface {
 
     public void executeSearch() {
         // Reset previous search results, update every FileItem object that was matched true
+        guiInstance.getFilePanel().resetSearchMathcedItemIndexes();
         guiInstance.getFilePanel().getFolderContent().clearPreviousSearch();
 
         //Execute search - search term must be set before this is called
@@ -230,6 +231,9 @@ public class CommandImplementations implements CommandsInterface {
 
     public void setNextSearchResultHighlighted() {
         logger.debug("setNextSearchResultHighlighted called");
+        // get the current jlist in filepanel
+        // get the current selected search result in jlist
+        // set the next one
     }
 
     public void setPrevSearchResultHighlighted() {

@@ -18,6 +18,7 @@ public class FilePanel {
     private FolderContent folderContent;
     private CommandImplementations commandImplementations;
     private boolean displaySearchResultMatches;
+    private ArrayList<Integer> searchMathcedItemIndexes;
 
     //GUI Fields
     private GUI guiInstance;
@@ -91,9 +92,13 @@ public class FilePanel {
             }
 
             // Handle search result highlighting
-            if (displaySearchResultMatches){
-                if (fileItem.getSearchMatched()){
-                    displayedItem="-->"+displayedItem;
+            if (displaySearchResultMatches) {
+                if (fileItem.getSearchMatched()) {
+                    displayedItem = "-->" + displayedItem;
+                    System.out.println("Adding matched item ")                matchedCommand="next search result";;
+                    if (searchMathcedItemIndexes==null){
+                        searchMathcedItemIndexes = new ArrayList<>();
+                    }
                 }
             }
 
@@ -145,6 +150,16 @@ public class FilePanel {
 
     public boolean getDisplaySearchResultMatches() {
         return this.displaySearchResultMatches;
+    }
+
+    public ArrayList<Integer> getSearchMathcedItemIndexes() {
+        System.out.println("inside getSearchMatchedItemIndexes");
+        return this.searchMathcedItemIndexes;
+    }
+
+    public FilePanel resetSearchMathcedItemIndexes() {
+        this.searchMathcedItemIndexes.clear();
+        return this;
     }
 }
 

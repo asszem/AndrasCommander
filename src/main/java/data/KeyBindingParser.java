@@ -1,5 +1,6 @@
 package data;
 
+import control.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import swingGUI.GUI;
@@ -90,6 +91,7 @@ public class KeyBindingParser {
                     searchTerm = null;
                     inSearchMode = false;
                     pressedKeysList.clear();
+                    guiInstance.getAndrasCommanderInstance().setMode(Constants.NORMAL_MODE);
                 }
                 break;
         }
@@ -105,6 +107,7 @@ public class KeyBindingParser {
         switch (pressedKeysListAsString) {
             case ":":
                 logger.debug(": matched");
+                guiInstance.getAndrasCommanderInstance().setMode(Constants.COMMAND_MODE);
                 break;
             case "j":
                 matchedCommand = "down";
@@ -136,6 +139,7 @@ public class KeyBindingParser {
             case "<SPACE>": // Enter search mode only when space is pressed in an empty pressedKeyList
                 matchedCommand = "enter search mode";
                 inSearchMode = true;
+                guiInstance.getAndrasCommanderInstance().setMode(Constants.SEARCH_MODE);
                 break;
             case ":q<ENTER>":
             case "quit":
@@ -160,7 +164,7 @@ public class KeyBindingParser {
         return this;
     }
 
-    public String getSearchTerm() {
-        return searchTerm.toString();
-    }
+//    public String getSearchTerm() {
+//        return searchTerm.toString();
+//    }
 }

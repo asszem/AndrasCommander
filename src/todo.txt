@@ -1,9 +1,62 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
 Now
+TODO - Andras Commander to handle mode - entire app should be either in Normal, Insert, Search, Command, etc mode
+TODO - Search Mode Subtasks
+    - Handle entering search term insert mode
+        - Handle removing previous search results
+            - In marked FileItems
+            - In displayed items
+        - Start listening to keypresses as search term
+        - Highlighting matched characters as they are typed (PRO)
+            - KeyBindingparser should send every keypress to CommandImplementation in search mode
+            - CommandImplementation should display every matched key by redrawing JList
+    - Handle exiting from search term insert mode
+            - Handle ESC to quit without execution
+            - Handle
+            - Handle empty search
+    - Executing search
+        - Get the final search term from KeyBindingParser
+        - Remove previous matching items
+        - Select and mark matching items in FolderContent fileItems list
+    - Highlighting search matches
+    - Jump to next/prev search result
+        - Calculate only when necessary - find in the process flow when the calulation should take place
+        - Store the indexes of the search matches of the current JList state
+        - Create a pointer that shows the current highlighted search match
+        - Move the pointer to the next/prev match
+        - Get the index of the next result
+        - Be able to handle JList changes (reordering, manual cursor movements)
+    - Handle leaving search mode / Handle entering search mode again
+        - Remove previous results form FileItems
+        - Remove search display in JPanel
+    - Documentation
+        - Write process summare - which class knows what, which class does what
+        - Update UML when final version is reached
+
+
+     AndrasCommander
+        - Knows the mode (Normal, insert, etc)
+     FilePanel
+        - Generates the JList
+        - Knows the current hightlighted index of JList
+        - Jlist order could be changed by reordering, renaming, refreshing
+        - Should know the search term
+     CommandImplementation
+        - Executes the search when search term is received from KeyBindingparser
+            - Calls FolderContent to do the actual search
+            - Calls FilePanel to regenerate JList, highlighting results
+     FolderContent
+        - Knows the files in the folder
+        - Knows the search matched files
+     KeyBindingParser
+        - Knows the search term -> should send to FilePanel
+        - Listens to start, end, quit and next/prev search commands
+
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well
 
 Fix
+TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
     - When gb is pressed, it should go back in history, but the

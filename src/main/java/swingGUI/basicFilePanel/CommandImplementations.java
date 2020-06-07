@@ -28,6 +28,7 @@ public class CommandImplementations implements CommandsInterface {
     // this is being called from the KeyBindingParser with the actual command sent as a String
     public void handleCommand(String command) {
         guiInstance.getKeyInfoPanel().displayCommand(command);
+        guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed keys");
         switch (command) {
             case "down":
                 moveCursor("down");

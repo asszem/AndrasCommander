@@ -95,8 +95,8 @@ public class FilePanel {
             if (displaySearchResultMatches) {
                 if (fileItem.getSearchMatched()) {
                     displayedItem = "-->" + displayedItem;
-                    System.out.println("Adding matched item ")                matchedCommand="next search result";;
-                    if (searchMathcedItemIndexes==null){
+                    System.out.println("Adding matched item ");
+                    if (searchMathcedItemIndexes == null) {
                         searchMathcedItemIndexes = new ArrayList<>();
                     }
                 }

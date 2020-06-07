@@ -45,8 +45,8 @@ public class KeyInfoPanel {
 
         //Pressed Keys List Panel
         pressedKeysListPanel = new JPanel();
-        setPressedKeysListTitle("Pressed Keys List");
-        pressedKeysListPanel.setPreferredSize(new Dimension(200, 50));
+        setPressedKeysListTitle("Pressed Keys List" );
+        pressedKeysListPanel.setPreferredSize(new Dimension(400, 50));
 
         pressedKeysListLabel = new JLabel("<empty>");
         pressedKeysListPanel.add(pressedKeysListLabel);
@@ -123,7 +123,7 @@ public class KeyInfoPanel {
     }
 
     public void setPressedKeysListTitle(String title){
-        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title));
+        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title+ " - " + guiInstance.getAndrasCommanderInstance().getMode()));
     }
 
 }

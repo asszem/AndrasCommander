@@ -2,22 +2,20 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 TODO - Search Mode Subtasks
-    - Handle entering search term insert mode
-        - Handle removing previous search results
-            - In marked FileItems
-            - In displayed items
-        - Start listening to keypresses as search term
-        - Highlighting matched characters as they are typed (PRO)
-            - KeyBindingparser should send every keypress to CommandImplementation in search mode
-            - CommandImplementation should display every matched key by redrawing JList
-    - Handle exiting from search term insert mode
-            - Handle ESC to quit without execution
-            - Handle
-            - Handle empty search
+    DONE- Handle entering search mode
+        DONE- Handle removing previous search results
+            DONE- In marked FileItems
+            DONE- In displayed items
+    - Handle while in search mode
+        DONE- Start listening to keypresses as search term
+        DONE- Highlighting matched characters as they are typed (PRO)
+            DONE- KeyBindingparser should send every keypress to CommandImplementation in search mode
+            DONE- CommandImplementation should display every matched key by redrawing JList
+            - Handle backspace while in search mode
     - Executing search
-        - Get the final search term from KeyBindingParser
-        - Remove previous matching items
-        - Select and mark matching items in FolderContent fileItems list
+        DONE - Remove previous matching items
+        DONE - Select and mark matching items in FolderContent fileItems list
+        - Jump to the first search result
     - Highlighting search matches
     - Jump to next/prev search result
         - Calculate only when necessary - find in the process flow when the calulation should take place
@@ -26,14 +24,16 @@ TODO - Search Mode Subtasks
         - Move the pointer to the next/prev match
         - Get the index of the next result
         - Be able to handle JList changes (reordering, manual cursor movements)
-    - Handle leaving search mode / Handle entering search mode again
-        - Remove previous results form FileItems
-        - Remove search display in JPanel
+    DONE- Handle exiting from search mode
+        DONE- Handle ESC to quit without execution
+        DONE- Remove previous results form FileItems
+        DONE- Remove search display in JPanel
+        DONE- Handle empty search
     - Documentation
-        - Write process summare - which class knows what, which class does what
+        - Write process summary - which class knows what, which class does what
         - Update UML when final version is reached
 
-
+    - Which Class Knows What
      AndrasCommander
         - Knows the mode (Normal, insert, etc)
      FilePanel
@@ -47,6 +47,7 @@ TODO - Search Mode Subtasks
             - Calls FolderContent to do the actual search
             - Calls FilePanel to regenerate JList, highlighting results
         - Knows the search term (if multiple FilePanels exist, then each might have a different search term)
+            - Sends the search term to FolderContent when calling the execute search
      FolderContent
         - Knows the files in the folder
         - Knows which files matched the searchTerm (only after search is executed)
@@ -54,7 +55,10 @@ TODO - Search Mode Subtasks
         - Knows the list of last pressed keys before converting them to commands
         - Converts the keys to commands if a match was found
         - Listens to start, end, quit and next/prev search commands
+        - Sets the mode to Search, Normal, Insert, etc
 
+TODO - Highlight bacground of matched characters only
+TODO - Handle back button while in search mode to erase previous result
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well
 
 Fix
@@ -99,4 +103,4 @@ TODO - Improve File Open method in KeyBindingParser
 UI
 TODO - Implement GUI using JavaFX
 
-
+DONE

@@ -33,7 +33,7 @@ This is a learning project, nothing serious :)
 - [ ] Implement a basic search invoked with space key
     - [x] toggle search mode with space key
     - [x] search term completed with enter key 
-    - [ ] first matching item selected
+    - [x] first matching item selected
     - [ ] VIM like: "n"/"N" keys selects next / prev matching item
     - [x] highlight other matching items (after Enter)
     - [ ] VIM like: :noh (no highlight) to clear search results
@@ -58,11 +58,11 @@ At this point it should be an actually usable product.
  - [ ] VIM like: jump to line with #linenumber"g"
  - [ ] File thumbnails
 
-### Version 1.02 - Improved search
-- [ ] Implement different search modes (starts with, contains, equals, wildcards, search by Date, size, etc)
-- [ ] Display search mode in FilePanel 
-- [ ] Toggle search mode with Ctrl-S while in Search mode
-- [ ] Trigger serach mode with a VIM like binding (/ or ?)
+### Version 1.02 - Improved search types
+- [ ] Implement different search types  (starts with, contains, equals, wildcards, search by Date, size, etc)
+- [ ] Display search type in FilePanel 
+- [ ] Toggle search type with Ctrl-S while in Search mode
+- [ ] Trigger search mode in s specific search type with a VIM like binding (/ or ?)
 
 ### Version 1.1 - Improved display - Basic Multiple Panes
 - [ ] Get default panel position, width and height from config file
@@ -96,7 +96,7 @@ At this point it should be an actually usable product.
  - [ ] Display scrollable content of highlighted file
  
 ### Version 2.x - QoL improvements
-- [ ] Matched file names are highlighted during typing of search term
+- [x] Matched file names are highlighted during typing of search term
 - [ ] VIM like: "gf" - going forward (and not goto file!) in history
 - [ ] Remap Home, End, PageUp, PageDown
 - [ ] Toggle keybindings list

@@ -20,6 +20,8 @@ public class FilePanel {
     private CommandImplementations commandImplementations;
     private boolean displaySearchResultMatches;
     private ArrayList<Integer> searchMathcedItemIndexes;
+    private int searchMatchedItemIndexesPointer; // points to the current searchMathcedItemIndex. Used when navigating with n/N
+    private String searchType;
 
     //GUI Fields
     private GUI guiInstance;
@@ -32,8 +34,7 @@ public class FilePanel {
         this.guiInstance = guiInstance;
     }
 
-    public JPanel initPanel(String panelTitle) {
-//        logger.debug("--> Inside initPanel");
+    public JPanel initFilePanel(String panelTitle) {
         PropertyReader propertyReader = guiInstance.getAndrasCommanderInstance().getPropertyReader();
         String startfolder;
         startfolder = propertyReader.readProperty("STARTFOLDER");
@@ -43,15 +44,16 @@ public class FilePanel {
 
         folderContent = new FolderContent(startfolder);
         fileListPanel = new JPanel();
+        searchMathcedItemIndexes = new ArrayList<>();
+        commandImplementations = new CommandImplementations(guiInstance);
+        searchType = Constants.SEARCH_MODE_STARTSWITH;
 
         drawFilePanel(0);
 
-        commandImplementations = new CommandImplementations(guiInstance);
         return fileListPanel;
     }
 
     public void drawFilePanel(int highlightedIndex) {
-        System.out.println("drawfilepanel clalled");
         // Remove previous content from the panel
         fileListPanel.removeAll();
 
@@ -77,49 +79,63 @@ public class FilePanel {
 
         // To make sure focus is on this item when it was redrawn
         fileListDisplayedItems.grabFocus();
+        fileListDisplayedItems.ensureIndexIsVisible(fileListDisplayedItems.getSelectedIndex());
     }
+
+    private int indexOfJlist; //to be able to determine the jlist indexOfJlist
 
     private JList populateJList() {
         ArrayList<String> jListItemListStrings = new ArrayList<>();
         String toDisableJListJumpToTypedCharInStringLists = "\u0000";
+        searchMathcedItemIndexes.clear(); // remove every search indexes from previous draws
 
         // First add the parent folder dots to the list
         jListItemListStrings.add("..");
 
-        // Create the String list
+        // Create the String list that will be displayed
+        indexOfJlist = 1; // This should start from 1 because at 0 indexOfJlist, the parent folder is
         folderContent.sortFileItemsByName().forEach(fileItem -> {
             String displayedItem;
+
+            // Add [ and ] brackets to folders
             if (fileItem.getFile().isDirectory()) {
-                // The first item in the list is always the parent folder if exists, or itself, if no parent
                 displayedItem = toDisableJListJumpToTypedCharInStringLists + "[" + fileItem.getFile().getName() + "]";
             } else {
                 displayedItem = toDisableJListJumpToTypedCharInStringLists + fileItem.getFile().getName();
             }
 
-            if (guiInstance.getAndrasCommanderInstance().getMode().equals(Constants.SEARCH_MODE)){
-                String currentSearchTerm = getCommandImplementations().getSearchTerm();
-                System.out.println("current serach term " + currentSearchTerm);
-                if (displayedItem.contains(currentSearchTerm)){
-                    displayedItem="| " + displayedItem;
+            // Record the indexOfJlist if the displayed file is matched against a search term (regardless whether in search mode or not)
+            // TODO implement search match not only by filename, but any parameter of file
+            if (searchType.equals(Constants.SEARCH_MODE_STARTSWITH)) {
+                if (fileItem.getFile().getName().startsWith(getCommandImplementations().getSearchTerm())) {
+                    searchMathcedItemIndexes.add(indexOfJlist);
+                }
+            } else if (searchType.equals(Constants.SEARCH_MODE_CONTAINS)) {
+                if (fileItem.getFile().getName().contains(getCommandImplementations().getSearchTerm())) {
+                    searchMathcedItemIndexes.add(indexOfJlist);
                 }
             }
+
             // Handle search result highlighting
             if (displaySearchResultMatches) {
-                // This is to display files selected for search
 
-
-                // This is to display files that are marked as search matc
-                if (fileItem.getSearchMatched()) {
-                    displayedItem = "-->" + displayedItem;
-                    System.out.println("Adding matched item ");
-                    if (searchMathcedItemIndexes == null) {
-                        searchMathcedItemIndexes = new ArrayList<>();
+                // Display only if a file matches the current search term, but the search is not yet executed
+                if (guiInstance.getAndrasCommanderInstance().getMode().equals(Constants.SEARCH_MODE)) {
+                    String currentSearchTerm = getCommandImplementations().getSearchTerm();
+                    if (displayedItem.contains(currentSearchTerm)) {
+                        displayedItem = "| " + displayedItem;
                     }
+                }
+
+                // Display when the search executed is pressed
+                if (fileItem.isSearchMatched()) {
+                    displayedItem = "-->" + displayedItem;
                 }
             }
 
             fileItem.setDisplayedTitle(displayedItem);
             jListItemListStrings.add(displayedItem);
+            indexOfJlist++;
         });
 
         JList result = new JList(jListItemListStrings.toArray());
@@ -169,7 +185,6 @@ public class FilePanel {
     }
 
     public ArrayList<Integer> getSearchMathcedItemIndexes() {
-        System.out.println("inside getSearchMatchedItemIndexes");
         return this.searchMathcedItemIndexes;
     }
 

@@ -50,34 +50,19 @@ public class FolderContent {
 
     // Directories first
     public ArrayList<FileItem> sortFileItemsByName() {
-//        System.out.println("Unsorted fileItems content:");
-//        fileItems.forEach(fileItem -> System.out.print(fileItem.getFile().getName()+" |  "));
-//        System.out.println("");
 
         List<FileItem> sortedFileItemList = fileItems;
-//        System.out.println("\n sorted by name order");
         sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-//        sortedFileItemList.forEach(fileItem -> System.out.println(fileItem.getFile().getName()));
 
-//        System.out.println("\n get directories only");
         List<FileItem> foldersOnly = sortedFileItemList.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
         foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-//        logger.debug("sortFileItemsByName called, folders only list result = ");
-//        foldersOnly.forEach(fileItem -> System.out.println("\t\t"+fileItem.getFile().getName()));
 
-//        System.out.println("\n get files only");
         List<FileItem> filesOnly = sortedFileItemList.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
         filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-//        filesOnly.forEach(fileItem -> System.out.println(fileItem.getFile().getName()));
 
-//        System.out.println("\n Sorted Files and Folder, folders first");
         List<FileItem> sortedFilesAndFolders = new ArrayList<>();
         sortedFilesAndFolders.addAll(foldersOnly);
         sortedFilesAndFolders.addAll(filesOnly);
-//        logger.debug("sortFileItemsByName called, sorted folders and files: ");
-//        System.out.println("Sorted fileItems content:");
-//        sortedFilesAndFolders.forEach(fileItem -> System.out.print(fileItem.getFile().getName() + "  |  "));
-//        System.out.println("");
 
         return (ArrayList<FileItem>) sortedFilesAndFolders;
     }
@@ -87,13 +72,9 @@ public class FolderContent {
         return this.searchResults;
     }
 
-    public FolderContent clearPreviousSearch() {
+    public FolderContent setEveryFileItemSearchMatchedToFalse() {
         if (searchResults != null) {
-//            long searchMathched = fileItems.stream().filter(fileItem -> fileItem.getSearchMatched()).count();
-//            System.out.println("Validation: getSearchMatched before clearing = " + searchMathched);
             searchResults.forEach(fileItem -> fileItem.setSearchMatched(false));
-//            searchMathched = fileItems.stream().filter(fileItem -> fileItem.getSearchMatched()).count();
-//            System.out.println("Validation: zero should have setSearchMatched. Actual = " + searchMathched);
         }
         return this;
     }

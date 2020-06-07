@@ -2,7 +2,6 @@ package swingGUI.basicFilePanel;
 
 import control.Constants;
 import data.CommandsInterface;
-import data.FileItem;
 import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,6 +33,7 @@ public class CommandImplementations implements CommandsInterface {
 
        if (guiInstance.getAndrasCommanderInstance().getMode().equals(Constants.SEARCH_MODE) ) {
            searchTerm=command;
+           // This is for redrawing the panel and highlight the new search results
            guiInstance.getFilePanel().drawFilePanel(guiInstance.getFilePanel().getHighlightedFileIndex());
        }
 
@@ -202,50 +202,49 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void enterSearchMode() {
-        searchTerm = "";
+        searchTerm = ""; // To remove any previous search terms
+        guiInstance.getFilePanel().setDisplaySearchResultMatches(true);
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<type search term>");
     }
 
     public void executeSearch() {
-        // the search term should be the matched command
 
         // Reset previous search results, update every FileItem object that was matched true
 //        guiInstance.getFilePanel().resetSearchMathcedItemIndexes();
-        guiInstance.getFilePanel().getFolderContent().clearPreviousSearch();
+        guiInstance.getFilePanel().getFolderContent().setEveryFileItemSearchMatchedToFalse();
 
         //Execute search - search term must be set before this is called
         guiInstance.getFilePanel().getFolderContent().executeSearch(searchTerm.toString());
 
+        // Handle if there was no result
+        boolean noFileItemsMatched =guiInstance.getFilePanel().getFolderContent().getSearchResults().size()==0;
+        boolean noJlistItemHighlighted = guiInstance.getFilePanel().getSearchMathcedItemIndexes().size()==0;
+        if (noFileItemsMatched || noJlistItemHighlighted){
+            logger.debug("No search result was found, returning from executeSearch()");
+            return;
+        }
+
         // Turn on search result display mode in FilePanel
         guiInstance.getFilePanel().setDisplaySearchResultMatches(true);
 
-        // Get the first match if there was and select it
-        // The execute search method should not know about whether it was successfull
-        // But this is the implementation, so yes
-        // There should be another methods selecting next and previous results
-        int currentHighlightedIndex = guiInstance.getFilePanel().getHighlightedFileIndex();
-
+        int currentHighlightedIndex = guiInstance.getFilePanel().getSearchMathcedItemIndexes().get(0);
         guiInstance.getFilePanel().drawFilePanel(currentHighlightedIndex); // Set the current highlighted index
-        guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(currentHighlightedIndex);
-        guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
+//        guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(currentHighlightedIndex);
+//        guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
 
-        // Set KeyInfoPanel content
+
+        // Update KeyInfoPanel content
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys list");
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<empty>");
         guiInstance.getKeyInfoPanel().displayCommand("Search executed for term " + searchTerm);
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
-//    public void setSearchTerm(String searchTerm) {
-//        this.searchTerm = searchTerm;
-//    }
-
     public void setNextSearchResultHighlighted() {
+        int currentHighlightedIndex = guiInstance.getFilePanel().getSearchMathcedItemIndexes().get(0);
+        guiInstance.getFilePanel().drawFilePanel(currentHighlightedIndex); // Set the current highlighted index
         logger.debug("setNextSearchResultHighlighted called");
-        // get the current jlist in filepanel
-        // get the current selected search result in jlist
-        // set the next one
     }
 
     public void setPrevSearchResultHighlighted() {

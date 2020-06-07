@@ -63,7 +63,6 @@ public class KeyBindingParser {
 //                logger.debug("ESC key press passed");
                 specialKeyCheckResult = "ESC";
                 pressedKeysList.clear();
-//                searchTerm = null;
                 inSearchMode = false;
                 guiInstance.getAndrasCommanderInstance().setMode(Constants.NORMAL_MODE);
                 break;
@@ -78,12 +77,6 @@ public class KeyBindingParser {
                 }
                 // When ENTER was pressed while user was in Search Mode - do the search
                 if (inSearchMode) {
-//                    if (searchTerm != null) {
-//                        specialKeyCheckResult = "execute search";
-//                    } else {
-//                        specialKeyCheckResult = "no search term was entered";
-//                    }
-//                    searchTerm = null;
                     specialKeyCheckResult = "execute search";
                     inSearchMode = false;
                     pressedKeysList.clear();
@@ -91,7 +84,6 @@ public class KeyBindingParser {
                 }
                 break;
         }
-//        guiInstance.getFilePanel().getCommandImplementations().displayCommand(specialKeyCheckResult);
         return specialKeyCheckResult; //if this is reached, return instruction was not changed
     }
 

@@ -40,7 +40,7 @@ public class FileItem {
         return this;
     }
 
-    public boolean getSearchMatched() {
+    public boolean isSearchMatched() {
         return isSearchMatched;
     }
 

@@ -6,4 +6,7 @@ public class Constants {
     public static final String SEARCH_MODE = "Search";
     public static final String COMMAND_MODE = "Command";
 
+    public static final String SEARCH_MODE_STARTSWITH = "Starts with";
+    public static final String SEARCH_MODE_CONTAINS = "Contains";
+
 }

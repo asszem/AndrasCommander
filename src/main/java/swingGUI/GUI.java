@@ -47,7 +47,7 @@ public class GUI extends JFrame {
         keyInfoPanel = new KeyInfoPanel(this);
 
         // call the init method when adding UI elements to the contentPane
-        frame.getContentPane().add(BorderLayout.NORTH, filePanel.initPanel("File Panel"));
+        frame.getContentPane().add(BorderLayout.NORTH, filePanel.initFilePanel("File Panel"));
         frame.getContentPane().add(BorderLayout.SOUTH, keyInfoPanel.initPanel("Key Info Panel"));
 //        filePanel.getFileListPanel().addKeyListener(keyListener);
 //        frame.addKeyListener(keyListener);

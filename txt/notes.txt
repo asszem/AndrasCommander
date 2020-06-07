@@ -1,0 +1,24 @@
+Terms
+	Highlighted list item = the file/folder highlighted in the JList
+	Highlighted file = the FileItem set as Highlighted in FolderContent
+
+
+Which Class Knows What in Search Mode
+     AndrasCommander
+        - Knows the Mode (Normal, insert, etc)
+     FilePanel
+		- Knows the highlighted display title index
+        - Knows the JList of displayed items
+     CommandImplementation
+        - Knows the search term (if multiple FilePanels exist, then each might have a different search term)
+     FolderContent
+        - Knows the files in the folder (as ArrayList<FileItem>)
+        - Knows the highlighted file (as FileItem)
+        - Sets the highlighted file if it contains the Displayed Title from FilePanel
+        - Knows which files matched the searchTerm
+			- by setting FileItem.isSearchMatched true 
+     KeyBindingParser
+        - Knows the list of last pressed keys before converting them to commands
+        - Converts the keys to commands if a match was found
+        - Listens to start, end, quit and next/prev search commands
+        - Sets the Mode to Search, Normal, Insert, etc

@@ -97,6 +97,9 @@ public class KeyBindingParser {
                 logger.debug(": matched");
                 guiInstance.getAndrasCommanderInstance().setMode(Constants.COMMAND_MODE);
                 break;
+            case ":noh":
+                matchedCommand = "set no highlight search results";
+                break;
             case "j":
                 matchedCommand = "down";
                 break;
@@ -116,10 +119,10 @@ public class KeyBindingParser {
                 matchedCommand = "go back";
                 break;
             case "n":
-                matchedCommand="next search result";
+                matchedCommand = "next search result";
                 break;
             case "N":
-                matchedCommand="prev search result";
+                matchedCommand = "prev search result";
                 break;
             case ":e<ENTER>":
                 matchedCommand = "refresh panel";

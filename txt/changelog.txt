@@ -1,4 +1,9 @@
 Version 0.3
+    - Implement Mode dispay (Normal, Insert, Search, Command) in KeyInfoPanel
+    - Implement Search Mode triggered with space, exited with ESC or ENTER
+    - Implement highlighting search mathces as search term is typed
+    - Implement jumping to prev/next matching items with n/N keys
+	- Implement turning search highlighting on/off with :noh
 
 Version 0.2 - Basic Folder Navigation - 2020-05-27
     - Display folders first, then files

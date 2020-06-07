@@ -23,7 +23,7 @@ public class CommandImplementations implements CommandsInterface {
         this.guiInstance = guiInstance;
         this.filePanel = guiInstance.getFilePanel();
         this.folderContent = guiInstance.getFilePanel().getFolderContent();
-        this.searchTerm="";
+        this.searchTerm = "";
     }
 
     // this is being called from the KeyBindingParser with the actual command sent as a String
@@ -31,11 +31,11 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getKeyInfoPanel().displayCommand(command);
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed keys");
 
-       if (guiInstance.getAndrasCommanderInstance().getMode().equals(Constants.SEARCH_MODE) ) {
-           searchTerm=command;
-           // This is for redrawing the panel and highlight the new search results
-           guiInstance.getFilePanel().drawFilePanel(guiInstance.getFilePanel().getHighlightedFileIndex());
-       }
+        if (guiInstance.getAndrasCommanderInstance().getMode().equals(Constants.SEARCH_MODE)) {
+            searchTerm = command;
+            // This is for redrawing the panel and highlight the new search results
+            guiInstance.getFilePanel().drawFilePanel(guiInstance.getFilePanel().getHighlightedListItemIndex());
+        }
 
         switch (command) {
             case "down":
@@ -66,10 +66,13 @@ public class CommandImplementations implements CommandsInterface {
                 executeSearch();
                 break;
             case "next search result":
-                setNextSearchResultHighlighted();
+                setNextSearchResultHighlighted("next");
                 break;
             case "prev search result":
-                setPrevSearchResultHighlighted();
+                setNextSearchResultHighlighted("prev");
+                break;
+            case "set no highlight search results":
+                setNoHighlightSearchResults();
                 break;
             case "ESC":
                 guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
@@ -218,9 +221,9 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getFilePanel().getFolderContent().executeSearch(searchTerm.toString());
 
         // Handle if there was no result
-        boolean noFileItemsMatched =guiInstance.getFilePanel().getFolderContent().getSearchResults().size()==0;
-        boolean noJlistItemHighlighted = guiInstance.getFilePanel().getSearchMathcedItemIndexes().size()==0;
-        if (noFileItemsMatched || noJlistItemHighlighted){
+        boolean noFileItemsMatched = guiInstance.getFilePanel().getFolderContent().getSearchResults().size() == 0;
+        boolean noJlistItemHighlighted = guiInstance.getFilePanel().getSearchMathcedItemIndexes().size() == 0;
+        if (noFileItemsMatched || noJlistItemHighlighted) {
             logger.debug("No search result was found, returning from executeSearch()");
             return;
         }
@@ -229,10 +232,8 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getFilePanel().setDisplaySearchResultMatches(true);
 
         int currentHighlightedIndex = guiInstance.getFilePanel().getSearchMathcedItemIndexes().get(0);
+        guiInstance.getFilePanel().setSearchMatchedItemIndexesPointer(0);
         guiInstance.getFilePanel().drawFilePanel(currentHighlightedIndex); // Set the current highlighted index
-//        guiInstance.getFilePanel().getFileListDisplayedItems().ensureIndexIsVisible(currentHighlightedIndex);
-//        guiInstance.getFilePanel().getFileListDisplayedItems().grabFocus();
-
 
         // Update KeyInfoPanel content
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys list");
@@ -241,17 +242,44 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
-    public void setNextSearchResultHighlighted() {
-        int currentHighlightedIndex = guiInstance.getFilePanel().getSearchMathcedItemIndexes().get(0);
-        guiInstance.getFilePanel().drawFilePanel(currentHighlightedIndex); // Set the current highlighted index
-        logger.debug("setNextSearchResultHighlighted called");
+    public void setNextSearchResultHighlighted(String direction) {
+        int searchResultSize = guiInstance.getFilePanel().getSearchMathcedItemIndexes().size();
+        int currentPointer = guiInstance.getFilePanel().getSearchMatchedItemIndexesPointer();
+        if (searchResultSize == 0) {
+            guiInstance.getKeyInfoPanel().displayCommand("No result for " + searchTerm);
+            return;
+        }
+
+        if (direction.equals("next")) {
+            if (currentPointer + 1 >= searchResultSize) {
+                guiInstance.getFilePanel().setSearchMatchedItemIndexesPointer(0); // Points to the FIRST index
+            } else {
+                guiInstance.getFilePanel().setSearchMatchedItemIndexesPointer(currentPointer + 1); // Points to the NEXT index
+            }
+        } else {
+            if (currentPointer - 1 < 0) {
+                guiInstance.getFilePanel().setSearchMatchedItemIndexesPointer(searchResultSize - 1); // Points to the LAST index
+            } else {
+                guiInstance.getFilePanel().setSearchMatchedItemIndexesPointer(currentPointer - 1); // Points to the PREV index
+            }
+        }
+
+        int currentHighlightedIndex = guiInstance.getFilePanel().getSearchMathcedItemIndexes().get(guiInstance.getFilePanel().getSearchMatchedItemIndexesPointer());
+        guiInstance.getFilePanel().drawFilePanel(currentHighlightedIndex);
+
+        String displayedTitle = guiInstance.getFilePanel().getFileListDisplayedItems().getModel().getElementAt(currentHighlightedIndex).toString();
+        guiInstance.getFilePanel().getFolderContent().setHighlightedFileByDisplayedTitle(displayedTitle);
+        guiInstance.getKeyInfoPanel().displayCommand(direction + " search result for " + searchTerm);
+        guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
-    public void setPrevSearchResultHighlighted() {
-        logger.debug("setPrevSearchResultHighlighted called");
+    public void setNoHighlightSearchResults(){
+        guiInstance.getKeyInfoPanel().displayCommand("Set search result highlight OFF");
+        guiInstance.getFilePanel().setDisplaySearchResultMatches(false);
+        guiInstance.getFilePanel().drawFilePanel(guiInstance.getFilePanel().getHighlightedListItemIndex());
     }
 
-    public String getSearchTerm(){
+    public String getSearchTerm() {
         return this.searchTerm;
     }
 }

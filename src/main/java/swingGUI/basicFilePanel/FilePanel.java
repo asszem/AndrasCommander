@@ -43,10 +43,12 @@ public class FilePanel {
         }
 
         folderContent = new FolderContent(startfolder);
+        commandImplementations = new CommandImplementations(guiInstance); // must be called AFTER FolderContent instantiazation
         fileListPanel = new JPanel();
+
         searchMathcedItemIndexes = new ArrayList<>();
-        commandImplementations = new CommandImplementations(guiInstance);
         searchType = Constants.SEARCH_MODE_STARTSWITH;
+        searchMatchedItemIndexesPointer=0;
 
         drawFilePanel(0);
 
@@ -79,6 +81,7 @@ public class FilePanel {
 
         // To make sure focus is on this item when it was redrawn
         fileListDisplayedItems.grabFocus();
+//        System.out.println("selected index to be highlighted in populateJList = " + fileListDisplayedItems.getSelectedIndex());
         fileListDisplayedItems.ensureIndexIsVisible(fileListDisplayedItems.getSelectedIndex());
     }
 
@@ -154,15 +157,15 @@ public class FilePanel {
         return fileListDisplayedItems;
     }
 
-    public void setFileListDisplayedItems(JList fileListDisplayedItems) {
-        this.fileListDisplayedItems = fileListDisplayedItems;
-    }
+//    public void setFileListDisplayedItems(JList fileListDisplayedItems) {
+//        this.fileListDisplayedItems = fileListDisplayedItems;
+//    }
 
-    public int getHighlightedFileIndex() {
+    public int getHighlightedListItemIndex() {
         return fileListDisplayedItems.getSelectedIndex();
     }
 
-    public FilePanel setHighlightedFileIndex(int index) {
+    public FilePanel setHighlightedListItemIndex(int index) {
         this.fileListDisplayedItems.setSelectedIndex(index);
         return this;
     }
@@ -192,5 +195,14 @@ public class FilePanel {
         this.searchMathcedItemIndexes.clear();
         return this;
     }
+
+    public int getSearchMatchedItemIndexesPointer() {
+        return searchMatchedItemIndexesPointer;
+    }
+
+    public void setSearchMatchedItemIndexesPointer(int searchMatchedItemIndexesPointer) {
+        this.searchMatchedItemIndexesPointer = searchMatchedItemIndexesPointer;
+    }
 }
+
 

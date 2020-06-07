@@ -30,15 +30,13 @@ This is a learning project, nothing serious :)
 - [x] Start AC from last opened folder
 
 ### Version 0.3 - Basic Search
-- [ ] Implement a basic search invoked with space key
+- [x] Implement a basic search invoked with space key
     - [x] toggle search mode with space key
     - [x] search term completed with enter key 
     - [x] first matching item selected
-    - [ ] VIM like: "n"/"N" keys selects next / prev matching item
-    - [x] highlight other matching items (after Enter)
-    - [ ] VIM like: :noh (no highlight) to clear search results
- - [ ] "insert" mode: disable VIM bindings and enable JList's built in Auto Jump
- - [ ] In insert mode jump automatically to the first matching result
+- [x] VIM like: "n"/"N" keys selects next / prev matching item
+- [x] Highlight other matching items (after Enter)
+- [ ] VIM like: :noh (no highlight) to clear search results
     
 ### Version 0.4 - Basic File Actions - Rename
 - [ ] VIM like: rename highlighted file with "r"

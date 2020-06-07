@@ -2,33 +2,18 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 TODO - Search Mode Subtasks
-    DONE- Handle entering search mode
-        DONE- Handle removing previous search results
-            DONE- In marked FileItems
-            DONE- In displayed items
-    - Handle while in search mode
-        DONE- Start listening to keypresses as search term
-        DONE- Highlighting matched characters as they are typed (PRO)
-            DONE- KeyBindingparser should send every keypress to CommandImplementation in search mode
-            DONE- CommandImplementation should display every matched key by redrawing JList
             - Handle backspace while in search mode
-    - Executing search
-        DONE - Remove previous matching items
-        DONE - Select and mark matching items in FolderContent fileItems list
-        - Jump to the first search result
-    - Highlighting search matches
     - Jump to next/prev search result
         - Calculate only when necessary - find in the process flow when the calulation should take place
-        - Store the indexes of the search matches of the current JList state
         - Create a pointer that shows the current highlighted search match
         - Move the pointer to the next/prev match
         - Get the index of the next result
         - Be able to handle JList changes (reordering, manual cursor movements)
-    DONE- Handle exiting from search mode
-        DONE- Handle ESC to quit without execution
-        DONE- Remove previous results form FileItems
-        DONE- Remove search display in JPanel
-        DONE- Handle empty search
+    - Handle exiting from search mode
+        - Handle ESC to quit without execution
+        - Remove previous results form FileItems
+        - Remove search display in JPanel
+        - Handle empty search
     - Documentation
         - Write process summary - which class knows what, which class does what
         - Update UML when final version is reached
@@ -50,7 +35,9 @@ TODO - Search Mode Subtasks
             - Sends the search term to FolderContent when calling the execute search
      FolderContent
         - Knows the files in the folder
+        - Knows the highlighted file
         - Knows which files matched the searchTerm (only after search is executed)
+        - Can set the Highlighted file if it contains the Displayed Title from FilePanel
      KeyBindingParser
         - Knows the list of last pressed keys before converting them to commands
         - Converts the keys to commands if a match was found
@@ -62,7 +49,6 @@ TODO - Handle back button while in search mode to erase previous result
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well
 
 Fix
-TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
     - When gb is pressed, it should go back in history, but the
@@ -75,6 +61,7 @@ TODO - Fix going back ping-ponging between last two directory
     - Also a gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 
 Tasks
+TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)
 TODO - refactor naming and methods to make more clear when is the UI redrawn
 TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible

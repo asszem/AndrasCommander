@@ -105,7 +105,9 @@ public class FolderContent {
             highlightedFileItem.setFile(parentFolder);
             return this;
         } else {
-            highlightedFileItem.setFile(fileItems.stream().filter(fileItem -> fileItem.getDisplayedTitle().equals(displayedTitle)).findFirst().get().getFile());
+            //alma.txt |alma.txt -->alma.txt OK
+            //alma 2.txt NOT OK
+            highlightedFileItem.setFile(fileItems.stream().filter(fileItem -> fileItem.getDisplayedTitle().contains(displayedTitle)).findFirst().get().getFile());
         }
         // Setting new item to highlighted
         return this;

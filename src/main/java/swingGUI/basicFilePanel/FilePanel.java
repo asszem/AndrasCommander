@@ -1,6 +1,7 @@
 package swingGUI.basicFilePanel;
 
 import control.Constants;
+import data.FileItem;
 import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +29,7 @@ public class FilePanel {
     private JPanel fileListPanel;
     private JScrollPane fileListScrollPane;
     private JList fileListDisplayedItems;
+    private FileListCellRenderer fileListCellRenderer;
 
     //Constructor
     public FilePanel(GUI guiInstance) {
@@ -45,6 +47,7 @@ public class FilePanel {
         folderContent = new FolderContent(startfolder);
         commandImplementations = new CommandImplementations(guiInstance); // must be called AFTER FolderContent instantiazation
         fileListPanel = new JPanel();
+        fileListCellRenderer = new FileListCellRenderer();
 
         searchMathcedItemIndexes = new ArrayList<>();
         searchType = Constants.SEARCH_MODE_STARTSWITH;
@@ -61,7 +64,9 @@ public class FilePanel {
 
         // Create a and populate new Jlist object
         fileListDisplayedItems = new JList();
-        fileListDisplayedItems = populateJList();
+//        fileListDisplayedItems = populateJList();
+        fileListDisplayedItems = populateJlistWithFileItems();
+        fileListDisplayedItems.setCellRenderer(fileListCellRenderer);
         fileListDisplayedItems.addKeyListener(guiInstance.getKeyListener());
         fileListDisplayedItems.addListSelectionListener(guiInstance.getKeyListener()); // to handle cursor and HOME and END keys as well
         fileListDisplayedItems.setSelectedIndex(highlightedIndex);
@@ -145,6 +150,17 @@ public class FilePanel {
         return result;
     }
 
+    private JList<FileItem> populateJlistWithFileItems(){
+        final DefaultListModel<FileItem> fileItemModel = new DefaultListModel<>();
+
+        guiInstance.getFilePanel().getFolderContent().sortFileItemsByName().forEach(fileItem -> {
+            fileItemModel.addElement(fileItem);
+        });
+
+        JList<FileItem> result = new JList<>(fileItemModel);
+        return result;
+    }
+
     //Getters and setters
     public JPanel getFileListPanel() {
         return fileListPanel;
@@ -204,5 +220,3 @@ public class FilePanel {
         this.searchMatchedItemIndexesPointer = searchMatchedItemIndexesPointer;
     }
 }
-
-

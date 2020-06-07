@@ -1,5 +1,6 @@
 package swingGUI.basicFilePanel;
 
+import control.Constants;
 import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,6 +51,7 @@ public class FilePanel {
     }
 
     public void drawFilePanel(int highlightedIndex) {
+        System.out.println("drawfilepanel clalled");
         // Remove previous content from the panel
         fileListPanel.removeAll();
 
@@ -67,11 +69,14 @@ public class FilePanel {
         // Create SCROLLPANE for JLIST
         fileListScrollPane = new JScrollPane(fileListDisplayedItems, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         fileListScrollPane.setBorder(BorderFactory.createTitledBorder(folderContent.getFolderPath()));
-        Dimension scrollPaneSize = new Dimension(700, 100);
+        Dimension scrollPaneSize = new Dimension(700, 300);
         fileListScrollPane.setPreferredSize(scrollPaneSize);
 
         // Add SCROLLPANE to PANEL
         fileListPanel.add(fileListScrollPane);
+
+        // To make sure focus is on this item when it was redrawn
+        fileListDisplayedItems.grabFocus();
     }
 
     private JList populateJList() {
@@ -91,8 +96,19 @@ public class FilePanel {
                 displayedItem = toDisableJListJumpToTypedCharInStringLists + fileItem.getFile().getName();
             }
 
+            if (guiInstance.getAndrasCommanderInstance().getMode().equals(Constants.SEARCH_MODE)){
+                String currentSearchTerm = getCommandImplementations().getSearchTerm();
+                System.out.println("current serach term " + currentSearchTerm);
+                if (displayedItem.contains(currentSearchTerm)){
+                    displayedItem="| " + displayedItem;
+                }
+            }
             // Handle search result highlighting
             if (displaySearchResultMatches) {
+                // This is to display files selected for search
+
+
+                // This is to display files that are marked as search matc
                 if (fileItem.getSearchMatched()) {
                     displayedItem = "-->" + displayedItem;
                     System.out.println("Adding matched item ");

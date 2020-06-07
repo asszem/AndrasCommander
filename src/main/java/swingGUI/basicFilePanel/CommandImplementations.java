@@ -1,5 +1,6 @@
 package swingGUI.basicFilePanel;
 
+import control.Constants;
 import data.CommandsInterface;
 import data.FileItem;
 import data.FolderContent;
@@ -23,12 +24,19 @@ public class CommandImplementations implements CommandsInterface {
         this.guiInstance = guiInstance;
         this.filePanel = guiInstance.getFilePanel();
         this.folderContent = guiInstance.getFilePanel().getFolderContent();
+        this.searchTerm="";
     }
 
     // this is being called from the KeyBindingParser with the actual command sent as a String
     public void handleCommand(String command) {
         guiInstance.getKeyInfoPanel().displayCommand(command);
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed keys");
+
+       if (guiInstance.getAndrasCommanderInstance().getMode().equals(Constants.SEARCH_MODE) ) {
+           searchTerm=command;
+           guiInstance.getFilePanel().drawFilePanel(guiInstance.getFilePanel().getHighlightedFileIndex());
+       }
+
         switch (command) {
             case "down":
                 moveCursor("down");
@@ -194,17 +202,20 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void enterSearchMode() {
+        searchTerm = "";
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<type search term>");
     }
 
     public void executeSearch() {
+        // the search term should be the matched command
+
         // Reset previous search results, update every FileItem object that was matched true
-        guiInstance.getFilePanel().resetSearchMathcedItemIndexes();
+//        guiInstance.getFilePanel().resetSearchMathcedItemIndexes();
         guiInstance.getFilePanel().getFolderContent().clearPreviousSearch();
 
         //Execute search - search term must be set before this is called
-        guiInstance.getFilePanel().getFolderContent().executeSearch(searchTerm);
+        guiInstance.getFilePanel().getFolderContent().executeSearch(searchTerm.toString());
 
         // Turn on search result display mode in FilePanel
         guiInstance.getFilePanel().setDisplaySearchResultMatches(true);
@@ -226,9 +237,9 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
-    public void setSearchTerm(String searchTerm) {
-        this.searchTerm = searchTerm;
-    }
+//    public void setSearchTerm(String searchTerm) {
+//        this.searchTerm = searchTerm;
+//    }
 
     public void setNextSearchResultHighlighted() {
         logger.debug("setNextSearchResultHighlighted called");
@@ -239,5 +250,9 @@ public class CommandImplementations implements CommandsInterface {
 
     public void setPrevSearchResultHighlighted() {
         logger.debug("setPrevSearchResultHighlighted called");
+    }
+
+    public String getSearchTerm(){
+        return this.searchTerm;
     }
 }

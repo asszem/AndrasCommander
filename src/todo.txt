@@ -1,7 +1,6 @@
 This list has elements that are not related to a specific part of the source code and requred for feature completion
 
 Now
-TODO - Andras Commander to handle mode - entire app should be either in Normal, Insert, Search, Command, etc mode
 TODO - Search Mode Subtasks
     - Handle entering search term insert mode
         - Handle removing previous search results
@@ -41,16 +40,19 @@ TODO - Search Mode Subtasks
         - Generates the JList
         - Knows the current hightlighted index of JList
         - Jlist order could be changed by reordering, renaming, refreshing
-        - Should know the search term
+        - Displays the JList
+            - Highlights the matching titles in Search mode, but doesn't execute the search
      CommandImplementation
         - Executes the search when search term is received from KeyBindingparser
             - Calls FolderContent to do the actual search
             - Calls FilePanel to regenerate JList, highlighting results
+        - Knows the search term (if multiple FilePanels exist, then each might have a different search term)
      FolderContent
         - Knows the files in the folder
-        - Knows the search matched files
+        - Knows which files matched the searchTerm (only after search is executed)
      KeyBindingParser
-        - Knows the search term -> should send to FilePanel
+        - Knows the list of last pressed keys before converting them to commands
+        - Converts the keys to commands if a match was found
         - Listens to start, end, quit and next/prev search commands
 
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well

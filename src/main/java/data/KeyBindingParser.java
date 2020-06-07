@@ -18,7 +18,7 @@ public class KeyBindingParser {
     private String lastKeyPressed;
     private boolean wasShiftPressed;
     private boolean inSearchMode; //if true, every keypress should be added to searchTerm string, instead of parsing until Enter or ESC
-    private StringBuilder searchTerm;
+//    private StringBuilder searchTerm;
 
     public KeyBindingParser(GUI guiInstance) {
         this.guiInstance = guiInstance;
@@ -45,18 +45,13 @@ public class KeyBindingParser {
             wasShiftPressed = false;
         }
 
-        // Check if in Search Mode
-        String matchedCommand = null;
+        // Display the list of pressed keys before parsing to command string
         pressedKeysList.add(lastKeyPressed); // so it is displayed in KeyInfoPanel
-        if (inSearchMode) {
-            if (searchTerm == null) {
-                searchTerm = new StringBuilder();
-            }
-            searchTerm.append(lastKeyPressed);
-            matchedCommand = searchTerm.toString();
-        } else {
-            matchedCommand = matchKeyToCommand();
-        }
+        guiInstance.getKeyInfoPanel().displayAllPressedKeys(pressedKeysList);
+
+        // Get the matched command by parsing and send it back to commandImplementation
+        String matchedCommand = null;
+        matchedCommand = matchKeyToCommand();
         guiInstance.getFilePanel().getCommandImplementations().handleCommand(matchedCommand);
     }
 
@@ -68,8 +63,9 @@ public class KeyBindingParser {
 //                logger.debug("ESC key press passed");
                 specialKeyCheckResult = "ESC";
                 pressedKeysList.clear();
-                searchTerm = null;
+//                searchTerm = null;
                 inSearchMode = false;
+                guiInstance.getAndrasCommanderInstance().setMode(Constants.NORMAL_MODE);
                 break;
             case "<SHIFT>":
                 specialKeyCheckResult = "SHIFT pressed ";
@@ -82,13 +78,13 @@ public class KeyBindingParser {
                 }
                 // When ENTER was pressed while user was in Search Mode - do the search
                 if (inSearchMode) {
-                    if (searchTerm != null) {
-                        guiInstance.getFilePanel().getCommandImplementations().setSearchTerm(searchTerm.toString());
-                        specialKeyCheckResult = "execute search";
-                    } else {
-                        specialKeyCheckResult = "no search term was entered";
-                    }
-                    searchTerm = null;
+//                    if (searchTerm != null) {
+//                        specialKeyCheckResult = "execute search";
+//                    } else {
+//                        specialKeyCheckResult = "no search term was entered";
+//                    }
+//                    searchTerm = null;
+                    specialKeyCheckResult = "execute search";
                     inSearchMode = false;
                     pressedKeysList.clear();
                     guiInstance.getAndrasCommanderInstance().setMode(Constants.NORMAL_MODE);
@@ -163,8 +159,4 @@ public class KeyBindingParser {
         lastKeyPressed = key;
         return this;
     }
-
-//    public String getSearchTerm() {
-//        return searchTerm.toString();
-//    }
 }

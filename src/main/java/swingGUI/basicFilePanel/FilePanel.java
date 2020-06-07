@@ -58,6 +58,7 @@ public class FilePanel {
         return fileListPanel;
     }
 
+    private JTable fileListTable;
     public void drawFilePanel(int highlightedIndex) {
         // Remove previous content from the panel
         fileListPanel.removeAll();
@@ -71,6 +72,9 @@ public class FilePanel {
         fileListDisplayedItems.addListSelectionListener(guiInstance.getKeyListener()); // to handle cursor and HOME and END keys as well
         fileListDisplayedItems.setSelectedIndex(highlightedIndex);
         fileListDisplayedItems.setVisibleRowCount(20);
+
+        fileListTable = new JTable();
+
 
         // Remap the cursor keys for fileJlist
         RemapCursorNavigation.remapCursors(fileListDisplayedItems);
@@ -153,6 +157,7 @@ public class FilePanel {
     private JList<FileItem> populateJlistWithFileItems(){
         final DefaultListModel<FileItem> fileItemModel = new DefaultListModel<>();
 
+//        fileItemModel.addElement(folderContent.getParentFolder());
         guiInstance.getFilePanel().getFolderContent().sortFileItemsByName().forEach(fileItem -> {
             fileItemModel.addElement(fileItem);
         });

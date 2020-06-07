@@ -29,26 +29,16 @@ This is a learning project, nothing serious :)
 - [x] VIM like: ":e" for refreshing the panel
 - [x] Start AC from last opened folder
 
-### Version 0.3 - Basic Search
+[**DONE**] ### Version 0.3 - Basic Search
 - [x] Implement a basic search invoked with space key
     - [x] toggle search mode with space key
     - [x] search term completed with enter key 
     - [x] first matching item selected
 - [x] VIM like: "n"/"N" keys selects next / prev matching item
 - [x] Highlight other matching items (after Enter)
-- [ ] VIM like: :noh (no highlight) to clear search results
-    
-### Version 0.4 - Basic File Actions - Rename
-- [ ] VIM like: rename highlighted file with "r"
+- [x] VIM like: :noh (no highlight) to clear search results
 
-### Version 0.5 - Basic Info panels
-- [ ] Display History Panel
-- [ ] Display Available Keys Panel
-
-## MVP Reached
-At this point it should be an actually usable product.
-
-### Version 1.01 - Improved display - File Details
+### Version 0.4 - Improved display - File Details
  - [ ] Display file details (size in human readable format, modified date)
  - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
  - [ ] Automatically size column width to fit data (file name, date modified, etc)
@@ -56,11 +46,12 @@ At this point it should be an actually usable product.
  - [ ] VIM like: jump to line with #linenumber"g"
  - [ ] File thumbnails
 
-### Version 1.02 - Improved search types
-- [ ] Implement different search types  (starts with, contains, equals, wildcards, search by Date, size, etc)
-- [ ] Display search type in FilePanel 
-- [ ] Toggle search type with Ctrl-S while in Search mode
-- [ ] Trigger search mode in s specific search type with a VIM like binding (/ or ?)
+### Version 0.5 - Basic Info panels
+- [ ] Display History Panel
+- [ ] Display Available Keys Panel
+
+## Version 1.0 - MVP Reached
+At this point it should be an actually usable product.
 
 ### Version 1.1 - Improved display - Basic Multiple Panes
 - [ ] Get default panel position, width and height from config file
@@ -69,7 +60,7 @@ At this point it should be an actually usable product.
 - [ ] VIM like: :on (only) maximize current pane (but remember previous panes)
 - [ ] :res (reset) - reset the previous displayed pane(s)
 
-### Version 1.2 - Nerdtree like Bookmarks panel and Vim like marks
+### Version 1.2.1 - Nerdtree like Bookmarks panel and Vim like marks
 - [ ] - VIM like: "m" for adding local marks and "'"<char> for jumping to mark
 - [ ] - VIM like: "M" for adding global marks and "'"<char> for jumping to mark
 - [ ] - Toggle bookmark pane
@@ -77,11 +68,12 @@ At this point it should be an actually usable product.
 - [ ] - Open bookmarks
 - [ ] - Name and rename bookmarks
 
-### Version 1.22 - Actionable History Panel
+### Version 1.2.2 - Actionable History Panel
 - [ ] - History panel can be navigated to, and items can be opened by selecting them with the cursor
 - [ ] - Add keyboard shortcut Quickkey-s to open history items by pressing Ctrl-# of history item 
 
-### Version 1.3 - Improved File Actions - select, copy, move, delete
+### Version 1.3 - Basic File Actions - select, copy, move, delete
+- [ ] VIM like: rename highlighted file with "r"
 - [ ] NC like: select multiple files under cursor with "Ins"
 - [ ] Select/deselect all files
 - [ ] Select files by wildcards
@@ -92,6 +84,12 @@ At this point it should be an actually usable product.
  - [ ] File preview panel - open and close with a command
  - [ ] Folder preview panel - display5 last changed file in highlighted folder
  - [ ] Display scrollable content of highlighted file
+
+### Version 1.5 - Improved search types
+- [ ] Implement different search types  (starts with, contains, equals, wildcards, search by Date, size, etc)
+- [ ] Display search type in FilePanel 
+- [ ] Toggle search type with Ctrl-S while in Search mode
+- [ ] Trigger search mode in s specific search type with a VIM like binding (/ or ?)
  
 ### Version 2.x - QoL improvements
 - [x] Matched file names are highlighted during typing of search term

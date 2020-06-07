@@ -1,4 +1,4 @@
-package utility;
+package sampleStuff;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

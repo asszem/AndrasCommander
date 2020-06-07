@@ -1,5 +1,5 @@
 //Source: https://stackoverflow.com/questions/38778178/java-listcellrenderer-and-jlist-handle-selection
-package utility;
+package sampleStuff;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,10 +1,14 @@
 package sampleStuff;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -16,13 +20,13 @@ public class JTableSimpleSample {
     private JTable jTable;
     private TableModel tableModel;
 
-    private Vector<Vector> rowData=new Vector<>();
+    private Vector<Vector> rowData = new Vector<>();
 
     private void populateRowData() {
-        Vector<String> currentRow ;
+        Vector<String> currentRow;
         for (int i = 0; i < 10; i++) {
             currentRow = new Vector<>();
-            for (int k=1;k<5;k++){
+            for (int k = 1; k < 5; k++) {
                 currentRow.add("Row " + i + " col " + k);
             }
             rowData.add(currentRow);
@@ -44,12 +48,28 @@ public class JTableSimpleSample {
         tableScrollPane.setBorder(BorderFactory.createTitledBorder("tabbleScrollPane Border"));
 
         jTable.setFillsViewportHeight(true);
-        jTable.setRowSelectionInterval(7,7);
-        Rectangle cellRect = jTable.getCellRect(7, 0, true);
-        jTable.scrollRectToVisible(cellRect);
+        //Select the row (start row, end row - to select a single row, use the same value)
+        jTable.setRowSelectionInterval(7, 7);
+        scrollToSelectedItem();
+        jTable.getModel().addTableModelListener(new TableModelListener() {
+
+            public void tableChanged(TableModelEvent e) {
+                System.out.println("something changed");
+                System.out.println("column = " + e.getColumn());
+                System.out.println("row = " + e.getFirstRow());
+                System.out.println("class = " + e.getSource().getClass().getSimpleName());
+            }
+        });
+        jTable.addKeyListener(new KeyListenerForTable(jTable));
 
         jPanel.add(tableScrollPane);
         return jPanel;
+    }
+
+    public void scrollToSelectedItem() {
+        int row = jTable.getSelectedRow();
+        Rectangle cellRect = jTable.getCellRect(row, 0, true);
+        jTable.scrollRectToVisible(cellRect);
     }
 
 
@@ -90,6 +110,45 @@ public class JTableSimpleSample {
         public Object getValueAt(int rowIndex, int columnIndex) {
             return null;
         }
+    }
+}
+
+class KeyListenerForTable implements KeyListener {
+
+    private JTable jTable;
+
+    public KeyListenerForTable(JTable jTable) {
+        this.jTable = jTable;
+    }
+
+    public void scrollToSelectedItem() {
+        int row = jTable.getSelectedRow();
+        Rectangle cellRect = jTable.getCellRect(row, 0, true);
+        jTable.scrollRectToVisible(cellRect);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("key pressed " + e.getKeyCode());
+        if (e.getKeyCode() == 74) {
+            int nextRow = jTable.getSelectedRow() + 1 >= jTable.getRowCount() ? 0 : jTable.getSelectedRow() + 1;
+            jTable.setRowSelectionInterval(nextRow, nextRow);
+            scrollToSelectedItem();
+        }
+        if (e.getKeyCode() == 75) {
+            int nextRow = jTable.getSelectedRow() - 1 <= 0 ? jTable.getRowCount() - 1 : jTable.getSelectedRow() - 1;
+            jTable.setRowSelectionInterval(nextRow, nextRow);
+            scrollToSelectedItem();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }
 

@@ -42,18 +42,29 @@ public class JTableSimpleSample {
         String[] columtTitlesArray = {"Column 1", "Column 2", "Column 3", "Column 4"};
         Vector<String> columnTitles = new Vector<String>(Arrays.asList(columtTitlesArray));
         populateRowData();
-        TableModel model = new DefaultTableModel(rowData, columnTitles);
-        jTable = new JTable(model);
+
+        // Set the table modell
+        DefaultTableModel tableModel = new DefaultTableModel(rowData, columnTitles) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+
+        jTable = new JTable(tableModel);
         CustomTableCellRenderer customTableCellRenderer = new CustomTableCellRenderer();
         jTable.setDefaultRenderer(String.class, customTableCellRenderer);
         tableScrollPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         tableScrollPane.setPreferredSize(new Dimension(400, 100));
         tableScrollPane.setBorder(BorderFactory.createTitledBorder("tabbleScrollPane Border"));
-
+        jTable.getColumnModel().getColumn(0).setCellRenderer(customTableCellRenderer);
         jTable.setFillsViewportHeight(true);
         //Select the row (start row, end row - to select a single row, use the same value)
         jTable.setRowSelectionInterval(7, 7);
         scrollToSelectedItem();
+        jTable.updateUI();
 
 
 //        jTable.getModel().addTableModelListener(new TableModelListener() {
@@ -200,22 +211,18 @@ class CustomTableCellRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value,
                                                    boolean isSelected, boolean hasFocus, int row, int col) {
 
-        System.out.println("afa");
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
         Object valueAt = table.getModel().getValueAt(row, col);
-        System.out.println("valueAt = " + valueAt.toString());
 
+        c.setBackground(Color.GREEN);
         String s = "";
         if (valueAt != null) {
             s = valueAt.toString();
-            System.out.println("value = " + value);
-        } else
-        {
-            System.out.println("valiue null");
         }
         s = "<html><font color=red><span style='background:yellow;'>" + s.substring(0, 4) + "</font></span> - <font color=navy><backgrouund-color=red>" +
                 s.substring(4, 7) + "</font></html>";
 
+        setText(s);
 //        if (s.equalsIgnoreCase("yellow")) {
 //            c.setForeground(Color.YELLOW);
 //            c.setBackground(Color.gray);
@@ -223,6 +230,9 @@ class CustomTableCellRenderer extends DefaultTableCellRenderer {
 //            c.setForeground(Color.black);
 //            c.setBackground(Color.WHITE);
 //        }
+        if (isSelected){
+            c.setBackground(Color.ORANGE);
+        }
         this.setOpaque(true);
         return c;
     }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -43,6 +44,8 @@ public class JTableSimpleSample {
         populateRowData();
         TableModel model = new DefaultTableModel(rowData, columnTitles);
         jTable = new JTable(model);
+        CustomTableCellRenderer customTableCellRenderer = new CustomTableCellRenderer();
+        jTable.setDefaultRenderer(String.class, customTableCellRenderer);
         tableScrollPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         tableScrollPane.setPreferredSize(new Dimension(400, 100));
         tableScrollPane.setBorder(BorderFactory.createTitledBorder("tabbleScrollPane Border"));
@@ -51,15 +54,18 @@ public class JTableSimpleSample {
         //Select the row (start row, end row - to select a single row, use the same value)
         jTable.setRowSelectionInterval(7, 7);
         scrollToSelectedItem();
-        jTable.getModel().addTableModelListener(new TableModelListener() {
 
-            public void tableChanged(TableModelEvent e) {
-                System.out.println("something changed");
-                System.out.println("column = " + e.getColumn());
-                System.out.println("row = " + e.getFirstRow());
-                System.out.println("class = " + e.getSource().getClass().getSimpleName());
-            }
-        });
+
+//        jTable.getModel().addTableModelListener(new TableModelListener() {
+//
+//            public void tableChanged(TableModelEvent e) {
+//                System.out.println("something changed");
+//                System.out.println("column = " + e.getColumn());
+//                System.out.println("row = " + e.getFirstRow());
+//                System.out.println("class = " + e.getSource().getClass().getSimpleName());
+//            }
+//        });
+
         jTable.addKeyListener(new KeyListenerForTable(jTable));
 
         jPanel.add(tableScrollPane);
@@ -133,7 +139,6 @@ class KeyListenerForTable implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("key pressed " + e.getKeyCode());
         if (e.getKeyCode() == 74) {
             int nextRow = jTable.getSelectedRow() + 1 >= jTable.getRowCount() ? 0 : jTable.getSelectedRow() + 1;
             jTable.setRowSelectionInterval(nextRow, nextRow);
@@ -179,5 +184,46 @@ class Data {
 
     public void setDataInt(int dataInt) {
         this.dataInt = dataInt;
+    }
+}
+
+class CustomTableCellRenderer extends DefaultTableCellRenderer {
+
+    private static final long serialVersionUID = 1L;
+
+    public CustomTableCellRenderer() {
+        System.out.println("custom table cell renderer called");
+        setOpaque(true);
+    }
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value,
+                                                   boolean isSelected, boolean hasFocus, int row, int col) {
+
+        System.out.println("afa");
+        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+        Object valueAt = table.getModel().getValueAt(row, col);
+        System.out.println("valueAt = " + valueAt.toString());
+
+        String s = "";
+        if (valueAt != null) {
+            s = valueAt.toString();
+            System.out.println("value = " + value);
+        } else
+        {
+            System.out.println("valiue null");
+        }
+        s = "<html><font color=red><span style='background:yellow;'>" + s.substring(0, 4) + "</font></span> - <font color=navy><backgrouund-color=red>" +
+                s.substring(4, 7) + "</font></html>";
+
+//        if (s.equalsIgnoreCase("yellow")) {
+//            c.setForeground(Color.YELLOW);
+//            c.setBackground(Color.gray);
+//        } else {
+//            c.setForeground(Color.black);
+//            c.setBackground(Color.WHITE);
+//        }
+        this.setOpaque(true);
+        return c;
     }
 }

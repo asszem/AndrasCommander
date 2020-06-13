@@ -1,14 +1,11 @@
 package swingGUI.tableFilePanel;
 
 import control.Constants;
-import data.FileItem;
 import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import swingGUI.GUI;
-import swingGUI.basicFilePanel.CommandImplementations;
 import swingGUI.keyListener.KeyListener;
-import swingGUI.keyListener.RemapCursorNavigation;
 import utility.PropertyReader;
 
 import javax.swing.*;
@@ -40,50 +37,71 @@ public class TableFilePanel {
     //Constructor
     public TableFilePanel(GUI guiInstance) {
         this.guiInstance = guiInstance;
-
-        // TODO decide if these can be done in the construcor, no need to recreate
-        // Create a new table model
-        tableFilePanelModel = new TableFilePanelModel();
-        // Crate a new cell renderer
-        tableFilePanelCellRenderer = new TableFilePanelCellRenderer();
-        // Create a new key listener
-        keyListener = new KeyListener(guiInstance);
-        logger.debug("TableFilePanel Constructor calledj.");
     }
 
     public JPanel initTableFilePanel(String panelTitle) {
+
+        // File related tasks
+
+        // Get the start folder path
         PropertyReader propertyReader = guiInstance.getAndrasCommanderInstance().getPropertyReader();
         String startfolder;
         startfolder = propertyReader.readProperty("STARTFOLDER");
         if (propertyReader.readProperty("START_IN").equalsIgnoreCase("Last folder")) {
             startfolder = guiInstance.getAndrasCommanderInstance().getHistoryWriter().getLastHistoryItem();
         }
-
+        // Create a new FolderContent
         folderContent = new FolderContent(startfolder);
 
-        tableFilePanelCommandImplementations = new TableFilePanelCommandImplementations(guiInstance);
+        // Table Related tasks
+
+        // Create the Panel that will hold the Table
         tableFilePanelPanel = new JPanel();
+
+        // Create a new table model
+        tableFilePanelModel = new TableFilePanelModel(guiInstance);
+
+        // Crate a new cell renderer
         tableFilePanelCellRenderer = new TableFilePanelCellRenderer();
 
+        // Create a new key listener
+        keyListener = new KeyListener(guiInstance);
+
+        //Create a new Command Implementation
+        tableFilePanelCommandImplementations = new TableFilePanelCommandImplementations(guiInstance);
+
+        // Search related stuff
         searchMathcedItemIndexes = new ArrayList<>();
         searchType = Constants.SEARCH_MODE_STARTSWITH;
-        searchMatchedItemIndexesPointer=0;
+        searchMatchedItemIndexesPointer = 0;
 
-        drawFilePanel(0);
+        drawTableFilePanel(10);
+        scrollToHighlightedItem();
 
         return tableFilePanelPanel;
     }
 
-    public void drawFilePanel(int highlightedIndex) {
+    public void scrollToHighlightedItem() {
+        int row = tableFilePanelTable.getSelectedRow();
+        Rectangle cellRect = tableFilePanelTable.getCellRect(row, 0, true);
+        tableFilePanelTable.scrollRectToVisible(cellRect);
+    }
+
+    public void drawTableFilePanel(int highlightedRowIndex) {
+
         // Remove previous content from the panel
         tableFilePanelPanel.removeAll();
 
+        // Update the table model
+        tableFilePanelModel.populateTable();
 
         // Create a new table
         tableFilePanelTable = new JTable(tableFilePanelModel);
         tableFilePanelTable.getColumnModel().getColumn(0).setCellRenderer(tableFilePanelCellRenderer);
 
-        RemapCursorNavigation.remapCursors(tableFilePanelTable);
+        tableFilePanelTable.addKeyListener(keyListener);
+//        RemapCursorNavigation.remapCursors(tableFilePanelTable);
+
 
         // Create SCROLLPANE
         tableFilePanelScrollPane = new JScrollPane(tableFilePanelTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -98,7 +116,10 @@ public class TableFilePanel {
         tableFilePanelTable.grabFocus();
 
         // Scroll to selected item
-        //TODO implement this
+        tableFilePanelTable.setFillsViewportHeight(true);
+        tableFilePanelTable.setRowSelectionInterval(highlightedRowIndex, highlightedRowIndex);
+        scrollToHighlightedItem();
+        tableFilePanelTable.updateUI();
     }
 
 

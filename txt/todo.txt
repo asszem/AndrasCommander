@@ -1,20 +1,22 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
+TODO - Refactor using JTable instead of JPanel
+    - Implementation
+        - Implement Custom Table Model that holds FileItem objects instead of Strings
+            - Create methd that only updates the table, but not recreates
+        - Implement Custom Action Listener for navigation
+        - Implement Custom Cell Renderer for highlighting
+        - Refactor features
+            - Display parent folder as ..
+            - Navigation using keys j/k gg/G, gu/GB
+            - Set and execute highlighted file
+            - Search
+                - Set matched background based on HTML
+                - Highlight search term matches and results
+            - Refactor KeyInfoPanel
+TODO - Refactor KeyInfoPanel to work with multiple file panels
 TODO - Highlight background of matched characters only
-	- Refactor using JTable instead of JPanel
-		- Implementation
-		    - Implement Custom Table Model that holds FileItem objects instead of Strings
-		        - Populate Table Model when table is Drawn in TableFilePanel
-		    - Implement Custom Action Listener for navigation
-		    - Implement Custom Cell Renderer for highlighting
-			- Refactor features
-				- Display parent folder as ..
-				- Navigation using keys j/k gg/G, gu/GB
-				- Set and execute highlighted file
-                - Search
-                    - Set matched background based on HTML
-                    - Highlight search term matches and results
 TODO - Handle back button while in search mode to erase previous result
 
 Fix

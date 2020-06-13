@@ -29,7 +29,7 @@ This is a learning project, nothing serious :)
 - [x] VIM like: ":e" for refreshing the panel
 - [x] Start AC from last opened folder
 
-[**DONE**] ### Version 0.3 - Basic Search
+[**DONE**] Version 0.3 - Basic Search
 - [x] Implement a basic search invoked with space key
     - [x] toggle search mode with space key
     - [x] search term completed with enter key 
@@ -38,13 +38,12 @@ This is a learning project, nothing serious :)
 - [x] Highlight other matching items (after Enter)
 - [x] VIM like: :noh (no highlight) to clear search results
 
-### Version 0.4 - Improved display - File Details
- - [ ] Display file details (size in human readable format, modified date)
+### Version 0.4 - Improved display - File Details and Search Result Highlights
+ - [x] Display file details (size in human readable format, modified date)
+ - [x] Display File/Folder thumbnail icons
+ - [ ] Highlight search result match background
  - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
  - [ ] Automatically size column width to fit data (file name, date modified, etc)
- - [ ] Display line numbers for files
- - [ ] VIM like: jump to line with #linenumber"g"
- - [ ] File thumbnails
 
 ### Version 0.5 - Basic Info panels
 - [ ] Display History Panel
@@ -92,6 +91,8 @@ At this point it should be an actually usable product.
 - [ ] Trigger search mode in s specific search type with a VIM like binding (/ or ?)
  
 ### Version 2.x - QoL improvements
+- [ ] Display line numbers for files
+- [ ] VIM like: jump to line with #linenumber"g"
 - [x] Matched file names are highlighted during typing of search term
 - [ ] VIM like: "gf" - going forward (and not goto file!) in history
 - [ ] Remap Home, End, PageUp, PageDown

@@ -22,19 +22,15 @@ TODO - Fix going back ping-ponging between last two directory
         - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b
 
 Tasks
+TODO - Convert file size to human readable format
 TODO - Implement gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well
 TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)
-TODO - refactor naming and methods to make more clear when is the UI redrawn
 TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible
-TODO - Edge case handling - folders without files, full empty folders, only files, top folder reached, etc
+TODO - Edge case handling - folders without files (only dirs), full empty folders, only files, top folder reached, etc
 
 Refactor
-TODO - Refactor GUI code to use class inheritance
-    - Read books about inheritance
-    - Key Listener package
-    - File Panel package
 TODO - Refactor CommandImplementations to avoid long and ugly chain of commands
     - Find out why passing the objects in the constructor to a variable did not reflected the changes on that object
 TODO - Refactor separation of files and folders
@@ -52,5 +48,3 @@ TODO - Improve File Open method in KeyBindingParser
 
 UI
 TODO - Implement GUI using JavaFX
-
-DONE

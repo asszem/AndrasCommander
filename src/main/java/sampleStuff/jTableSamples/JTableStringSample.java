@@ -1,7 +1,6 @@
 package sampleStuff.jTableSamples;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
@@ -10,7 +9,7 @@ import java.util.Vector;
 
 public class JTableStringSample {
 
-    private JFrame frame = new JFrame("Simple Table Sample");
+    private JFrame frame = new JFrame("String Table Sample");
     private JPanel jPanel;
     private JScrollPane tableScrollPane;
     private JTable jTable;
@@ -18,63 +17,39 @@ public class JTableStringSample {
 
     private Vector<Vector> rowData = new Vector<>();
 
-    private void populateRowData() {
-        Vector<String> currentRow;
-        for (int i = 0; i < 10; i++) {
-            currentRow = new Vector<>();
-            for (int k = 1; k < 5; k++) {
-                currentRow.add("Row " + i + " col " + k);
-            }
-            rowData.add(currentRow);
-        }
-    }
 
 
-    public JPanel initSimpleTable() {
+    public JPanel initStringTable() {
         jPanel = new JPanel();
-//        jPanel.setBorder(BorderFactory.createTitledBorder("Table Panel"));
-
-        String[] columtTitlesArray = {"Column 1", "Column 2", "Column 3", "Column 4"};
-        Vector<String> columnTitles = new Vector<String>(Arrays.asList(columtTitlesArray));
-        populateRowData();
 
         // Set the table modell
-        DefaultTableModel tableModel = new DefaultTableModel(rowData, columnTitles) {
+        StringTableModel stringTableModel = new StringTableModel();
 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                //all cells false
-                return false;
-            }
-        };
+        // Create the table with the custom string table model
+        jTable = new JTable(stringTableModel);
+        jTable.setOpaque(true);
 
-        jTable = new JTable(tableModel);
-        sampleStuff.jTableSamples.CustomTableCellRenderer customTableCellRenderer = new sampleStuff.jTableSamples.CustomTableCellRenderer();
-        jTable.setDefaultRenderer(String.class, customTableCellRenderer);
+        // Assign the renderer to the table
+        StringTableCellRenderer stringTableCellRenderer = new StringTableCellRenderer();
+        jTable.setDefaultRenderer(String.class, stringTableCellRenderer);
+        jTable.getColumnModel().getColumn(0).setCellRenderer(stringTableCellRenderer);
+
+
+        // Create a scrollpane for the table
         tableScrollPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         tableScrollPane.setPreferredSize(new Dimension(400, 100));
-        tableScrollPane.setBorder(BorderFactory.createTitledBorder("tabbleScrollPane Border"));
-        jTable.getColumnModel().getColumn(0).setCellRenderer(customTableCellRenderer);
+        tableScrollPane.setBorder(BorderFactory.createTitledBorder("tableScrollPane Border"));
+        jPanel.add(tableScrollPane);
+
+        // Sets the selected row and sets it visible
         jTable.setFillsViewportHeight(true);
-        //Select the row (start row, end row - to select a single row, use the same value)
         jTable.setRowSelectionInterval(7, 7);
         scrollToSelectedItem();
         jTable.updateUI();
 
+        // Assign a custom Key Listener
+        jTable.addKeyListener(new TableKeyListener(jTable));
 
-//        jTable.getModel().addTableModelListener(new TableModelListener() {
-//
-//            public void tableChanged(TableModelEvent e) {
-//                System.out.println("something changed");
-//                System.out.println("column = " + e.getColumn());
-//                System.out.println("row = " + e.getFirstRow());
-//                System.out.println("class = " + e.getSource().getClass().getSimpleName());
-//            }
-//        });
-
-        jTable.addKeyListener(new sampleStuff.jTableSamples.KeyListenerForTable(jTable));
-
-        jPanel.add(tableScrollPane);
         return jPanel;
     }
 
@@ -87,7 +62,7 @@ public class JTableStringSample {
 
     public void createAndShowGUI() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(BorderLayout.NORTH, initSimpleTable());
+        frame.getContentPane().add(BorderLayout.NORTH, initStringTable());
 //        frame.setLayout(new BorderLayout(10, 10));
         frame.setLocation(150, 150);
         frame.setPreferredSize(new Dimension(500, 200));
@@ -104,24 +79,6 @@ public class JTableStringSample {
                 instance.createAndShowGUI();
             }
         });
-    }
-
-    private class customTableModel extends AbstractTableModel {
-
-        @Override
-        public int getRowCount() {
-            return 0;
-        }
-
-        @Override
-        public int getColumnCount() {
-            return 0;
-        }
-
-        @Override
-        public Object getValueAt(int rowIndex, int columnIndex) {
-            return null;
-        }
     }
 }
 

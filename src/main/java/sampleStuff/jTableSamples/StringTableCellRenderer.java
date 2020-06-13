@@ -9,7 +9,7 @@ public class StringTableCellRenderer extends DefaultTableCellRenderer {
     private static final long serialVersionUID = 1L;
 
     public StringTableCellRenderer() {
-        System.out.println("custom table cell renderer called");
+        System.out.println("String Table Cell Renderer called");
         setOpaque(true);
     }
 

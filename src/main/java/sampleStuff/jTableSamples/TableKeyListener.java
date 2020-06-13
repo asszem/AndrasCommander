@@ -19,6 +19,16 @@ public class TableKeyListener implements KeyListener {
         jTable.scrollRectToVisible(cellRect);
     }
 
+    //        jTable.getModel().addTableModelListener(new TableModelListener() {
+//
+//            public void tableChanged(TableModelEvent e) {
+//                System.out.println("something changed");
+//                System.out.println("column = " + e.getColumn());
+//                System.out.println("row = " + e.getFirstRow());
+//                System.out.println("class = " + e.getSource().getClass().getSimpleName());
+//            }
+//        });
+
     @Override
     public void keyTyped(KeyEvent e) {
     }

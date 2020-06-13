@@ -7,6 +7,7 @@ import swingGUI.keyListener.KeyListener;
 import swingGUI.keyListener.UIActionListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import swingGUI.tableFilePanel.TableFilePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,7 @@ public class GUI extends JFrame {
     // UI classes
     // TODO implement multiple panels and store every filePanel in a list
     private FilePanel filePanel;
+    private TableFilePanel tableFilePanel;
     private KeyInfoPanel keyInfoPanel;
 
     // This frame is to hold the entire UI
@@ -43,11 +45,13 @@ public class GUI extends JFrame {
     public void initGUI() {
 
         // instantiate the UI classes
-        filePanel = new FilePanel(this);
+//        filePanel = new FilePanel(this);
+        tableFilePanel = new TableFilePanel(this);
         keyInfoPanel = new KeyInfoPanel(this);
 
         // call the init method when adding UI elements to the contentPane
-        frame.getContentPane().add(BorderLayout.NORTH, filePanel.initFilePanel("File Panel"));
+        frame.getContentPane().add(BorderLayout.NORTH, tableFilePanel.initTableFilePanel("File Panel"));
+        frame.getContentPane().add(BorderLayout.CENTER, tableFilePanel.initTableFilePanel("Table File Panel"));
         frame.getContentPane().add(BorderLayout.SOUTH, keyInfoPanel.initPanel("Key Info Panel"));
 //        filePanel.getFileListPanel().addKeyListener(keyListener);
 //        frame.addKeyListener(keyListener);
@@ -68,6 +72,10 @@ public class GUI extends JFrame {
 
     public FilePanel getFilePanel() {
         return filePanel;
+    }
+
+    public TableFilePanel getTableFilePanel() {
+        return this.tableFilePanel;
     }
 
     public KeyInfoPanel getKeyInfoPanel() {

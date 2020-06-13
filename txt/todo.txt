@@ -5,8 +5,9 @@ TODO - Highlight background of matched characters only
 	- Refactor using JTable instead of JPanel
 		- Implementation
 		    - Implement Custom Table Model that holds FileItem objects instead of Strings
-		    - Implement Custom Cell Renderer for highlighting
+		        - Populate Table Model when table is Drawn in TableFilePanel
 		    - Implement Custom Action Listener for navigation
+		    - Implement Custom Cell Renderer for highlighting
 			- Refactor features
 				- Display parent folder as ..
 				- Navigation using keys j/k gg/G, gu/GB

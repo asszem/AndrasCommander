@@ -168,10 +168,10 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void goUpToParentFolder() {
-        File parentFolder = new File(folderContent.getParentFolder().getAbsolutePath());
-        if (parentFolder != null) {
-            changeFolder(parentFolder.getAbsolutePath());
-        }
+//        File parentFolder = new File(folderContent.getParentFolder().getAbsolutePath());
+//        if (parentFolder != null) {
+//            changeFolder(parentFolder.getAbsolutePath());
+//        }
     }
 
     public void goBackInHistory() {
@@ -191,7 +191,7 @@ public class CommandImplementations implements CommandsInterface {
         changeFolder(folderContent.getFolderPath());
     }
 
-    @Override
+//    @Override
     public void highlightSearchResult(ArrayList matchedIndexes) {
 
     }

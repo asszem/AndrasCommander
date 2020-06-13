@@ -13,27 +13,25 @@ public class TableFilePanelModel extends AbstractTableModel {
     Object[] columnNames;
     Object[][] rowData; //[row][col]
 
-    public TableFilePanelModel(GUI guiInstance){
-        this.guiInstance=guiInstance;
+    public TableFilePanelModel(GUI guiInstance) {
+        this.guiInstance = guiInstance;
     }
 
     //TODO implement different sorting methods here
-    public void populateTable(){
-        System.out.println("populate Table called");
+    public void populateTable() {
         ArrayList<FileItem> fileItems = guiInstance.getTableFilePanel().getFolderContent().sortFileItemsByName();
         columnNames = new Object[3];
         columnNames[0] = "File name";
         columnNames[1] = "Size";
         columnNames[2] = "Modified";
-        rowData = new Object[fileItems.size()][columnNames.length+1];
-        for (int i=0;i<rowData.length;i++){
-            rowData[i][3]=fileItems.get(i); // not displayed
+        rowData = new Object[fileItems.size()][columnNames.length];
 
-            rowData[i][0]=fileItems.get(i).getFile().getName();
-            rowData[i][1]=fileItems.get(i).getFile().length();
+        for (int i = 0; i < rowData.length; i++) {
+            rowData[i][0] = fileItems.get(i); // The first column is the fileitem itself
+            rowData[i][1] = fileItems.get(i).getFile().length();
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            rowData[i][2]=sdf.format(fileItems.get(i).getFile().lastModified());
+            rowData[i][2] = sdf.format(fileItems.get(i).getFile().lastModified());
         }
     }
 

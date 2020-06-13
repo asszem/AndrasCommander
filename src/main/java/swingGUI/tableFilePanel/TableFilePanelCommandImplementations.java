@@ -1,6 +1,7 @@
 package swingGUI.tableFilePanel;
 
 import control.Constants;
+import data.CommandsInterface;
 import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,24 +14,19 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class TableFilePanelCommandImplementations  {
+import static java.lang.System.exit;
+
+public class TableFilePanelCommandImplementations implements CommandsInterface {
     private static Logger logger = LogManager.getLogger(TableFilePanelCommandImplementations.class);
     private GUI guiInstance;
 
-    private TableFilePanel tableFilePanel;
-    private JTable tableFilePanelTable;
-
-    private FolderContent folderContent;
     private String searchTerm;
 
     public TableFilePanelCommandImplementations(GUI guiInstance) {
         this.guiInstance = guiInstance;
-        this.tableFilePanel = guiInstance.getTableFilePanel();
-        this.tableFilePanelTable = guiInstance.getTableFilePanel().getTableFilePanelTable();
-        this.folderContent= guiInstance.getTableFilePanel().getFolderContent();
-        System.out.println(tableFilePanelTable.getSelectedRow());
     }
 
+    @Override
     public void handleCommand(String command) {
         guiInstance.getKeyInfoPanel().displayCommand(command);
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed keys");
@@ -55,13 +51,13 @@ public class TableFilePanelCommandImplementations  {
                 moveCursor("bottom");
                 break;
             case "go up":
-//                goUpToParentFolder();
+                goUpToParentFolder();
                 break;
             case "go back":
-//                goBackInHistory();
+                goBackInHistory();
                 break;
             case "refresh panel":
-//                refreshView();
+                refreshView();
                 break;
             case "enter search mode":
 //                enterSearchMode();
@@ -94,37 +90,43 @@ public class TableFilePanelCommandImplementations  {
             case "Enter":
                 //todo implement pageUp move action
                 break;
+            case "quit":
+                // Saving the last folder to history
+                guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(guiInstance.getTableFilePanel().getFolderContent().getFolderPath());
+                exit(0);
+                break;
             default: // if no match was found, then display the commands as the pressed keys list
                 guiInstance.getKeyInfoPanel().displayAllPressedKeys(command);
                 break;
         }
     }
 
+    @Override
     public void moveCursor(String direction) {
-        int nextRow=0;
+        JTable table = guiInstance.getTableFilePanel().getTableFilePanelTable();
+        int nextRow = 0;
         switch (direction) {
             case "down":
-                nextRow = tableFilePanelTable.getSelectedRow() + 1 >= tableFilePanelTable.getRowCount() ? 0 : tableFilePanelTable.getSelectedRow() + 1;
+                nextRow = table.getSelectedRow() + 1 >= table.getRowCount() ? 0 : table.getSelectedRow() + 1;
                 break;
             case "up":
-                nextRow = tableFilePanelTable.getSelectedRow() - 1 <0  ? tableFilePanelTable.getRowCount()-1 : tableFilePanelTable.getSelectedRow() - 1;
+                nextRow = table.getSelectedRow() - 1 < 0 ? table.getRowCount() - 1 : table.getSelectedRow() - 1;
                 break;
             case "top":
-                nextRow=0;
+                nextRow = 0;
                 break;
             case "bottom":
-                nextRow=tableFilePanelTable.getRowCount()-1;
+                nextRow = table.getRowCount() - 1;
                 break;
         }
-        tableFilePanelTable.setRowSelectionInterval(nextRow, nextRow);
-        tableFilePanel.scrollToHighlightedItem();
-
-        // Set the highlighted file
+        table.setRowSelectionInterval(nextRow, nextRow);
+        guiInstance.getTableFilePanel().scrollToHighlightedItem();
 
         // Display the new highlighted file
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
+    @Override
     public void openHighlighted() {
         File fileToBeExecuted = guiInstance.getTableFilePanel().getHighlightedFileItem().getFile();
         if (fileToBeExecuted.isDirectory()) {
@@ -143,15 +145,43 @@ public class TableFilePanelCommandImplementations  {
         }
     }
 
+    @Override
     public void changeFolder(String folderPath) {
-        String originalPath = folderContent.getFolderPath();
+        String originalPath = guiInstance.getTableFilePanel().getFolderContent().getFolderPath();
         guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(originalPath); // save history
 
-        folderContent.setFolderPath(folderPath);
-        folderContent.loadFiles(folderPath);
+        guiInstance.getTableFilePanel().getFolderContent().setFolderPath(folderPath);
+        guiInstance.getTableFilePanel().getFolderContent().loadFiles(folderPath);
 
         guiInstance.getTableFilePanel().drawTableFilePanel(0);
-
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
+
+    @Override
+    public void goUpToParentFolder() {
+        File parentFolder = new File(guiInstance.getTableFilePanel().getFolderContent().getParentFolder().getFile().getAbsolutePath());
+        if (parentFolder != null) {
+            changeFolder(parentFolder.getAbsolutePath());
+        }
+    }
+
+    @Override
+    public void goBackInHistory() {
+        logger.debug("Go back in History command received");
+        String prevFolder = guiInstance.getAndrasCommanderInstance().getHistoryWriter().getLastHistoryItem();
+        logger.debug("Last History Item = " + prevFolder);
+        // Validation
+        File prevFolderCheck = new File(prevFolder);
+        if (prevFolderCheck.exists() && prevFolderCheck.isDirectory()) {
+            changeFolder(prevFolder);
+        } else {
+            logger.debug("prev Folder is not a valid Directory");
+        }
+    }
+
+    @Override
+    public void refreshView() {
+        changeFolder(guiInstance.getTableFilePanel().getFolderContent().getFolderPath());
+    }
+
 }

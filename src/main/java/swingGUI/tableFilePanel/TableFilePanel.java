@@ -7,9 +7,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import swingGUI.GUI;
 import swingGUI.keyListener.KeyListener;
+import swingGUI.keyListener.RemapCursorNavigation;
 import utility.PropertyReader;
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -74,7 +76,7 @@ public class TableFilePanel {
         searchType = Constants.SEARCH_MODE_STARTSWITH;
         searchMatchedItemIndexesPointer = 0;
 
-        drawTableFilePanel(10);
+        drawTableFilePanel(0);
         scrollToHighlightedItem();
 
         //Create a new Command Implementation (call this after drawTableFilePanel so the JTable is instantiazed)
@@ -95,14 +97,23 @@ public class TableFilePanel {
         tableFilePanelPanel.removeAll();
 
         // Update the table model
+//        tableFilePanelModel = new TableFilePanelModel(guiInstance);
         tableFilePanelModel.populateTable();
 
         // Create a new table
         tableFilePanelTable = new JTable(tableFilePanelModel);
-        tableFilePanelTable.getColumnModel().getColumn(0).setCellRenderer(tableFilePanelCellRenderer);
+
+        // Assign the same cell renderer for each column
+        int columnNumber = tableFilePanelTable.getColumnCount();
+        for (int i = 0; i < columnNumber; i++) {
+            tableFilePanelTable.getColumnModel().getColumn(i).setCellRenderer(tableFilePanelCellRenderer);
+            tableFilePanelTable.getColumnModel().getColumn(i).setPreferredWidth(200);
+        }
+        tableFilePanelTable.getColumnModel().getColumn(0).setPreferredWidth(600);
 
         tableFilePanelTable.addKeyListener(keyListener);
 //        RemapCursorNavigation.remapCursors(tableFilePanelTable);
+        // TODO remove mouse navigation
 
         // Create SCROLLPANE
         tableFilePanelScrollPane = new JScrollPane(tableFilePanelTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -120,7 +131,7 @@ public class TableFilePanel {
         tableFilePanelTable.setFillsViewportHeight(true);
         tableFilePanelTable.setRowSelectionInterval(highlightedRowIndex, highlightedRowIndex);
         scrollToHighlightedItem();
-        tableFilePanelTable.updateUI();
+//        tableFilePanelTable.updateUI();
     }
 
 
@@ -130,7 +141,7 @@ public class TableFilePanel {
     }
 
     public FileItem getHighlightedFileItem() {
-        return (FileItem) tableFilePanelTable.getModel().getValueAt(tableFilePanelTable.getSelectedRow(), 3);
+        return (FileItem) tableFilePanelTable.getModel().getValueAt(tableFilePanelTable.getSelectedRow(), Constants.FILEITEM_INDEX);
     }
 
     public JPanel getTableFilePanelPanel() {

@@ -12,8 +12,7 @@ public class FolderContent {
     private static Logger logger = LogManager.getLogger(FolderContent.class);
     private ArrayList<FileItem> fileItems; // does NOT contain the parent folder or the highlighted file item
     private ArrayList<FileItem> searchResults;
-//    private FileItem highlightedFileItem;
-    private File parentFolder;
+    private FileItem parentFolder;
     private String folderPath;
 
     public FolderContent(String folderPath) {
@@ -27,13 +26,10 @@ public class FolderContent {
         // Set the parent folder
         File currentDir = new File(folderPath);
         if (currentDir.getParent() != null) {
-            parentFolder = currentDir.getParentFile();
+            parentFolder = new FileItem(currentDir.getParentFile(), false);
         } else {
-            parentFolder = currentDir;
+            parentFolder = new FileItem(currentDir, false);
         }
-
-        // Whenever the folder content is loaded, set the highlighted file to the first
-//        highlightedFileItem = new FileItem(parentFolder, false);
 
         // Get the files in the folder
         File[] fileList = new File(folderPath).listFiles();
@@ -61,6 +57,7 @@ public class FolderContent {
         filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
 
         List<FileItem> sortedFilesAndFolders = new ArrayList<>();
+        sortedFilesAndFolders.add(parentFolder);
         sortedFilesAndFolders.addAll(foldersOnly);
         sortedFilesAndFolders.addAll(filesOnly);
 
@@ -95,24 +92,6 @@ public class FolderContent {
         return this;
     }
 
-//    public File getHighlightedFile() {
-//        return highlightedFileItem.getFile();
-//    }
-
-//    public FolderContent setHighlightedFileByDisplayedTitle(String displayedTitle) {
-//        // Handling if the parent folder .. was the highlighted title
-//        if (displayedTitle.equals("..")) {
-//            highlightedFileItem.setFile(parentFolder);
-//            return this;
-//        } else {
-//            //alma.txt |alma.txt -->alma.txt OK
-//            //alma 2.txt NOT OK
-//            highlightedFileItem.setFile(fileItems.stream().filter(fileItem -> fileItem.getDisplayedTitle().contains(displayedTitle)).findFirst().get().getFile());
-//        }
-//        // Setting new item to highlighted
-//        return this;
-//    }
-
     public String getFolderPath() {
         return folderPath;
     }
@@ -126,7 +105,7 @@ public class FolderContent {
         return fileItems;
     }
 
-    public File getParentFolder() {
+    public FileItem getParentFolder() {
         return parentFolder;
     }
 }

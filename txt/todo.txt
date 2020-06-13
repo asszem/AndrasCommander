@@ -3,17 +3,13 @@ This list has elements that are not related to a specific part of the source cod
 Now
 TODO - Refactor using JTable instead of JPanel
     - Implementation
-        - Implement Custom Table Model that holds FileItem objects instead of Strings
-            - Create methd that only updates the table, but not recreates
-        - Implement Custom Cell Renderer for highlighting
-        - Refactor basic features
-            - Display parent folder as ..
-            - Navigation using keys j/k gg/G, gu/GB
-            - Set and execute highlighted file
         - Refactor Search
             - Set matched background based on HTML
             - Highlight search term matches and results
-            - Remove cursor navigation
+        - Create method that only updates the table model, but not recreates it
+TODO - Remap cursor navigation
+        - Fix automatic scroll
+TODO - Disable mouse navigation
 TODO - Refactor KeyInfoPanel to work with multiple file panels
 TODO - Highlight background of matched characters only
 TODO - Handle back button while in search mode to erase previous result

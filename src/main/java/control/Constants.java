@@ -9,4 +9,6 @@ public class Constants {
     public static final String SEARCH_MODE_STARTSWITH = "Starts with";
     public static final String SEARCH_MODE_CONTAINS = "Contains";
 
+    public static final int FILEITEM_INDEX=0;
+
 }

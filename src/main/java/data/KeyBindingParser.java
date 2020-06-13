@@ -134,9 +134,7 @@ public class KeyBindingParser {
                 break;
             case ":q<ENTER>":
             case "quit":
-                // Saving the last folder to history
-                guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(guiInstance.getFilePanel().getFolderContent().getFolderPath());
-                exit(0);
+                matchedCommand="quit";
                 break;
         }
         // If a match was found, the mathched command will not equal the pressedKeysListAsString, so the pressedKeysList can be cleared

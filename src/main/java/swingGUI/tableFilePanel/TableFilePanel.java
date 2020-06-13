@@ -67,8 +67,6 @@ public class TableFilePanel {
         // Create a new key listener
         keyListener = new KeyListener(guiInstance);
 
-        //Create a new Command Implementation
-        tableFilePanelCommandImplementations = new TableFilePanelCommandImplementations(guiInstance);
 
         // Search related stuff
         searchMathcedItemIndexes = new ArrayList<>();
@@ -77,6 +75,9 @@ public class TableFilePanel {
 
         drawTableFilePanel(10);
         scrollToHighlightedItem();
+
+        //Create a new Command Implementation (call this after drawTableFilePanel so the JTable is instantiazed)
+        tableFilePanelCommandImplementations = new TableFilePanelCommandImplementations(guiInstance);
 
         return tableFilePanelPanel;
     }
@@ -124,8 +125,16 @@ public class TableFilePanel {
 
 
     //Getters and setters
+    public int getHighlightedRowIndex() {
+        return tableFilePanelTable.getSelectedRow();
+    }
+
     public JPanel getTableFilePanelPanel() {
         return tableFilePanelPanel;
+    }
+
+    public JTable getTableFilePanelTable() {
+        return this.tableFilePanelTable;
     }
 
 

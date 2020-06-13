@@ -15,9 +15,12 @@ TODO - Refactor using JTable instead of JPanel
                 - Set matched background based on HTML
                 - Highlight search term matches and results
             - Refactor KeyInfoPanel
+                - Get all info from GUI itself and not from a FileInfoPanel
+            - Remove cursor navigation
 TODO - Refactor KeyInfoPanel to work with multiple file panels
 TODO - Highlight background of matched characters only
 TODO - Handle back button while in search mode to erase previous result
+TODO - Update CommandsInterface
 
 Fix
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder

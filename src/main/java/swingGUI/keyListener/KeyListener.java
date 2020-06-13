@@ -36,13 +36,13 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
     @Override
     public void keyPressed(KeyEvent e) {
 //      logger.debug("Key pressed event " + e.getKeyCode());
-//        guiInstance.getKeyInfoPanel().displayPressedKey(e);
+        guiInstance.getKeyInfoPanel().displayPressedKey(e);
 
         // Convert special keys (ESC, Shift, Enter) from key code to string
-//        String lastKeyPressedConverted = convertKeyEventToString(e);
+        String lastKeyPressedConverted = convertKeyEventToString(e);
 
         // Check if pressed key(s) can be matched against any command
-//        keyBindingParser.setLastPressedKey(lastKeyPressedConverted).parseKeys();
+        keyBindingParser.setLastPressedKey(lastKeyPressedConverted).parseKeys();
 
         // This ends here. Everything else is handled from the keybindingparser
 

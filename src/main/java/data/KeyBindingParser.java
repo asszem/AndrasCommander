@@ -35,7 +35,7 @@ public class KeyBindingParser {
         // Check if special key was pressed and if yes, break execution and return result accordingly
         String specialKeyCheckResult = checkSpecialKeys();
         if (!specialKeyCheckResult.equals("No Special Key Pressed")) {
-            guiInstance.getFilePanel().getCommandImplementations().handleCommand(specialKeyCheckResult);
+            guiInstance.getTableFilePanel().getTableFilePanelCommandImplementations().handleCommand(specialKeyCheckResult);
             return; // do not continue with key parsing.
         }
 
@@ -52,7 +52,7 @@ public class KeyBindingParser {
         // Get the matched command by parsing and send it back to commandImplementation
         String matchedCommand = null;
         matchedCommand = matchKeyToCommand();
-        guiInstance.getFilePanel().getCommandImplementations().handleCommand(matchedCommand);
+        guiInstance.getTableFilePanel().getTableFilePanelCommandImplementations().handleCommand(matchedCommand);
     }
 
     private String checkSpecialKeys() {

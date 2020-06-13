@@ -13,11 +13,6 @@ public class JTableStringSample {
     private JPanel jPanel;
     private JScrollPane tableScrollPane;
     private JTable jTable;
-    private TableModel tableModel;
-
-    private Vector<Vector> rowData = new Vector<>();
-
-
 
     public JPanel initStringTable() {
         jPanel = new JPanel();

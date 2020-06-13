@@ -1,36 +1,28 @@
-This list has elements that are not related to a specific part of the source code and requred for feature completion
+This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
-TODO - Highlight bacground of matched characters only
+TODO - Highlight background of matched characters only
 	- Refactor using JTable instead of JPanel
-		- Discovery
-			- Set custom renderer for JTable
-				- Find out why custom cell renderer is not working
-			- Set custom model to JTable
-			- Disable table content editing (for a while)
-			- Remap table content editing with keyboard shortcuts (rename)
 		- Implementation
-			- Navigation
-				- Display parent folder
-				- j/k gg/G, gu/GB
-				- Set highlighted file
-			- Search
-				- Set matched background based on HTML
+		    - Implement Custom Table Model that holds FileItem objects instead of Strings
+		    - Implement Custom Cell Renderer for highlighting
+		    - Implement Custom Action Listener for navigation
+			- Refactor features
+				- Display parent folder as ..
+				- Navigation using keys j/k gg/G, gu/GB
+				- Set and execute highlighted file
+                - Search
+                    - Set matched background based on HTML
+                    - Highlight search term matches and results
 TODO - Handle back button while in search mode to erase previous result
 
 Fix
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
-    - When gb is pressed, it should go back in history, but the
-    a
-    b
-    c
-    d -> gb pressed here
-    c -> gb pressed here
-    b -> it should go back to b, instead of c.
-    - Also a gf - going forward (and not goto file) command should be implemented to navigate forwards in History
+        - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b
 
 Tasks
+TODO - Implement gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well
 TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)
 TODO - refactor naming and methods to make more clear when is the UI redrawn

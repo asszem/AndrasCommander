@@ -17,29 +17,25 @@ public class ObjectTableCellRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value,
                                                    boolean isSelected, boolean hasFocus, int row, int col) {
 
-        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-        Object valueAt = table.getModel().getValueAt(row, col);
+        TableData tableData = (TableData) table.getModel().getValueAt(row, col);
 
-        c.setBackground(Color.GREEN);
-        String s = "";
-        if (valueAt != null) {
-            s = valueAt.toString();
-        }
-        s = "<html><font color=red><span style='background:yellow;'>" + s.substring(0, 4) + "</font></span> - <font color=navy><backgrouund-color=red>" +
-                s.substring(4, 7) + "</font></html>";
+        String data1 = tableData.getDataItem();
+        String data2 = tableData.getAnotherData();
+        int number = tableData.getDataInt();
+        System.out.println("data 1 " + data1);
+        System.out.println("data 2 " + data2);
 
-        setText(s);
-//        if (s.equalsIgnoreCase("yellow")) {
-//            c.setForeground(Color.YELLOW);
-//            c.setBackground(Color.gray);
-//        } else {
-//            c.setForeground(Color.black);
-//            c.setBackground(Color.WHITE);
-//        }
-        if (isSelected){
-            c.setBackground(Color.ORANGE);
+        String s = "<html><font color=red><span style='background:yellow;'>" + data1 + "</font></span>";
+        String s2 = "<font color=green><span style='background:blue;'>" + data2 + "</font></span> | " + number;
+
+        setText(s.concat(s2));
+
+        if (isSelected) {
+            setBackground(Color.ORANGE);
+        } else {
+            setBackground(Color.WHITE);
         }
-//        this.setOpaque(true);
-        return c;
+
+        return this;
     }
 }

@@ -1,5 +1,5 @@
 //Source: https://stackoverflow.com/questions/6900628/refreshing-background-color-for-a-row-in-jtable/6901508#6901508
-package sampleStuff;
+package sampleStuff.jTableSamples;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

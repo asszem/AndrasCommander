@@ -1,19 +1,14 @@
-package sampleStuff;
+package sampleStuff.jTableSamples;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class JTableSimpleSample {
+public class JTableStringSample {
 
     private JFrame frame = new JFrame("Simple Table Sample");
     private JPanel jPanel;
@@ -54,7 +49,7 @@ public class JTableSimpleSample {
         };
 
         jTable = new JTable(tableModel);
-        CustomTableCellRenderer customTableCellRenderer = new CustomTableCellRenderer();
+        sampleStuff.jTableSamples.CustomTableCellRenderer customTableCellRenderer = new sampleStuff.jTableSamples.CustomTableCellRenderer();
         jTable.setDefaultRenderer(String.class, customTableCellRenderer);
         tableScrollPane = new JScrollPane(jTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         tableScrollPane.setPreferredSize(new Dimension(400, 100));
@@ -77,7 +72,7 @@ public class JTableSimpleSample {
 //            }
 //        });
 
-        jTable.addKeyListener(new KeyListenerForTable(jTable));
+        jTable.addKeyListener(new sampleStuff.jTableSamples.KeyListenerForTable(jTable));
 
         jPanel.add(tableScrollPane);
         return jPanel;
@@ -101,7 +96,7 @@ public class JTableSimpleSample {
     }
 
     public static void main(String[] args) {
-        JTableSimpleSample instance = new JTableSimpleSample();
+        JTableStringSample instance = new JTableStringSample();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
 
             @Override
@@ -130,110 +125,3 @@ public class JTableSimpleSample {
     }
 }
 
-class KeyListenerForTable implements KeyListener {
-
-    private JTable jTable;
-
-    public KeyListenerForTable(JTable jTable) {
-        this.jTable = jTable;
-    }
-
-    public void scrollToSelectedItem() {
-        int row = jTable.getSelectedRow();
-        Rectangle cellRect = jTable.getCellRect(row, 0, true);
-        jTable.scrollRectToVisible(cellRect);
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == 74) {
-            int nextRow = jTable.getSelectedRow() + 1 >= jTable.getRowCount() ? 0 : jTable.getSelectedRow() + 1;
-            jTable.setRowSelectionInterval(nextRow, nextRow);
-            scrollToSelectedItem();
-        }
-        if (e.getKeyCode() == 75) {
-            int nextRow = jTable.getSelectedRow() - 1 <= 0 ? jTable.getRowCount() - 1 : jTable.getSelectedRow() - 1;
-            jTable.setRowSelectionInterval(nextRow, nextRow);
-            scrollToSelectedItem();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-}
-
-class Data {
-    private String dataItem;
-    private String anotherData;
-    private int dataInt;
-
-    public String getDataItem() {
-        return dataItem;
-    }
-
-    public void setDataItem(String dataItem) {
-        this.dataItem = dataItem;
-    }
-
-    public String getAnotherData() {
-        return anotherData;
-    }
-
-    public void setAnotherData(String anotherData) {
-        this.anotherData = anotherData;
-    }
-
-    public int getDataInt() {
-        return dataInt;
-    }
-
-    public void setDataInt(int dataInt) {
-        this.dataInt = dataInt;
-    }
-}
-
-class CustomTableCellRenderer extends DefaultTableCellRenderer {
-
-    private static final long serialVersionUID = 1L;
-
-    public CustomTableCellRenderer() {
-        System.out.println("custom table cell renderer called");
-        setOpaque(true);
-    }
-
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-                                                   boolean isSelected, boolean hasFocus, int row, int col) {
-
-        Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-        Object valueAt = table.getModel().getValueAt(row, col);
-
-        c.setBackground(Color.GREEN);
-        String s = "";
-        if (valueAt != null) {
-            s = valueAt.toString();
-        }
-        s = "<html><font color=red><span style='background:yellow;'>" + s.substring(0, 4) + "</font></span> - <font color=navy><backgrouund-color=red>" +
-                s.substring(4, 7) + "</font></html>";
-
-        setText(s);
-//        if (s.equalsIgnoreCase("yellow")) {
-//            c.setForeground(Color.YELLOW);
-//            c.setBackground(Color.gray);
-//        } else {
-//            c.setForeground(Color.black);
-//            c.setBackground(Color.WHITE);
-//        }
-        if (isSelected){
-            c.setBackground(Color.ORANGE);
-        }
-        this.setOpaque(true);
-        return c;
-    }
-}

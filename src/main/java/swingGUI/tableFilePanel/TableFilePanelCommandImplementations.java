@@ -9,6 +9,9 @@ import swingGUI.basicFilePanel.CommandImplementations;
 import swingGUI.basicFilePanel.FilePanel;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class TableFilePanelCommandImplementations  {
     private static Logger logger = LogManager.getLogger(TableFilePanelCommandImplementations.class);
@@ -24,6 +27,7 @@ public class TableFilePanelCommandImplementations  {
         this.guiInstance = guiInstance;
         this.tableFilePanel = guiInstance.getTableFilePanel();
         this.tableFilePanelTable = guiInstance.getTableFilePanel().getTableFilePanelTable();
+        this.folderContent= guiInstance.getTableFilePanel().getFolderContent();
         System.out.println(tableFilePanelTable.getSelectedRow());
     }
 
@@ -79,7 +83,7 @@ public class TableFilePanelCommandImplementations  {
                 guiInstance.getKeyInfoPanel().displayAllPressedKeys("Pressed Keys list cleared.");
                 break;
             case "open":
-//                openHighlighted();
+                openHighlighted();
                 break;
             case "pageDown":
                 //TODO implement pageDown move action
@@ -114,5 +118,40 @@ public class TableFilePanelCommandImplementations  {
         }
         tableFilePanelTable.setRowSelectionInterval(nextRow, nextRow);
         tableFilePanel.scrollToHighlightedItem();
+
+        // Set the highlighted file
+
+        // Display the new highlighted file
+        guiInstance.getKeyInfoPanel().displayHighlightedFile();
+    }
+
+    public void openHighlighted() {
+        File fileToBeExecuted = guiInstance.getTableFilePanel().getHighlightedFileItem().getFile();
+        if (fileToBeExecuted.isDirectory()) {
+            guiInstance.getKeyInfoPanel().displayCommand("ENTER to go to Folder " + fileToBeExecuted.getName());
+            changeFolder(fileToBeExecuted.getAbsolutePath());
+        } else {
+            guiInstance.getKeyInfoPanel().displayCommand("ENTER to execute File " + fileToBeExecuted.getName());
+            logger.debug("Executing file = " + fileToBeExecuted.getAbsolutePath());
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(fileToBeExecuted);
+            } catch (IOException e) {
+                logger.debug("ERROR in File Execution");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void changeFolder(String folderPath) {
+        String originalPath = folderContent.getFolderPath();
+        guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(originalPath); // save history
+
+        folderContent.setFolderPath(folderPath);
+        folderContent.loadFiles(folderPath);
+
+        guiInstance.getTableFilePanel().drawTableFilePanel(0);
+
+        guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 }

@@ -1,6 +1,7 @@
 package swingGUI.tableFilePanel;
 
 import control.Constants;
+import data.FileItem;
 import data.FolderContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -103,7 +104,6 @@ public class TableFilePanel {
         tableFilePanelTable.addKeyListener(keyListener);
 //        RemapCursorNavigation.remapCursors(tableFilePanelTable);
 
-
         // Create SCROLLPANE
         tableFilePanelScrollPane = new JScrollPane(tableFilePanelTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         tableFilePanelScrollPane.setBorder(BorderFactory.createTitledBorder(folderContent.getFolderPath()));
@@ -129,6 +129,10 @@ public class TableFilePanel {
         return tableFilePanelTable.getSelectedRow();
     }
 
+    public FileItem getHighlightedFileItem() {
+        return (FileItem) tableFilePanelTable.getModel().getValueAt(tableFilePanelTable.getSelectedRow(), 3);
+    }
+
     public JPanel getTableFilePanelPanel() {
         return tableFilePanelPanel;
     }
@@ -136,7 +140,6 @@ public class TableFilePanel {
     public JTable getTableFilePanelTable() {
         return this.tableFilePanelTable;
     }
-
 
     public FolderContent getFolderContent() {
         return folderContent;

@@ -97,21 +97,21 @@ public class CommandImplementations implements CommandsInterface {
     }
 
     public void openHighlighted() {
-        File fileToBeExecuted = guiInstance.getFilePanel().getFolderContent().getHighlightedFile();
-        if (fileToBeExecuted.isDirectory()) {
-            guiInstance.getKeyInfoPanel().displayCommand("ENTER to go to Folder " + fileToBeExecuted.getName());
-            changeFolder(fileToBeExecuted.getAbsolutePath());
-        } else {
-            guiInstance.getKeyInfoPanel().displayCommand("ENTER to execute File " + fileToBeExecuted.getName());
-            logger.debug("Executing file = " + fileToBeExecuted.getAbsolutePath());
-            Desktop desktop = Desktop.getDesktop();
-            try {
-                desktop.open(fileToBeExecuted);
-            } catch (IOException e) {
-                logger.debug("ERROR in File Execution");
-                e.printStackTrace();
-            }
-        }
+//        File fileToBeExecuted = guiInstance.getFilePanel().getFolderContent().getHighlightedFile();
+//        if (fileToBeExecuted.isDirectory()) {
+//            guiInstance.getKeyInfoPanel().displayCommand("ENTER to go to Folder " + fileToBeExecuted.getName());
+//            changeFolder(fileToBeExecuted.getAbsolutePath());
+//        } else {
+//            guiInstance.getKeyInfoPanel().displayCommand("ENTER to execute File " + fileToBeExecuted.getName());
+//            logger.debug("Executing file = " + fileToBeExecuted.getAbsolutePath());
+//            Desktop desktop = Desktop.getDesktop();
+//            try {
+//                desktop.open(fileToBeExecuted);
+//            } catch (IOException e) {
+//                logger.debug("ERROR in File Execution");
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     public void moveCursor(String direction) {
@@ -147,7 +147,7 @@ public class CommandImplementations implements CommandsInterface {
 
         // Set the highlighted file
         String highlightedItemTitle = filePanel.getFileListDisplayedItems().getModel().getElementAt(newIndex).toString();
-        folderContent.setHighlightedFileByDisplayedTitle(highlightedItemTitle);
+//        folderContent.setHighlightedFileByDisplayedTitle(highlightedItemTitle);
 
         // Display the new highlighted file
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
@@ -268,7 +268,7 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getFilePanel().drawFilePanel(currentHighlightedIndex);
 
         String displayedTitle = guiInstance.getFilePanel().getFileListDisplayedItems().getModel().getElementAt(currentHighlightedIndex).toString();
-        guiInstance.getFilePanel().getFolderContent().setHighlightedFileByDisplayedTitle(displayedTitle);
+//        guiInstance.getFilePanel().getFolderContent().setHighlightedFileByDisplayedTitle(displayedTitle);
         guiInstance.getKeyInfoPanel().displayCommand(direction + " search result for " + searchTerm);
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }

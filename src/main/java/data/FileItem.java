@@ -6,7 +6,7 @@ public class FileItem {
     private File file;
     private boolean isSelected;
     private boolean isSearchMatched;
-    private String displayedTitle; // This is what is displayed in JPanel. Based on this, the search can work
+    private String displayedTitle; // for example, folders and parent folders have different displayed titles
 
     public FileItem(File file, boolean isSelected) {
         this.file = file;

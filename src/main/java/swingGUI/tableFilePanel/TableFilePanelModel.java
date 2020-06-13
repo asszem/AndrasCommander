@@ -17,6 +17,7 @@ public class TableFilePanelModel extends AbstractTableModel {
         this.guiInstance=guiInstance;
     }
 
+    //TODO implement different sorting methods here
     public void populateTable(){
         System.out.println("populate Table called");
         ArrayList<FileItem> fileItems = guiInstance.getTableFilePanel().getFolderContent().sortFileItemsByName();
@@ -24,8 +25,10 @@ public class TableFilePanelModel extends AbstractTableModel {
         columnNames[0] = "File name";
         columnNames[1] = "Size";
         columnNames[2] = "Modified";
-        rowData = new Object[fileItems.size()][columnNames.length];
+        rowData = new Object[fileItems.size()][columnNames.length+1];
         for (int i=0;i<rowData.length;i++){
+            rowData[i][3]=fileItems.get(i); // not displayed
+
             rowData[i][0]=fileItems.get(i).getFile().getName();
             rowData[i][1]=fileItems.get(i).getFile().length();
 

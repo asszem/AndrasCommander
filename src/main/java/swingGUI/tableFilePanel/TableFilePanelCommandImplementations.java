@@ -201,7 +201,13 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 
     @Override
     public void executeSearch() {
-
+        // Get the current highlighted element
+        int currentIndex=guiInstance.getTableFilePanel().getHighlightedRowIndex();
+        System.out.println("current index before = " + currentIndex);
+//        guiInstance.getTableFilePanel().getFolderContent().executeSearch(searchTerm.toString());
+        guiInstance.getTableFilePanel().setHighlightedRowIndex(currentIndex);
+        currentIndex=guiInstance.getTableFilePanel().getHighlightedRowIndex();
+        System.out.println("current index after = " + currentIndex);
     }
 
     @Override

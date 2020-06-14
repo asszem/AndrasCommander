@@ -110,9 +110,12 @@ public class TableFilePanel {
             tableFilePanelTable.getColumnModel().getColumn(i).setPreferredWidth(200);
         }
         tableFilePanelTable.getColumnModel().getColumn(0).setPreferredWidth(600);
+//        tableFilePanelTable.setRowSelectionAllowed(true);
+//        tableFilePanelTable.setCellSelectionEnabled(false);
+//        tableFilePanelTable.setColumnSelectionAllowed(false);
 
         tableFilePanelTable.addKeyListener(keyListener);
-//        RemapCursorNavigation.remapCursors(tableFilePanelTable);
+        RemapCursorNavigation.remapCursors(tableFilePanelTable);
         // TODO remove mouse navigation
 
         // Create SCROLLPANE
@@ -138,6 +141,14 @@ public class TableFilePanel {
     //Getters and setters
     public int getHighlightedRowIndex() {
         return tableFilePanelTable.getSelectedRow();
+    }
+
+    public TableFilePanel setHighlightedRowIndex(int row) {
+        this.tableFilePanelTable.setRowSelectionInterval(row, row);
+        this.tableFilePanelTable.changeSelection(row,0,false, false);
+        System.out.println("highlithed to scroll to = " + this.tableFilePanelTable.getSelectedRow());
+        scrollToHighlightedItem();
+        return this;
     }
 
     public FileItem getHighlightedFileItem() {

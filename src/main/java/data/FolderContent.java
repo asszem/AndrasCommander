@@ -82,11 +82,10 @@ public class FolderContent {
         searchResults = new ArrayList<>();
         logger.debug("In executeSearch for = " + searchTerm);
 
-        // NOTE Do not forget the non-displaying \u0000 char if matching against displayed title
         searchResults = (ArrayList<FileItem>) fileItems.stream().filter(fileItem -> fileItem.getFile().getName().startsWith(searchTerm)).collect(Collectors.toList());
 
         searchResults.forEach(fileItem -> {
-//            System.out.println("matched file item title = [" + fileItem.getDisplayedTitle() + "]");
+            System.out.println("matched file item title = [" + fileItem.getFile().getName() + "]");
             fileItem.setSearchMatched(true);
         });
         return this;

@@ -83,6 +83,7 @@ public class KeyBindingParser {
                 }
                 // When ENTER was pressed while user was in Search Mode - do the search
                 if (inSearchMode) {
+                    System.out.println("in search mode, executing search command sending");
                     specialKeyCheckResult = "execute search";
                     inSearchMode = false;
                     pressedKeysList.clear();

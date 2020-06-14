@@ -27,6 +27,9 @@ public class KeyInfoPanel {
     private JPanel commandPanel;
     private JLabel commandLabel;
 
+    private JPanel searchTermPanel;
+    private JLabel searchTermLabel;
+
     public KeyInfoPanel(GUI guiInstance) {
         this.guiInstance = guiInstance;
     }
@@ -34,60 +37,79 @@ public class KeyInfoPanel {
     public JPanel initPanel(String panelTitle) {
         keyInfoPanel = new JPanel();
         keyInfoPanel.setBorder(BorderFactory.createTitledBorder(panelTitle));
+        Dimension keyInfoPanelSize = new Dimension(810, 150);
+        keyInfoPanel.setPreferredSize(keyInfoPanelSize);
+
+
+        //Highlighted File Panel
+        highlightedFilePanel = new JPanel();
+        highlightedFilePanel.setBorder(BorderFactory.createTitledBorder("Highlighted file"));
+        displayHighlightedFile();
+
+        // Search Term Panel
+        searchTermPanel = new JPanel();
+        searchTermPanel.setBorder(BorderFactory.createTitledBorder("Search term"));
+        searchTermLabel = new JLabel("<empty>");
+        searchTermPanel.add(searchTermLabel);
 
         //Pressed Key Panel
         pressedKeyPanel = new JPanel();
         pressedKeyPanel.setBorder(BorderFactory.createTitledBorder("Last Key (Code)"));
-        pressedKeyPanel.setPreferredSize(new Dimension(130, 50));
-
         pressedKeyLabel = new JLabel("Nothing pressed");
         pressedKeyPanel.add(pressedKeyLabel);
 
         //Pressed Keys List Panel
         pressedKeysListPanel = new JPanel();
-        setPressedKeysListTitle("Pressed Keys List" );
-        pressedKeysListPanel.setPreferredSize(new Dimension(400, 50));
-
+        setPressedKeysListTitle("Pressed Keys List");
         pressedKeysListLabel = new JLabel("<empty>");
         pressedKeysListPanel.add(pressedKeysListLabel);
 
-        highlightedFilePanel = new JPanel();
-        highlightedFilePanel.setBorder(BorderFactory.createTitledBorder("Highlighted file"));
-        highlightedFilePanel.setPreferredSize(new Dimension(200, 50));
-        displayHighlightedFile();
-
+        // Command Panel
         commandPanel = new JPanel();
         commandPanel.setBorder(BorderFactory.createTitledBorder("Last command"));
         commandLabel = new JLabel("Last command is empty");
         commandPanel.add(commandLabel);
 
-        BorderLayout keyInfoLayout = new BorderLayout();
-        keyInfoPanel.setLayout(keyInfoLayout);
-        Dimension keyInfoPanelSize = new Dimension(800,130);
-        keyInfoPanel.setPreferredSize(keyInfoPanelSize);
-        keyInfoPanel.add(highlightedFilePanel, BorderLayout.NORTH);
-        keyInfoPanel.add(pressedKeyPanel, BorderLayout.WEST);
-        keyInfoPanel.add(pressedKeysListPanel, BorderLayout.EAST);
-        keyInfoPanel.add(commandPanel, BorderLayout.CENTER);
+
+
+        Dimension topRowDimension= new Dimension(400,50);
+        highlightedFilePanel.setMinimumSize(topRowDimension);
+        highlightedFilePanel.setPreferredSize(topRowDimension);
+        highlightedFilePanel.setMaximumSize(topRowDimension);
+        searchTermPanel.setMinimumSize(topRowDimension);
+        searchTermPanel.setPreferredSize(topRowDimension);
+        searchTermPanel.setMaximumSize(topRowDimension);
+        Dimension bottomRowDimension=new Dimension(200,50);
+        pressedKeyPanel.setMinimumSize(bottomRowDimension);
+        pressedKeyPanel.setPreferredSize(bottomRowDimension);
+        pressedKeyPanel.setMaximumSize(bottomRowDimension);
+        pressedKeysListPanel.setMinimumSize(bottomRowDimension);
+        pressedKeysListPanel.setPreferredSize(bottomRowDimension);
+        pressedKeysListPanel.setMaximumSize(bottomRowDimension);
+        commandPanel.setMinimumSize(bottomRowDimension);
+        commandPanel.setPreferredSize(bottomRowDimension);
+        commandPanel.setMaximumSize(bottomRowDimension);
+
+        keyInfoPanel.setLayout(new GridLayout(0,3));
+        keyInfoPanel.add(pressedKeyPanel);
+        keyInfoPanel.add(pressedKeysListPanel);
+        keyInfoPanel.add(commandPanel);
+        keyInfoPanel.add(highlightedFilePanel);
+        keyInfoPanel.add(searchTermPanel);
 
         return keyInfoPanel;
     }
 
     public void displayCommand(String command) {
         commandLabel.setText(command);
-        guiInstance.getFrame().repaint();
-        guiInstance.getFrame().setVisible(true);
     }
 
     public void displayHighlightedFile() {
         highlightedFilePanel.removeAll();
         highlightedFileLabel = new JLabel(guiInstance.getTableFilePanel().getHighlightedFileItem().getFile().getName() + " (" + guiInstance.getTableFilePanel().getHighlightedRowIndex() + ")");
-
-//        logger.debug("Highlighted file index = " + guiInstance.getFilePanel().getHighlightedListItemIndex() );
         highlightedFilePanel.add(highlightedFileLabel);
-//        logger.debug("Highlighted file abs path = " + guiInstance.getFilePanel().getHighlightedFileItem().getAbsolutePath());
-        guiInstance.getFrame().repaint();
-        guiInstance.getFrame().setVisible(true);
+        highlightedFilePanel.repaint();
+        highlightedFilePanel.revalidate();
     }
 
     public void displayPressedKey(KeyEvent pressedKey) {
@@ -98,8 +120,8 @@ public class KeyInfoPanel {
             pressedKeyLabel = new JLabel("No keypress event passed");
         }
         pressedKeyPanel.add(pressedKeyLabel);
-        guiInstance.getFrame().repaint();
-        guiInstance.getFrame().setVisible(true);
+        pressedKeyPanel.repaint();
+        pressedKeyPanel.revalidate();
     }
 
     public void displayAllPressedKeys(ArrayList<String> pressedKeysList) {
@@ -110,20 +132,28 @@ public class KeyInfoPanel {
         });
         pressedKeysListLabel = new JLabel(listOfPressedKeys.toString());
         pressedKeysListPanel.add(pressedKeysListLabel);
-        guiInstance.getFrame().repaint();
-        guiInstance.getFrame().setVisible(true);
+//        pressedKeyPanel.repaint();
+//        pressedKeyLabel.revalidate();
     }
 
     public void displayAllPressedKeys(String pressedKeysList) {
         pressedKeysListPanel.removeAll();
         pressedKeysListLabel = new JLabel(pressedKeysList);
         pressedKeysListPanel.add(pressedKeysListLabel);
-        guiInstance.getFrame().repaint();
-        guiInstance.getFrame().setVisible(true);
+//        pressedKeyPanel.repaint();
+//        pressedKeyLabel.revalidate();
     }
 
-    public void setPressedKeysListTitle(String title){
-        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title+ " - " + guiInstance.getAndrasCommanderInstance().getMode()));
+    public void setPressedKeysListTitle(String title) {
+        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title + " - " + guiInstance.getAndrasCommanderInstance().getMode()));
+    }
+
+    public void displaySearchTerm(String searchTerm){
+        searchTermPanel.removeAll();
+        searchTermLabel = new JLabel(searchTerm);
+        searchTermPanel.add(searchTermLabel);
+        searchTermPanel.repaint();
+        searchTermPanel.revalidate();
     }
 
 }

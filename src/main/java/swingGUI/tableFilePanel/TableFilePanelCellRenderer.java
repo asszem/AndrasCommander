@@ -12,18 +12,20 @@ import java.util.Collections;
 public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
 
     private static final long serialVersionUID = 1L;
+    private String searchTerm="";
 
     public TableFilePanelCellRenderer() {
         setOpaque(true);
+    }
+
+    public void setSearchTerm(String searchTerm){
+        this.searchTerm=searchTerm;
     }
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
                                                    boolean isSelected, boolean hasFocus, int row, int col) {
 
-
-//        String s = "<html><font color=red><span style='background:yellow;'>" + data1 + "</font></span>";
-//        String s2 = "<font color=green><span style='background:blue;'>" + data2 + "</font></span> | " + number;
 
         String text = value.toString();
         setIcon(null);
@@ -46,7 +48,6 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
             setFont(font);
         }
 
-
         if (row == 0) {
             if (col == 0) {
                 text = "..";
@@ -54,6 +55,15 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
                 text = "";
             }
         }
+
+//        text = "<html><font color=black><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
+        if (!searchTerm.isEmpty() && text.startsWith(searchTerm)){
+            String matchingPart=text.substring(0,searchTerm.length());
+            String rest=text.substring(searchTerm.length(),text.length());
+//            System.out.println("matching part " + matchingPart);
+//            System.out.println("rest  " + rest);
+            text = "<html><font color=red><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
+         }
 
         setText(text);
 

@@ -2,11 +2,10 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 TODO - Refactor using JTable instead of JPanel
-    - Refactor Search
-        - Set matched background based on HTML
-        - Highlight search term matches and results
-        - Create method that only updates the table model, but not recreates it
-     - Handle back button while in search mode to erase previous result
+     - Handle space while in search mode
+     - Handle backspace while in search mode to erase previous result
+     - Jump to first search result when Enter is pressed
+     - Jump to prev/next search result
 TODO - Remap cursor navigation
         - Fix automatic scroll
 TODO - Disable mouse navigation
@@ -19,6 +18,7 @@ TODO - Fix going back ping-ponging between last two directory
         - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b
 
 Tasks
+TODO - Setup correct layout manager for KeyInfoPanel
 TODO - Convert file size to human readable format
 TODO - Implement gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well
@@ -29,6 +29,7 @@ TODO - Fix file thumbnails not displaying correctly on Linux
 TODO - Edge case handling - folders without files (only dirs), full empty folders, only files, top folder reached, etc
 
 Refactor
+TODO - Refactor table handling for increased response time
 TODO - Refactor KeyInfoPanel to work with multiple file panels
 TODO - Refactor CommandImplementations to avoid long and ugly chain of commands
     - Find out why passing the objects in the constructor to a variable did not reflected the changes on that object

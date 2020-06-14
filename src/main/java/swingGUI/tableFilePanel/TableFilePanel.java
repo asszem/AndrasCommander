@@ -171,6 +171,7 @@ public class TableFilePanel {
         return tableFilePanelCommandImplementations;
     }
 
+    // SEARCH Related Methods
     public TableFilePanel setDisplaySearchResultMatches(boolean displaySearchResultMatches) {
         this.displaySearchResultMatches = displaySearchResultMatches;
         return this;
@@ -178,6 +179,10 @@ public class TableFilePanel {
 
     public boolean getDisplaySearchResultMatches() {
         return this.displaySearchResultMatches;
+    }
+
+    public TableFilePanelCellRenderer getTableFilePanelCellRenderer(){
+        return this.tableFilePanelCellRenderer;
     }
 
     public ArrayList<Integer> getSearchMathcedItemIndexes() {

@@ -83,11 +83,17 @@ public class KeyBindingParser {
                 }
                 // When ENTER was pressed while user was in Search Mode - do the search
                 if (inSearchMode) {
-                    System.out.println("in search mode, executing search command sending");
                     specialKeyCheckResult = "execute search";
                     inSearchMode = false;
                     pressedKeysList.clear();
                     guiInstance.getAndrasCommanderInstance().setMode(Constants.NORMAL_MODE);
+                }
+                break;
+            case "<SPACE>":
+                // Handle when a space key is pressed in Search mode
+                if (inSearchMode){
+                    specialKeyCheckResult="space pressed in Search mode";
+                    pressedKeysList.add(" ");
                 }
                 break;
         }

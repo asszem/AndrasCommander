@@ -85,7 +85,7 @@ public class FolderContent {
         searchResults = (ArrayList<FileItem>) fileItems.stream().filter(fileItem -> fileItem.getFile().getName().startsWith(searchTerm)).collect(Collectors.toList());
 
         searchResults.forEach(fileItem -> {
-            System.out.println("matched file item title = [" + fileItem.getFile().getName() + "]");
+//            System.out.println("matched file item title = [" + fileItem.getFile().getName() + "]");
             fileItem.setSearchMatched(true);
         });
         return this;

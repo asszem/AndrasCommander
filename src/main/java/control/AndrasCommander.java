@@ -14,7 +14,7 @@ public class AndrasCommander {
     private static HistoryWriter historyWriter;
     private static String mode;
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         logger.info("____________________________________________________________________________________");
         logger.info("                        (¯`·._.·(¯`·._.· START ·._.·´¯)·._.·´¯)                     ");
         logger.info("                                  Andras Commander Started                          ");
@@ -25,6 +25,9 @@ public class AndrasCommander {
         historyWriter = new HistoryWriter();
         historyWriter.createHistoryFileIfNotExist();
         mode = Constants.NORMAL_MODE;
+//        UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+//        UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 swingGUI.GUI gui = new GUI(andrasCommanderInstance);

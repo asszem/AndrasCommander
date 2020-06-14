@@ -32,10 +32,17 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed keys");
 
         if (guiInstance.getAndrasCommanderInstance().getMode().equals(Constants.SEARCH_MODE)) {
+            //Handle if <SPACE> is sent as a command
+            if (command.contains("space pressed in Search mode")){
+                command.replace("space pressed in Search mode", " ");
+            }
             searchTerm = command;
             // This is for redrawing the panel and highlight the new search results
 //            guiInstance.getFilePanel().drawFilePanel(guiInstance.getFilePanel().getHighlightedListItemIndex());
             // redraw the tablefilepanel according to the updated search command
+            guiInstance.getTableFilePanel().getTableFilePanelCellRenderer().setSearchTerm(searchTerm);
+            guiInstance.getKeyInfoPanel().displaySearchTerm(searchTerm);
+            guiInstance.getTableFilePanel().getTableFilePanelTable().repaint();
         }
 
         switch (command) {
@@ -201,13 +208,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 
     @Override
     public void executeSearch() {
-        // Get the current highlighted element
-        int currentIndex=guiInstance.getTableFilePanel().getHighlightedRowIndex();
-        System.out.println("current index before = " + currentIndex);
-//        guiInstance.getTableFilePanel().getFolderContent().executeSearch(searchTerm.toString());
-        guiInstance.getTableFilePanel().setHighlightedRowIndex(currentIndex);
-        currentIndex=guiInstance.getTableFilePanel().getHighlightedRowIndex();
-        System.out.println("current index after = " + currentIndex);
+        guiInstance.getTableFilePanel().getFolderContent().executeSearch(searchTerm.toString());
     }
 
     @Override

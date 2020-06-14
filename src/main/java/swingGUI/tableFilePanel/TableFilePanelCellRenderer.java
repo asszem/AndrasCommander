@@ -39,7 +39,9 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
                 setForeground(Color.BLACK);
                 font = font.deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_SEMIBOLD));
             }
-            Icon icon = javax.swing.filechooser.FileSystemView.getFileSystemView().getSystemIcon(fileItem.getFile());
+            // TODO Find a solution that displays thumbnails correctly under Linux
+            final javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
+            Icon icon = fc.getUI().getFileView(fc).getIcon(fileItem.getFile());
             setIcon(icon);
             setFont(font);
         }

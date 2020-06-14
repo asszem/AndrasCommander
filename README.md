@@ -1,7 +1,6 @@
 # AndrasCommander
 
-Simple File Manager with VIM like motions. 
-This is a learning project, nothing serious :)
+Simple File Manager with VIM like motions.  This is a learning pet project, nothing serious :)
 
 ## MVP Feature Plans
 
@@ -91,9 +90,10 @@ At this point it should be an actually usable product.
 - [ ] Trigger search mode in s specific search type with a VIM like binding (/ or ?)
  
 ### Version 2.x - QoL improvements
+- [x] Matched file names are highlighted during typing of search term
+- [x] Platform independence (Linux / Windows)
 - [ ] Display line numbers for files
 - [ ] VIM like: jump to line with #linenumber"g"
-- [x] Matched file names are highlighted during typing of search term
 - [ ] VIM like: "gf" - going forward (and not goto file!) in history
 - [ ] Remap Home, End, PageUp, PageDown
 - [ ] Toggle keybindings list
@@ -103,7 +103,6 @@ At this point it should be an actually usable product.
 - [ ] yank (copy) absolute path to current file / directory
 - [ ] open shell (cmd, bash, conemu) at current location
 - [ ] Save and load panel layout
-- [x] Platform independence (Linux / Windows)
 
 ## Future Feature Plans
 - Aliases. Set full word aliases for actions (if typed quickly before the keypress is parsed)

@@ -11,5 +11,8 @@ public interface CommandsInterface {
     public void goBackInHistory();
     public void changeFolder(String folderPath);
     public void refreshView();
+    public void enterSearchMode();
+    public void executeSearch();
+    public void exitSearchMode();
 //    public void highlightSearchResult(ArrayList matchedIndexes);
 }

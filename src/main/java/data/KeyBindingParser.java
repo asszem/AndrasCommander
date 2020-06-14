@@ -51,7 +51,13 @@ public class KeyBindingParser {
 
         // Get the matched command by parsing and send it back to commandImplementation
         String matchedCommand = null;
-        matchedCommand = matchKeyToCommand();
+
+        if (inSearchMode){
+            matchedCommand= String.join("", pressedKeysList); // Convert to String without any delimiter
+        } else {
+            matchedCommand = matchKeyToCommand();
+        }
+
         guiInstance.getTableFilePanel().getTableFilePanelCommandImplementations().handleCommand(matchedCommand);
     }
 

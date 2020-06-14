@@ -35,6 +35,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
             searchTerm = command;
             // This is for redrawing the panel and highlight the new search results
 //            guiInstance.getFilePanel().drawFilePanel(guiInstance.getFilePanel().getHighlightedListItemIndex());
+            // redraw the tablefilepanel according to the updated search command
         }
 
         switch (command) {
@@ -60,10 +61,13 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
                 refreshView();
                 break;
             case "enter search mode":
-//                enterSearchMode();
+                enterSearchMode();
                 break;
             case "execute search":
-//                executeSearch();
+                executeSearch();
+                break;
+            case "exit search mode":
+                exitSearchMode();
                 break;
             case "next search result":
 //                setNextSearchResultHighlighted("next");
@@ -77,6 +81,9 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
             case "ESC":
                 guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
                 guiInstance.getKeyInfoPanel().displayAllPressedKeys("Pressed Keys list cleared.");
+                if (searchTerm!=null && !searchTerm.equals("")){
+                    exitSearchMode();
+                }
                 break;
             case "open":
                 openHighlighted();
@@ -183,5 +190,25 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
     public void refreshView() {
         changeFolder(guiInstance.getTableFilePanel().getFolderContent().getFolderPath());
     }
+
+    @Override
+    public void enterSearchMode() {
+        searchTerm = ""; // To remove any previous search terms
+        guiInstance.getTableFilePanel().setDisplaySearchResultMatches(true);
+        guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
+        guiInstance.getKeyInfoPanel().displayAllPressedKeys("<type search term>");
+    }
+
+    @Override
+    public void executeSearch() {
+
+    }
+
+    @Override
+    public void exitSearchMode() {
+        searchTerm="";
+        guiInstance.getTableFilePanel().setDisplaySearchResultMatches(false);
+    }
+
 
 }

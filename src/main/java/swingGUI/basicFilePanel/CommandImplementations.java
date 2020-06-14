@@ -242,6 +242,11 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
+    @Override
+    public void exitSearchMode() {
+
+    }
+
     public void setNextSearchResultHighlighted(String direction) {
         int searchResultSize = guiInstance.getFilePanel().getSearchMathcedItemIndexes().size();
         int currentPointer = guiInstance.getFilePanel().getSearchMatchedItemIndexesPointer();

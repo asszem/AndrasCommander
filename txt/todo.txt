@@ -2,17 +2,14 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 TODO - Refactor using JTable instead of JPanel
-    - Implementation
-        - Refactor Search
-            - Set matched background based on HTML
-            - Highlight search term matches and results
+    - Refactor Search
+        - Set matched background based on HTML
+        - Highlight search term matches and results
         - Create method that only updates the table model, but not recreates it
+     - Handle back button while in search mode to erase previous result
 TODO - Remap cursor navigation
         - Fix automatic scroll
 TODO - Disable mouse navigation
-TODO - Refactor KeyInfoPanel to work with multiple file panels
-TODO - Highlight background of matched characters only
-TODO - Handle back button while in search mode to erase previous result
 TODO - Delete obsolete FilePanel from project
 TODO - Update CommandsInterface
 
@@ -28,9 +25,11 @@ TODO - Update UML after basic search was implemented - The standard sequence dia
 TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)
 TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible
+TODO - Fix file thumbnails not displaying correctly on Linux
 TODO - Edge case handling - folders without files (only dirs), full empty folders, only files, top folder reached, etc
 
 Refactor
+TODO - Refactor KeyInfoPanel to work with multiple file panels
 TODO - Refactor CommandImplementations to avoid long and ugly chain of commands
     - Find out why passing the objects in the constructor to a variable did not reflected the changes on that object
 TODO - Refactor separation of files and folders

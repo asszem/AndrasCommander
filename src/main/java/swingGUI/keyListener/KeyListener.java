@@ -43,14 +43,6 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
 
         // Check if pressed key(s) can be matched against any command
         keyBindingParser.setLastPressedKey(lastKeyPressedConverted).parseKeys();
-
-        // This ends here. Everything else is handled from the keybindingparser
-
-//        if (matchedCommandReturned != null) { // Send the GUI the action to be performed
-//            sendCommandToGui(matchedCommandReturned);
-//        }
-//        guiInstance.getKeyInfoPanel().displayAllPressedKeys(keyBindingParser.getPressedKeysList());
-//        guiInstance.getKeyInfoPanel().displayHighlightedFile();
     }
 
 

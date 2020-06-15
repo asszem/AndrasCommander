@@ -119,10 +119,10 @@ public class KeyBindingParser {
             case ":":
 //                guiInstance.getAndrasCommanderInstance().setMode(Constants.COMMAND_MODE);
                 break;
-            case ":noh":
+            case ":noh<ENTER>":
                 matchedCommand = "set no highlight search results";
                 break;
-            case ":hl":
+            case ":hl<ENTER>":
                 matchedCommand="set highlight search results";
                 break;
             case "j":

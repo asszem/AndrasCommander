@@ -2,8 +2,6 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 TODO - Reimplement search
-     - Jump to prev/next search result
-     - set :noh / :hl to enable/disable search highlighting
      - Clean up highlight HTML Code in Cell Renderer
         - Use color values from Properties file
 TODO - Remap cursor navigation

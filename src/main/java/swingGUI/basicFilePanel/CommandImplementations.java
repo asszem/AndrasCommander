@@ -247,6 +247,11 @@ public class CommandImplementations implements CommandsInterface {
 
     }
 
+    @Override
+    public void jumpToSearchResult(String direction) {
+
+    }
+
 
     public void setNextSearchResultHighlighted(String direction) {
         int searchResultSize = guiInstance.getFilePanel().getSearchMathcedItemIndexes().size();

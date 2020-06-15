@@ -14,5 +14,6 @@ public interface CommandsInterface {
     public void enterSearchMode();
     public void executeSearch();
     public void exitSearchMode();
+    public void jumpToSearchResult(String direction);
     public void setHighlightSearchResults(boolean highlightSearchResults);
 }

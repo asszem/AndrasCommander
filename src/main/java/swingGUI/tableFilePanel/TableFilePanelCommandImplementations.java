@@ -70,10 +70,10 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
                 exitSearchMode();
                 break;
             case "next search result":
-//                setNextSearchResultHighlighted("next");
+                jumpToSearchResult("next");
                 break;
             case "prev search result":
-//                setNextSearchResultHighlighted("prev");
+                jumpToSearchResult("prev");
                 break;
             case "set no highlight search results":
                 setHighlightSearchResults(false);
@@ -165,6 +165,8 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 
         guiInstance.getTableFilePanel().drawTableFilePanel(0);
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
+
+        exitSearchMode(); // so n/N will not work in new directory where the search was not executed
     }
 
     @Override
@@ -205,14 +207,14 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
     }
 
     private int searchResultIndexPointer;
-    private ArrayList<Integer> searchResultPointers;
+    private ArrayList<Integer> searchResultIndexes;
 
     @Override
     public void executeSearch() {
         guiInstance.getTableFilePanel().getFolderContent().executeSearch(searchTerm.toString());
 
         // Prepare the results pointers
-        searchResultPointers = new ArrayList<>();
+        searchResultIndexes = new ArrayList<>();
         searchResultIndexPointer = 0;
 
         // Get the total number of rows in table
@@ -223,25 +225,48 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
             FileItem fileItem = (FileItem) guiInstance.getTableFilePanel().getTableFilePanelTable().getModel().getValueAt(currentRowIndex, 0);
             if (fileItem.isSearchMatched()) {
 //                logger.debug("Matched file item index = " + currentRowIndex + " file = " + fileItem.getFile().getName());
-                searchResultPointers.add(currentRowIndex);
+                searchResultIndexes.add(currentRowIndex);
             }
         }
         // Set the highlighted row only when there is at least one match
-        if (searchResultPointers.size() > 0) {
-            guiInstance.getTableFilePanel().setHighlightedRowIndex(searchResultPointers.get(0));
+        if (searchResultIndexes.size() > 0) {
+            guiInstance.getTableFilePanel().setHighlightedRowIndex(searchResultIndexes.get(0));
         }
     }
 
     @Override
     public void exitSearchMode() {
         searchTerm = "";
+        searchResultIndexPointer = -1;
+        searchResultIndexes = null;
         guiInstance.getKeyInfoPanel().displaySearchTerm("<none>");
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(false);
+        guiInstance.getTableFilePanel().getTableFilePanelCellRenderer().setSearchTerm(""); // to avoid :hl displaying previous search term
+    }
+
+    @Override
+    public void jumpToSearchResult(String direction) {
+        if (searchResultIndexes != null && searchResultIndexes.size() > 0) {
+            if (direction.equals("next")) {
+                if (searchResultIndexPointer + 1 >= searchResultIndexes.size()) {
+                    searchResultIndexPointer = 0;   // Set FIRST item
+                } else {
+                    searchResultIndexPointer++;     // Set Next item
+                }
+            } else if (direction.equals("prev")) {
+                if (searchResultIndexPointer - 1 < 0) {
+                    searchResultIndexPointer = searchResultIndexes.size() - 1; // Set LAST item
+                } else {
+                    searchResultIndexPointer--; // Set Prev item
+                }
+            }
+            guiInstance.getTableFilePanel().setHighlightedRowIndex(searchResultIndexes.get(searchResultIndexPointer));
+        }
     }
 
 
     @Override
-    public void setHighlightSearchResults(boolean highlightSearchResults){
+    public void setHighlightSearchResults(boolean highlightSearchResults) {
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(highlightSearchResults);
         guiInstance.getKeyInfoPanel().displayCommand("Set search result highlight " + highlightSearchResults);
     }

@@ -97,9 +97,13 @@ public class KeyBindingParser {
             case "<BACKSPACE>":
                 // Handle when backspace is pressed in Search mode - set specialkeyresult as the updated pressedKeysList table
                 // Which has removed the last item
-                if (inSearchMode){
-                    pressedKeysList.remove(pressedKeysList.size()-1);
-                    specialKeyCheckResult= String.join("", pressedKeysList);
+                if (inSearchMode) {
+                    if (pressedKeysList.size() > 0) {
+                        pressedKeysList.remove(pressedKeysList.size() - 1);
+                        specialKeyCheckResult = String.join("", pressedKeysList);
+                    } else {
+                        specialKeyCheckResult = "";
+                    }
                 }
                 break;
         }

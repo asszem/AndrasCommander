@@ -56,6 +56,7 @@ public class TableFilePanel {
         // Create a new FolderContent
         folderContent = new FolderContent(startfolder);
 
+
         // Table Related tasks
 
         // Create the Panel that will hold the Table
@@ -70,16 +71,16 @@ public class TableFilePanel {
         // Create a new key listener
         keyListener = new KeyListener(guiInstance);
 
-
         // Search related stuff
         searchMathcedItemIndexes = new ArrayList<>();
         searchType = Constants.SEARCH_MODE_STARTSWITH;
         searchMatchedItemIndexesPointer = 0;
 
+        // Draw the actual table
         drawTableFilePanel(0);
         scrollToHighlightedItem();
 
-        //Create a new Command Implementation (call this after drawTableFilePanel so the JTable is instantiazed)
+        //Create a new Command Implementation (call this after drawTableFilePanel so the JTable is instantiated)
         tableFilePanelCommandImplementations = new TableFilePanelCommandImplementations(guiInstance);
 
         return tableFilePanelPanel;
@@ -97,7 +98,6 @@ public class TableFilePanel {
         tableFilePanelPanel.removeAll();
 
         // Update the table model
-//        tableFilePanelModel = new TableFilePanelModel(guiInstance);
         tableFilePanelModel.populateTable();
 
         // Create a new table
@@ -110,9 +110,6 @@ public class TableFilePanel {
             tableFilePanelTable.getColumnModel().getColumn(i).setPreferredWidth(200);
         }
         tableFilePanelTable.getColumnModel().getColumn(0).setPreferredWidth(600);
-//        tableFilePanelTable.setRowSelectionAllowed(true);
-//        tableFilePanelTable.setCellSelectionEnabled(false);
-//        tableFilePanelTable.setColumnSelectionAllowed(false);
 
         tableFilePanelTable.addKeyListener(keyListener);
         RemapCursorNavigation.remapCursors(tableFilePanelTable);

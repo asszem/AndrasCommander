@@ -13,6 +13,9 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
 
     private static final long serialVersionUID = 1L;
     private String searchTerm="";
+    private Font font = getFont();
+    final javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
+    String text;
 
     public TableFilePanelCellRenderer() {
         setOpaque(true);
@@ -27,9 +30,10 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
                                                    boolean isSelected, boolean hasFocus, int row, int col) {
 
 
-        String text = value.toString();
         setIcon(null);
-        Font font = getFont();
+
+        text = value.toString();
+
         if (table.getModel().getValueAt(row, col) instanceof FileItem) {
             FileItem fileItem = (FileItem) table.getModel().getValueAt(row, col);
             if (fileItem.getFile().isDirectory()) {
@@ -42,7 +46,6 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
                 font = font.deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_SEMIBOLD));
             }
             // TODO Find a solution that displays thumbnails correctly under Linux
-            final javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
             Icon icon = fc.getUI().getFileView(fc).getIcon(fileItem.getFile());
             setIcon(icon);
             setFont(font);
@@ -60,8 +63,6 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
         if (!searchTerm.isEmpty() && text.startsWith(searchTerm)){
             String matchingPart=text.substring(0,searchTerm.length());
             String rest=text.substring(searchTerm.length(),text.length());
-//            System.out.println("matching part " + matchingPart);
-//            System.out.println("rest  " + rest);
             text = "<html><font color=red><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
          }
 

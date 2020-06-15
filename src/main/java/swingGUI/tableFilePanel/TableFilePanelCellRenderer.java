@@ -11,19 +11,28 @@ import java.util.Collections;
 public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
 
     private static final long serialVersionUID = 1L;
-    private String searchTerm="";
+
+    //    private GUI guiInstance;
+    private String searchTerm = "";
     private Font font = getFont();
+    private String textToDisplay;
+    private String originalText;
     final javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
-    String textToDisplay;
-    String originalText;
+    private boolean isSearchHighlightEnabled;
 
 
     public TableFilePanelCellRenderer() {
         setOpaque(true);
+        isSearchHighlightEnabled = false;
     }
 
-    public void setSearchTerm(String searchTerm){
-        this.searchTerm=searchTerm;
+    public void setSearchHighlightEnabled(boolean searchHighlightEnabled) {
+        isSearchHighlightEnabled = searchHighlightEnabled;
+//        System.out.println("cell renderer highlight enabled = " + isSearchHighlightEnabled);
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
     }
 
     @Override
@@ -37,7 +46,7 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
 
         if (table.getModel().getValueAt(row, col) instanceof FileItem) {
             FileItem fileItem = (FileItem) table.getModel().getValueAt(row, col);
-            originalText=fileItem.getFile().getName();
+            originalText = fileItem.getFile().getName();
             if (fileItem.getFile().isDirectory()) {
                 textToDisplay = "[" + fileItem.getFile().getName() + "]";
                 setForeground(Color.BLUE);
@@ -52,7 +61,7 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
             setIcon(icon);
             setFont(font);
         } else {
-            originalText="";
+            originalText = "";
         }
 
 
@@ -64,25 +73,25 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
             }
         }
 
-//        textToDisplay = "<html><font color=black><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
-        if (!searchTerm.isEmpty() && !originalText.isEmpty() && originalText.startsWith(searchTerm)){
-            // This is to handle folder names in brackets
-            String matchingPart;
-            String rest;
-            if (textToDisplay.startsWith("[")){
-                matchingPart= textToDisplay.substring(1,searchTerm.length());
-                rest= textToDisplay.substring(searchTerm.length(), textToDisplay.length());
-                textToDisplay = "<html><font color=red><span style='background:yellow;'>[" + matchingPart + "</font></span>" + rest;
+        if (isSearchHighlightEnabled) {
+            if (!searchTerm.isEmpty() && !originalText.isEmpty() && originalText.startsWith(searchTerm)) {
+                // This is to handle folder names in brackets
+                String matchingPart;
+                String rest;
+                if (textToDisplay.startsWith("[")) {
+                    matchingPart = textToDisplay.substring(1, searchTerm.length());
+                    rest = textToDisplay.substring(searchTerm.length(), textToDisplay.length());
+                    textToDisplay = "<html><font color=red><span style='background:yellow;'>[" + matchingPart + "</font></span>" + rest;
+
+                } else {
+                    matchingPart = textToDisplay.substring(0, searchTerm.length());
+                    rest = textToDisplay.substring(searchTerm.length(), textToDisplay.length());
+                    textToDisplay = "<html><font color=red><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
+
+                }
 
             }
-            else {
-                matchingPart= textToDisplay.substring(0,searchTerm.length());
-                rest= textToDisplay.substring(searchTerm.length(), textToDisplay.length());
-                textToDisplay = "<html><font color=red><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
-
-            }
-
-         }
+        }
 
         setText(textToDisplay);
 

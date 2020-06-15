@@ -117,11 +117,13 @@ public class KeyBindingParser {
         String matchedCommand = pressedKeysListAsString;
         switch (pressedKeysListAsString) {
             case ":":
-                logger.debug(": matched");
-                guiInstance.getAndrasCommanderInstance().setMode(Constants.COMMAND_MODE);
+//                guiInstance.getAndrasCommanderInstance().setMode(Constants.COMMAND_MODE);
                 break;
             case ":noh":
                 matchedCommand = "set no highlight search results";
+                break;
+            case ":hl":
+                matchedCommand="set highlight search results";
                 break;
             case "j":
                 matchedCommand = "down";

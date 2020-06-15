@@ -2,7 +2,9 @@ Version 0.4 - File Details and Search Highlighting - InProgress
     - Refactor code to use JTable with a custom Table Model that holds FileItem objects
     - Display file details (name, size, last modified) and file thumbnail icons
     - Highlight search result matches as search term is typed using a Custom Table Cell Renderer
-    INPROGRESS- Handle space and backspace in search mode
+    - Toggle search result highlighting with :noh and :hl
+    - Handle space and backspace in search mode
+    - Preserve search term during navigation (search term remains if folder is changed)
 
 Version 0.3 - Basic Search Implementation - 2020-06-07
     - Implement Mode dispay (Normal, Insert, Search, Command) in KeyInfoPanel

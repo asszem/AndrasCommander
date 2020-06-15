@@ -247,6 +247,7 @@ public class CommandImplementations implements CommandsInterface {
 
     }
 
+
     public void setNextSearchResultHighlighted(String direction) {
         int searchResultSize = guiInstance.getFilePanel().getSearchMathcedItemIndexes().size();
         int currentPointer = guiInstance.getFilePanel().getSearchMatchedItemIndexesPointer();
@@ -282,6 +283,11 @@ public class CommandImplementations implements CommandsInterface {
         guiInstance.getKeyInfoPanel().displayCommand("Set search result highlight OFF");
         guiInstance.getFilePanel().setDisplaySearchResultMatches(false);
         guiInstance.getFilePanel().drawFilePanel(guiInstance.getFilePanel().getHighlightedListItemIndex());
+    }
+
+    @Override
+    public void setHighlightSearchResults(boolean highlightSearchResults) {
+
     }
 
     public String getSearchTerm() {

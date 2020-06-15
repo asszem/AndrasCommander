@@ -76,7 +76,10 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 //                setNextSearchResultHighlighted("prev");
                 break;
             case "set no highlight search results":
-//                setNoHighlightSearchResults();
+                setHighlightSearchResults(false);
+                break;
+            case "set highlight search results":
+                setHighlightSearchResults(true);
                 break;
             case "ESC":
                 guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
@@ -219,12 +222,10 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         for (int currentRowIndex = 0; currentRowIndex < rows; currentRowIndex++) {
             FileItem fileItem = (FileItem) guiInstance.getTableFilePanel().getTableFilePanelTable().getModel().getValueAt(currentRowIndex, 0);
             if (fileItem.isSearchMatched()) {
-                System.out.println("Matched file item index = " + currentRowIndex + " file = " + fileItem.getFile().getName());
+//                logger.debug("Matched file item index = " + currentRowIndex + " file = " + fileItem.getFile().getName());
                 searchResultPointers.add(currentRowIndex);
             }
         }
-        System.out.println("search result pointers size = " + searchResultPointers.size());
-
         // Set the highlighted row only when there is at least one match
         if (searchResultPointers.size() > 0) {
             guiInstance.getTableFilePanel().setHighlightedRowIndex(searchResultPointers.get(0));
@@ -233,10 +234,15 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 
     @Override
     public void exitSearchMode() {
-        System.out.println("exit search mode called.");
         searchTerm = "";
+        guiInstance.getKeyInfoPanel().displaySearchTerm("<none>");
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(false);
     }
 
 
+    @Override
+    public void setHighlightSearchResults(boolean highlightSearchResults){
+        guiInstance.getTableFilePanel().setDisplaySearchResultMatches(highlightSearchResults);
+        guiInstance.getKeyInfoPanel().displayCommand("Set search result highlight " + highlightSearchResults);
+    }
 }

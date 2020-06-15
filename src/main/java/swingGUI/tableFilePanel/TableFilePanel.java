@@ -11,9 +11,7 @@ import swingGUI.keyListener.RemapCursorNavigation;
 import utility.PropertyReader;
 
 import javax.swing.*;
-import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class TableFilePanel {
     private static Logger logger = LogManager.getLogger(TableFilePanel.class);
@@ -23,7 +21,7 @@ public class TableFilePanel {
 
     // SEARCH related fields
     private boolean displaySearchResultMatches;
-//    private ArrayList<Integer> searchMathcedItemIndexes;
+    //    private ArrayList<Integer> searchMathcedItemIndexes;
 //    private int searchMatchedItemIndexesPointer; // points to the current searchMathcedItemIndex. Used when navigating with n/N
     private String searchType;
 
@@ -142,7 +140,7 @@ public class TableFilePanel {
 
     public TableFilePanel setHighlightedRowIndex(int row) {
         this.tableFilePanelTable.setRowSelectionInterval(row, row);
-        this.tableFilePanelTable.changeSelection(row,0,false, false);
+        this.tableFilePanelTable.changeSelection(row, 0, false, false);
 //        System.out.println("highlithed to scroll to = " + this.tableFilePanelTable.getSelectedRow());
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
         scrollToHighlightedItem();
@@ -171,6 +169,9 @@ public class TableFilePanel {
 
     // SEARCH Related Methods
     public TableFilePanel setDisplaySearchResultMatches(boolean displaySearchResultMatches) {
+        tableFilePanelCellRenderer.setSearchHighlightEnabled(displaySearchResultMatches); // Set the cell renderer accordingly
+        tableFilePanelTable.repaint();
+        tableFilePanelTable.revalidate();
         this.displaySearchResultMatches = displaySearchResultMatches;
         return this;
     }
@@ -179,7 +180,7 @@ public class TableFilePanel {
         return this.displaySearchResultMatches;
     }
 
-    public TableFilePanelCellRenderer getTableFilePanelCellRenderer(){
+    public TableFilePanelCellRenderer getTableFilePanelCellRenderer() {
         return this.tableFilePanelCellRenderer;
     }
 

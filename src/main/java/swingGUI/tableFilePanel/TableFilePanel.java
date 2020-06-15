@@ -23,8 +23,8 @@ public class TableFilePanel {
 
     // SEARCH related fields
     private boolean displaySearchResultMatches;
-    private ArrayList<Integer> searchMathcedItemIndexes;
-    private int searchMatchedItemIndexesPointer; // points to the current searchMathcedItemIndex. Used when navigating with n/N
+//    private ArrayList<Integer> searchMathcedItemIndexes;
+//    private int searchMatchedItemIndexesPointer; // points to the current searchMathcedItemIndex. Used when navigating with n/N
     private String searchType;
 
     //GUI Fields
@@ -72,9 +72,9 @@ public class TableFilePanel {
         keyListener = new KeyListener(guiInstance);
 
         // Search related stuff
-        searchMathcedItemIndexes = new ArrayList<>();
+//        searchMathcedItemIndexes = new ArrayList<>();
         searchType = Constants.SEARCH_MODE_STARTSWITH;
-        searchMatchedItemIndexesPointer = 0;
+//        searchMatchedItemIndexesPointer = 0;
 
         // Draw the actual table
         drawTableFilePanel(0);
@@ -143,7 +143,8 @@ public class TableFilePanel {
     public TableFilePanel setHighlightedRowIndex(int row) {
         this.tableFilePanelTable.setRowSelectionInterval(row, row);
         this.tableFilePanelTable.changeSelection(row,0,false, false);
-        System.out.println("highlithed to scroll to = " + this.tableFilePanelTable.getSelectedRow());
+//        System.out.println("highlithed to scroll to = " + this.tableFilePanelTable.getSelectedRow());
+        guiInstance.getKeyInfoPanel().displayHighlightedFile();
         scrollToHighlightedItem();
         return this;
     }
@@ -182,20 +183,20 @@ public class TableFilePanel {
         return this.tableFilePanelCellRenderer;
     }
 
-    public ArrayList<Integer> getSearchMathcedItemIndexes() {
-        return this.searchMathcedItemIndexes;
-    }
-
-    public TableFilePanel resetSearchMathcedItemIndexes() {
-        this.searchMathcedItemIndexes.clear();
-        return this;
-    }
-
-    public int getSearchMatchedItemIndexesPointer() {
-        return searchMatchedItemIndexesPointer;
-    }
-
-    public void setSearchMatchedItemIndexesPointer(int searchMatchedItemIndexesPointer) {
-        this.searchMatchedItemIndexesPointer = searchMatchedItemIndexesPointer;
-    }
+//    public ArrayList<Integer> getSearchMathcedItemIndexes() {
+//        return this.searchMathcedItemIndexes;
+//    }
+//
+//    public TableFilePanel resetSearchMathcedItemIndexes() {
+//        this.searchMathcedItemIndexes.clear();
+//        return this;
+//    }
+//
+//    public int getSearchMatchedItemIndexesPointer() {
+//        return searchMatchedItemIndexesPointer;
+//    }
+//
+//    public void setSearchMatchedItemIndexesPointer(int searchMatchedItemIndexesPointer) {
+//        this.searchMatchedItemIndexesPointer = searchMatchedItemIndexesPointer;
+//    }
 }

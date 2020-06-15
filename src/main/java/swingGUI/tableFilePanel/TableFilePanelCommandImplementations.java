@@ -2,17 +2,16 @@ package swingGUI.tableFilePanel;
 
 import control.Constants;
 import data.CommandsInterface;
-import data.FolderContent;
+import data.FileItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import swingGUI.GUI;
-import swingGUI.basicFilePanel.CommandImplementations;
-import swingGUI.basicFilePanel.FilePanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static java.lang.System.exit;
 
@@ -195,19 +194,46 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
     @Override
     public void enterSearchMode() {
         searchTerm = ""; // To remove any previous search terms
+        guiInstance.getTableFilePanel().getFolderContent().setEveryFileItemSearchMatchedToFalse();
         guiInstance.getAndrasCommanderInstance().setMode(Constants.SEARCH_MODE);
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(true);
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<type search term>");
     }
 
+    private int searchResultIndexPointer;
+    private ArrayList<Integer> searchResultPointers;
+
     @Override
     public void executeSearch() {
         guiInstance.getTableFilePanel().getFolderContent().executeSearch(searchTerm.toString());
+
+        // Prepare the results pointers
+        searchResultPointers = new ArrayList<>();
+        searchResultIndexPointer = 0;
+
+        // Get the total number of rows in table
+        int rows = guiInstance.getTableFilePanel().getTableFilePanelTable().getModel().getRowCount();
+
+        // Get the index of matched fileitems
+        for (int currentRowIndex = 0; currentRowIndex < rows; currentRowIndex++) {
+            FileItem fileItem = (FileItem) guiInstance.getTableFilePanel().getTableFilePanelTable().getModel().getValueAt(currentRowIndex, 0);
+            if (fileItem.isSearchMatched()) {
+                System.out.println("Matched file item index = " + currentRowIndex + " file = " + fileItem.getFile().getName());
+                searchResultPointers.add(currentRowIndex);
+            }
+        }
+        System.out.println("search result pointers size = " + searchResultPointers.size());
+
+        // Set the highlighted row only when there is at least one match
+        if (searchResultPointers.size() > 0) {
+            guiInstance.getTableFilePanel().setHighlightedRowIndex(searchResultPointers.get(0));
+        }
     }
 
     @Override
     public void exitSearchMode() {
+        System.out.println("exit search mode called.");
         searchTerm = "";
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(false);
     }

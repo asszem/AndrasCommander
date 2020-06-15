@@ -17,6 +17,7 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
     final javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
     String text;
 
+
     public TableFilePanelCellRenderer() {
         setOpaque(true);
     }

@@ -8,11 +8,11 @@ import java.awt.event.KeyEvent;
 public class RemapCursorNavigation {
 
     public static <T extends JComponent> void remapCursors(T component) {
-//        component.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "replace with j");
-//        component.getActionMap().put("replace with j", setActionToSendKey(74));
+        component.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "replace with j");
+        component.getActionMap().put("replace with j", setActionToSendKey(74));
 //
-//        component.getInputMap().put(KeyStroke.getKeyStroke("UP"), "replace with k");
-//        component.getActionMap().put("replace with k", setActionToSendKey(75));
+        component.getInputMap().put(KeyStroke.getKeyStroke("UP"), "replace with k");
+        component.getActionMap().put("replace with k", setActionToSendKey(75));
 
 //        component.getInputMap().put(KeyStroke.getKeyStroke("ENTER"), "disable Enter");
 //        component.getActionMap().put("disable Enter", null);

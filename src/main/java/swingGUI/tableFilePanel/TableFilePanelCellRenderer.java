@@ -3,6 +3,7 @@ package swingGUI.tableFilePanel;
 import data.FileItem;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.font.TextAttribute;
@@ -17,8 +18,18 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
     private Font font = getFont();
     private String textToDisplay;
     private String originalText;
-    final javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
     private boolean isSearchHighlightEnabled;
+    private String colorForegroundSearchMatch="red";
+    private String colorBackgroundSearchMatch="yellow";
+    private Color folderForeground=Color.BLUE;
+    private Color folderBackground=Color.BLACK;
+    private Color fileForeground=Color.BLACK;
+    private Color fileBackground=Color.WHITE;
+
+    private String setTextColor(String text){
+        String result="<html><font color="+colorForegroundSearchMatch+"><span style='background:"+colorBackgroundSearchMatch+";'>" + text + "</font></span>";
+        return result;
+    }
 
 
     public TableFilePanelCellRenderer() {
@@ -28,7 +39,6 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
 
     public void setSearchHighlightEnabled(boolean searchHighlightEnabled) {
         isSearchHighlightEnabled = searchHighlightEnabled;
-//        System.out.println("cell renderer highlight enabled = " + isSearchHighlightEnabled);
     }
 
     public void setSearchTerm(String searchTerm) {
@@ -49,15 +59,16 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
             originalText = fileItem.getFile().getName();
             if (fileItem.getFile().isDirectory()) {
                 textToDisplay = "[" + fileItem.getFile().getName() + "]";
-                setForeground(Color.BLUE);
+                setForeground(folderForeground);
                 font = font.deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD));
             } else {
                 textToDisplay = fileItem.getFile().getName();
-                setForeground(Color.BLACK);
+                setForeground(fileForeground);
                 font = font.deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_SEMIBOLD));
             }
             // TODO Find a solution that displays thumbnails correctly under Linux
-            Icon icon = fc.getUI().getFileView(fc).getIcon(fileItem.getFile());
+            Icon icon = FileSystemView.getFileSystemView().getSystemIcon(fileItem.getFile());
+
             setIcon(icon);
             setFont(font);
         } else {
@@ -75,19 +86,17 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
 
         if (isSearchHighlightEnabled) {
             if (!searchTerm.isEmpty() && !originalText.isEmpty() && originalText.startsWith(searchTerm)) {
-                // This is to handle folder names in brackets
                 String matchingPart;
                 String rest;
+                // This is to handle folder names in brackets
                 if (textToDisplay.startsWith("[")) {
                     matchingPart = textToDisplay.substring(1, searchTerm.length());
                     rest = textToDisplay.substring(searchTerm.length(), textToDisplay.length());
-                    textToDisplay = "<html><font color=red><span style='background:yellow;'>[" + matchingPart + "</font></span>" + rest;
-
+                    textToDisplay =setTextColor("["+matchingPart)+rest;
                 } else {
                     matchingPart = textToDisplay.substring(0, searchTerm.length());
                     rest = textToDisplay.substring(searchTerm.length(), textToDisplay.length());
-                    textToDisplay = "<html><font color=red><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
-
+                    textToDisplay =setTextColor(matchingPart)+rest;
                 }
 
             }

@@ -1,12 +1,11 @@
 package swingGUI;
 
 import control.AndrasCommander;
-import swingGUI.basicFilePanel.FilePanel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import swingGUI.keyListener.KeyInfoPanel;
 import swingGUI.keyListener.KeyListener;
 import swingGUI.keyListener.UIActionListener;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import swingGUI.tableFilePanel.TableFilePanel;
 
 import javax.swing.*;
@@ -25,7 +24,6 @@ public class GUI extends JFrame {
 
     // UI classes
     // TODO implement multiple panels and store every filePanel in a list
-    private FilePanel filePanel;
     private TableFilePanel tableFilePanel;
     private KeyInfoPanel keyInfoPanel;
 
@@ -59,7 +57,7 @@ public class GUI extends JFrame {
         windowTitle = new WindowTitle();
         setWindowTitle();
 
-        Dimension frameSize=new Dimension(900,500);
+        Dimension frameSize = new Dimension(900, 500);
         frame.setPreferredSize(frameSize);
 //        frame.setSize(frameSize);
 //        frame.setLocationRelativeTo(null);
@@ -68,10 +66,6 @@ public class GUI extends JFrame {
 
         frame.pack(); //sizes the frame so that all its contents are at or above their preferred sizes
         frame.setVisible(true); // Setting the frame visible
-    }
-
-    public FilePanel getFilePanel() {
-        return filePanel;
     }
 
     public TableFilePanel getTableFilePanel() {

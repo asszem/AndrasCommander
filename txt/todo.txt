@@ -1,17 +1,9 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
-TODO - Reimplement search
-     - Clean up highlight HTML Code in Cell Renderer
-        - Use color values from Properties file
-TODO - Remap cursor navigation
-        - Fix automatic scroll
-TODO - Disable mouse navigation
-TODO - Delete obsolete FilePanel from project
-TODO - Update CommandsInterface
+- [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
 
 Fix
-TODO - Fix small "jump" of frame when program started (possible caused by box layout)
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
         - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b

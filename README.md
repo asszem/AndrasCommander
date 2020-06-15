@@ -38,11 +38,10 @@ Simple File Manager with VIM like motions.  This is a learning pet project, noth
 - [x] VIM like: :noh (no highlight) to clear search results
 
 ### Version 0.4 - Improved display - File Details and Search Result Highlights
- - [x] Display file details (size in human readable format, modified date)
- - [x] Display File/Folder thumbnail icons
- - [x] Highlight search result match background
- - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
- - [ ] Automatically size column width to fit data (file name, date modified, etc)
+- [x] Display file details (size in human readable format, modified date)
+- [x] Display File/Folder thumbnail icons
+- [x] Highlight search result match background
+- [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
 
 ### Version 0.5 - Basic Info panels
 - [ ] Display History Panel
@@ -63,7 +62,7 @@ At this point it should be an actually usable product.
 - [ ] Get and store panel position, width and height from config file
 - [ ] Separate history for each pane
 
-### Version 1.2.1 - Nerdtree like Bookmarks panel and Vim like marks
+### Version 1.2 - Nerdtree like Bookmarks panel and Vim like marks
 - [ ] - VIM like: "m" for adding local marks and "'"<char> for jumping to mark
 - [ ] - VIM like: "M" for adding global marks and "'"<char> for jumping to mark
 - [ ] - Toggle bookmark pane
@@ -81,19 +80,19 @@ At this point it should be an actually usable product.
 - [ ] Copy / move / delete selected file(s)
 - [ ] "go" to Open system right click menu on files to get file operations
 
-### Version 1.2.2 - Actionable History Panel
+### Version 1.4 - Actionable History Panel
 - [ ] - History panel can be navigated to, and items can be opened by selecting them with the cursor
 - [ ] - Add keyboard shortcut Quickkey-s to open history items by pressing Ctrl-# of history item 
 - [ ] - Remove history items
 - [ ] - Separate history for each pane and a global history
 - [ ] - Pin/Bookmark history item
 
-### Version 1.4 - Preview Panels
- - [ ] File preview panel - open and close with a command
- - [ ] Folder preview panel - display5 last changed file in highlighted folder
- - [ ] Display scrollable content of highlighted file
+### Version 1.5 - Preview Panels
+- [ ] File preview panel - open and close with a command
+- [ ] Folder preview panel - display5 last changed file in highlighted folder
+- [ ] Display scrollable content of highlighted file
 
-### Version 1.5 - Improved Search types
+### Version 1.6 - Improved Search types
 - [ ] Implement different search types  (starts with, contains, equals, wildcards, search by Date, size, etc)
 - [ ] Display search type in FilePanel 
 - [ ] Toggle search type with Ctrl-S while in Search mode
@@ -104,6 +103,7 @@ At this point it should be an actually usable product.
 - [x] [search] Matched file names are highlighted during typing of search term
 - [x] [QoL] Platform independence (Linux / Windows)
 - [ ] [display] Display line numbers for files
+- [ ] [display] Automatically size column width to fit data (file name, date modified, etc)
 - [ ] [navigation] VIM like: jump to line with #linenumber"g"
 - [ ] [navigation] VIM like: "gf" - going forward (and not goto file!) in history
 - [ ] [navigation] Remap Home, End, PageUp, PageDown

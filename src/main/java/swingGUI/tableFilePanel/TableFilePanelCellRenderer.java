@@ -1,7 +1,6 @@
 package swingGUI.tableFilePanel;
 
 import data.FileItem;
-import sampleStuff.jTableSamples.TableData;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -15,7 +14,8 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
     private String searchTerm="";
     private Font font = getFont();
     final javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
-    String text;
+    String textToDisplay;
+    String originalText;
 
 
     public TableFilePanelCellRenderer() {
@@ -33,16 +33,17 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
 
         setIcon(null);
 
-        text = value.toString();
+        textToDisplay = value.toString(); // This will be formatted
 
         if (table.getModel().getValueAt(row, col) instanceof FileItem) {
             FileItem fileItem = (FileItem) table.getModel().getValueAt(row, col);
+            originalText=fileItem.getFile().getName();
             if (fileItem.getFile().isDirectory()) {
-                text = "[" + fileItem.getFile().getName() + "]";
+                textToDisplay = "[" + fileItem.getFile().getName() + "]";
                 setForeground(Color.BLUE);
                 font = font.deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD));
             } else {
-                text = fileItem.getFile().getName();
+                textToDisplay = fileItem.getFile().getName();
                 setForeground(Color.BLACK);
                 font = font.deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_SEMIBOLD));
             }
@@ -50,24 +51,40 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
             Icon icon = fc.getUI().getFileView(fc).getIcon(fileItem.getFile());
             setIcon(icon);
             setFont(font);
+        } else {
+            originalText="";
         }
+
 
         if (row == 0) {
             if (col == 0) {
-                text = "..";
+                textToDisplay = "..";
             } else {
-                text = "";
+                textToDisplay = "";
             }
         }
 
-//        text = "<html><font color=black><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
-        if (!searchTerm.isEmpty() && text.startsWith(searchTerm)){
-            String matchingPart=text.substring(0,searchTerm.length());
-            String rest=text.substring(searchTerm.length(),text.length());
-            text = "<html><font color=red><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
+//        textToDisplay = "<html><font color=black><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
+        if (!searchTerm.isEmpty() && !originalText.isEmpty() && originalText.startsWith(searchTerm)){
+            // This is to handle folder names in brackets
+            String matchingPart;
+            String rest;
+            if (textToDisplay.startsWith("[")){
+                matchingPart= textToDisplay.substring(1,searchTerm.length());
+                rest= textToDisplay.substring(searchTerm.length(), textToDisplay.length());
+                textToDisplay = "<html><font color=red><span style='background:yellow;'>[" + matchingPart + "</font></span>" + rest;
+
+            }
+            else {
+                matchingPart= textToDisplay.substring(0,searchTerm.length());
+                rest= textToDisplay.substring(searchTerm.length(), textToDisplay.length());
+                textToDisplay = "<html><font color=red><span style='background:yellow;'>" + matchingPart + "</font></span>" + rest;
+
+            }
+
          }
 
-        setText(text);
+        setText(textToDisplay);
 
         if (isSelected) {
             setBackground(Color.ORANGE);

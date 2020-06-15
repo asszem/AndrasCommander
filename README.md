@@ -40,23 +40,28 @@ Simple File Manager with VIM like motions.  This is a learning pet project, noth
 ### Version 0.4 - Improved display - File Details and Search Result Highlights
  - [x] Display file details (size in human readable format, modified date)
  - [x] Display File/Folder thumbnail icons
- - [ ] Highlight search result match background
+ - [x] Highlight search result match background
  - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
  - [ ] Automatically size column width to fit data (file name, date modified, etc)
 
 ### Version 0.5 - Basic Info panels
 - [ ] Display History Panel
+- [ ] Jump to history item using Ctrl-# 
 - [ ] Display Available Keys Panel
 
 ## Version 1.0 - MVP Reached
 At this point it should be an actually usable product.
 
-### Version 1.1 - Improved display - Basic Multiple Panes
-- [ ] Get default panel position, width and height from config file
+### Version 1.1 - Improved display - Basic Multiple Panes and Tabs
+- [ ] Multiple panes (vertical, horizontal)
 - [ ] VIM like: "sp" and "vs" to add a new horizontal or vertical viewing pane
 - [ ] VIM like: jump between panes with Ctrl-W and "h"/"j"/"k"/"l"
+- [ ] Tabbed Panes (multiple tabs on each panes)
+- [ ] VIM like: "gt", "gT", ":tabnew" for navigating tabs
 - [ ] VIM like: :on (only) maximize current pane (but remember previous panes)
 - [ ] :res (reset) - reset the previous displayed pane(s)
+- [ ] Get and store panel position, width and height from config file
+- [ ] Separate history for each pane
 
 ### Version 1.2.1 - Nerdtree like Bookmarks panel and Vim like marks
 - [ ] - VIM like: "m" for adding local marks and "'"<char> for jumping to mark
@@ -64,11 +69,8 @@ At this point it should be an actually usable product.
 - [ ] - Toggle bookmark pane
 - [ ] - Add files/folders to bookmarks
 - [ ] - Open bookmarks
-- [ ] - Name and rename bookmarks
-
-### Version 1.2.2 - Actionable History Panel
-- [ ] - History panel can be navigated to, and items can be opened by selecting them with the cursor
-- [ ] - Add keyboard shortcut Quickkey-s to open history items by pressing Ctrl-# of history item 
+- [ ] - Edit bookmarks (name, rename, delete, shortcut)
+- [ ] - Assign shortcut to bookmarks, VIM buffer like: :b1 or :b4 would open 1st or 4th bookmark
 
 ### Version 1.3 - Basic File Actions - select, copy, move, delete
 - [ ] VIM like: rename highlighted file with "r"
@@ -77,32 +79,42 @@ At this point it should be an actually usable product.
 - [ ] Select files by wildcards
 - [ ] Select files by specific commands (last changed, above size, etc)
 - [ ] Copy / move / delete selected file(s)
+- [ ] "go" to Open system right click menu on files to get file operations
+
+### Version 1.2.2 - Actionable History Panel
+- [ ] - History panel can be navigated to, and items can be opened by selecting them with the cursor
+- [ ] - Add keyboard shortcut Quickkey-s to open history items by pressing Ctrl-# of history item 
+- [ ] - Remove history items
+- [ ] - Separate history for each pane and a global history
+- [ ] - Pin/Bookmark history item
 
 ### Version 1.4 - Preview Panels
  - [ ] File preview panel - open and close with a command
  - [ ] Folder preview panel - display5 last changed file in highlighted folder
  - [ ] Display scrollable content of highlighted file
 
-### Version 1.5 - Improved search types
+### Version 1.5 - Improved Search types
 - [ ] Implement different search types  (starts with, contains, equals, wildcards, search by Date, size, etc)
 - [ ] Display search type in FilePanel 
 - [ ] Toggle search type with Ctrl-S while in Search mode
 - [ ] Trigger search mode in s specific search type with a VIM like binding (/ or ?)
+- [ ] Search inside file for text
  
-### Version 2.x - QoL improvements
-- [x] Matched file names are highlighted during typing of search term
-- [x] Platform independence (Linux / Windows)
-- [ ] Display line numbers for files
-- [ ] VIM like: jump to line with #linenumber"g"
-- [ ] VIM like: "gf" - going forward (and not goto file!) in history
-- [ ] Remap Home, End, PageUp, PageDown
-- [ ] Toggle keybindings list
+## Version 2.x - QoL improvements
+- [x] [search] Matched file names are highlighted during typing of search term
+- [x] [QoL] Platform independence (Linux / Windows)
+- [ ] [display] Display line numbers for files
+- [ ] [navigation] VIM like: jump to line with #linenumber"g"
+- [ ] [navigation] VIM like: "gf" - going forward (and not goto file!) in history
+- [ ] [navigation] Remap Home, End, PageUp, PageDown
+- [ ] [QoL] Toggle keybindings list
     - [ ] Static info of available commands
     - [ ] Dinamic info with random reminders, least used commands, etc
-- [ ] Open system file explorer in current directory
-- [ ] yank (copy) absolute path to current file / directory
-- [ ] open shell (cmd, bash, conemu) at current location
-- [ ] Save and load panel layout
+- [ ] [file operation] Open system file explorer in current directory
+- [ ] [file operation] yank (copy) absolute path to current file / directory
+- [ ] [operation] open shell (cmd, bash, conemu) at current location
+- [ ] [display] Save and load panel layout
+- [ ] [tabs] search and open tabs by their name or number 
 
 ## Future Feature Plans
 - Aliases. Set full word aliases for actions (if typed quickly before the keypress is parsed)

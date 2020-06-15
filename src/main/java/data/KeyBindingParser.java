@@ -90,10 +90,10 @@ public class KeyBindingParser {
                 }
                 break;
             case "<SPACE>":
-                // Handle when a space key is pressed in Search mode
+                // Handle when a space key is pressed in Search mode - do not set specialKeyResult, but replace
+                // lastKeyPressed from <SPACE> to " " so a literal space will be added to the command
                 if (inSearchMode){
-                    specialKeyCheckResult="space pressed in Search mode";
-                    pressedKeysList.add(" ");
+                    lastKeyPressed=" ";
                 }
                 break;
         }
@@ -143,7 +143,8 @@ public class KeyBindingParser {
             case "<SPACE>": // Enter search mode only when space is pressed in an empty pressedKeyList
                 matchedCommand = "enter search mode";
                 inSearchMode = true;
-                guiInstance.getAndrasCommanderInstance().setMode(Constants.SEARCH_MODE);
+                // Note - the command implementation class should handle the mode switch
+//                guiInstance.getAndrasCommanderInstance().setMode(Constants.SEARCH_MODE);
                 break;
             case ":q<ENTER>":
             case "quit":

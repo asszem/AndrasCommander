@@ -2,10 +2,11 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 TODO - Refactor using JTable instead of JPanel
-     - Handle space while in search mode
      - Handle backspace while in search mode to erase previous result
      - Jump to first search result when Enter is pressed
      - Jump to prev/next search result
+     - Clean up highlight HTML Code in Cell Renderer
+        - Use color values from Properties file
 TODO - Remap cursor navigation
         - Fix automatic scroll
 TODO - Disable mouse navigation
@@ -13,6 +14,7 @@ TODO - Delete obsolete FilePanel from project
 TODO - Update CommandsInterface
 
 Fix
+TODO - Fix small "jump" of frame when program started (possible caused by box layout)
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
         - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b
@@ -20,15 +22,15 @@ TODO - Fix going back ping-ponging between last two directory
 Tasks
 TODO - Setup correct layout manager for KeyInfoPanel
 TODO - Convert file size to human readable format
-TODO - Implement gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well
-TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)
 TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible
-TODO - Fix file thumbnails not displaying correctly on Linux
 TODO - Edge case handling - folders without files (only dirs), full empty folders, only files, top folder reached, etc
+TODO - Implement gf - going forward (and not goto file) command should be implemented to navigate forwards in History
+TODO - Workaround for file thumbnails not displaying correctly on Linux
 
 Refactor
+TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)
 TODO - Refactor table handling for increased response time
 TODO - Refactor KeyInfoPanel to work with multiple file panels
 TODO - Refactor CommandImplementations to avoid long and ugly chain of commands

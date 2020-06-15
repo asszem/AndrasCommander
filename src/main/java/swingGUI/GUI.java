@@ -38,7 +38,7 @@ public class GUI extends JFrame {
 
         // passing GUI instance to action listeners so they can get every GUI element
 //        this.actionListener = new UIActionListener(this);
-        this.keyListener = new KeyListener(this);
+//        this.keyListener = new KeyListener(this);
     }
 
     // This is called by AndrasCommander to initialize the GUI on the event dispatch thread
@@ -59,8 +59,8 @@ public class GUI extends JFrame {
         windowTitle = new WindowTitle();
         setWindowTitle();
 
-//        Dimension frameSize=new Dimension(1100,900);
-//        frame.setPreferredSize(frameSize);
+        Dimension frameSize=new Dimension(900,500);
+        frame.setPreferredSize(frameSize);
 //        frame.setSize(frameSize);
 //        frame.setLocationRelativeTo(null);
         frame.setLocation(600, 0);

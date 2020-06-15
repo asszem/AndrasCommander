@@ -32,13 +32,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed keys");
 
         if (guiInstance.getAndrasCommanderInstance().getMode().equals(Constants.SEARCH_MODE)) {
-            //Handle if <SPACE> is sent as a command
-            if (command.contains("space pressed in Search mode")){
-                command.replace("space pressed in Search mode", " ");
-            }
             searchTerm = command;
-            // This is for redrawing the panel and highlight the new search results
-//            guiInstance.getFilePanel().drawFilePanel(guiInstance.getFilePanel().getHighlightedListItemIndex());
             // redraw the tablefilepanel according to the updated search command
             guiInstance.getTableFilePanel().getTableFilePanelCellRenderer().setSearchTerm(searchTerm);
             guiInstance.getKeyInfoPanel().displaySearchTerm(searchTerm);
@@ -88,7 +82,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
             case "ESC":
                 guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Pressed Keys List");
                 guiInstance.getKeyInfoPanel().displayAllPressedKeys("Pressed Keys list cleared.");
-                if (searchTerm!=null && !searchTerm.equals("")){
+                if (searchTerm != null && !searchTerm.equals("")) {
                     exitSearchMode();
                 }
                 break;
@@ -201,6 +195,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
     @Override
     public void enterSearchMode() {
         searchTerm = ""; // To remove any previous search terms
+        guiInstance.getAndrasCommanderInstance().setMode(Constants.SEARCH_MODE);
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(true);
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<type search term>");
@@ -213,7 +208,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 
     @Override
     public void exitSearchMode() {
-        searchTerm="";
+        searchTerm = "";
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(false);
     }
 

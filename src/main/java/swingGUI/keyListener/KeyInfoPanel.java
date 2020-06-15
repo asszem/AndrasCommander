@@ -37,7 +37,7 @@ public class KeyInfoPanel {
     public JPanel initPanel(String panelTitle) {
         keyInfoPanel = new JPanel();
         keyInfoPanel.setBorder(BorderFactory.createTitledBorder(panelTitle));
-        Dimension keyInfoPanelSize = new Dimension(810, 150);
+        Dimension keyInfoPanelSize = new Dimension(800, 150);
         keyInfoPanel.setPreferredSize(keyInfoPanelSize);
 
 
@@ -145,7 +145,7 @@ public class KeyInfoPanel {
     }
 
     public void setPressedKeysListTitle(String title) {
-        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title + " - " + guiInstance.getAndrasCommanderInstance().getMode()));
+        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title + " - " + guiInstance.getAndrasCommanderInstance().getMode()+" mode"));
     }
 
     public void displaySearchTerm(String searchTerm){

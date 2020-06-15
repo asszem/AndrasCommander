@@ -2,7 +2,6 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 TODO - Refactor using JTable instead of JPanel
-     - Handle backspace while in search mode to erase previous result
      - Jump to first search result when Enter is pressed
      - Jump to prev/next search result
      - Clean up highlight HTML Code in Cell Renderer

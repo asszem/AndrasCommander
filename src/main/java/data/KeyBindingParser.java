@@ -7,8 +7,6 @@ import swingGUI.GUI;
 
 import java.util.ArrayList;
 
-import static java.lang.System.exit;
-
 
 // This class must be independent of anything GUI related (no Swing/AWT stuff)
 public class KeyBindingParser {
@@ -52,8 +50,8 @@ public class KeyBindingParser {
         // Get the matched command by parsing and send it back to commandImplementation
         String matchedCommand = null;
 
-        if (inSearchMode){
-            matchedCommand= String.join("", pressedKeysList); // Convert to String without any delimiter
+        if (inSearchMode) {
+            matchedCommand = String.join("", pressedKeysList); // Convert to String without any delimiter
         } else {
             matchedCommand = matchKeyToCommand();
         }
@@ -92,8 +90,16 @@ public class KeyBindingParser {
             case "<SPACE>":
                 // Handle when a space key is pressed in Search mode - do not set specialKeyResult, but replace
                 // lastKeyPressed from <SPACE> to " " so a literal space will be added to the command
+                if (inSearchMode) {
+                    lastKeyPressed = " ";
+                }
+                break;
+            case "<BACKSPACE>":
+                // Handle when backspace is pressed in Search mode - set specialkeyresult as the updated pressedKeysList table
+                // Which has removed the last item
                 if (inSearchMode){
-                    lastKeyPressed=" ";
+                    pressedKeysList.remove(pressedKeysList.size()-1);
+                    specialKeyCheckResult= String.join("", pressedKeysList);
                 }
                 break;
         }
@@ -148,7 +154,7 @@ public class KeyBindingParser {
                 break;
             case ":q<ENTER>":
             case "quit":
-                matchedCommand="quit";
+                matchedCommand = "quit";
                 break;
         }
         // If a match was found, the mathched command will not equal the pressedKeysListAsString, so the pressedKeysList can be cleared

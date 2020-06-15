@@ -71,7 +71,13 @@ public class KeyListener implements java.awt.event.KeyListener, ListSelectionLis
         // SPACE
         else if (e.getKeyCode() == 32) {
             result = "<SPACE>";
-        } else {
+        }
+        // BACKSPACE
+        else if (e.getKeyCode()==8){
+            result = "<BACKSPACE>";
+        }
+        // Everything else
+        else {
             result = Character.toString((e.getKeyChar()));
         }
         return result;

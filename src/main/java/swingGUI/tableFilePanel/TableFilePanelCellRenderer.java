@@ -82,7 +82,7 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
         }
 
         if (isSearchHighlightEnabled) {
-            if (!searchTerm.isEmpty() && !originalText.isEmpty() && originalText.startsWith(searchTerm)) {
+            if (!searchTerm.isEmpty() && !originalText.isEmpty() && originalText.startsWith(searchTerm) && !textToDisplay.equals("..")) {
                 String matchingPart;
                 String rest;
                 // This is to handle folder names in brackets

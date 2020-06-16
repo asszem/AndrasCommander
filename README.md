@@ -41,7 +41,7 @@ Simple File Manager with VIM like motions.  This is a learning pet project, noth
 - [x] Display file details (size in human readable format, modified date)
 - [x] Display File/Folder thumbnail icons
 - [x] Highlight search result match background
-- [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
+- [x] VIM like (netrw): "s" for toggle sort order (normal, reversed, "S" to toggle sort by (name, size, date modified)
 
 ### Version 0.5 - Basic Info panels
 - [ ] Display Available Keys Panel

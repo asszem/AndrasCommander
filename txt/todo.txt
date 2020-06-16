@@ -1,11 +1,8 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
-- [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
-- TODO - Sort by change with S (date, last modified)
 
 Fix
-TODO - Fix including parent folder in search highlighting
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
         - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b

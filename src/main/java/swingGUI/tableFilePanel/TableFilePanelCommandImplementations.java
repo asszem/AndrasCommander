@@ -205,7 +205,6 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         guiInstance.getTableFilePanel().getFolderContent().setEveryFileItemSearchMatchedToFalse();
         guiInstance.getAndrasCommanderInstance().setMode(Constants.SEARCH_MODE);
         setHighlightSearchResults(true);
-//        guiInstance.getTableFilePanel().setDisplaySearchResultMatches(true);
         guiInstance.getKeyInfoPanel().setPressedKeysListTitle("Search Term");
         guiInstance.getKeyInfoPanel().displayAllPressedKeys("<type search term>");
     }
@@ -270,15 +269,23 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 
     @Override
     public void setHighlightSearchResults(boolean highlightSearchResults) {
-        logger.debug("setHighlightSaarchresult calld wiht " + highlightSearchResults);
         guiInstance.getTableFilePanel().getTableFilePanelCellRenderer().setSearchHighlightEnabled(highlightSearchResults); // Set the cell renderer accordingly
-        guiInstance.getTableFilePanel().getTableFilePanelTable().repaint();
         guiInstance.getTableFilePanel().getTableFilePanelTable().repaint();
 
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(highlightSearchResults);
         guiInstance.getKeyInfoPanel().displayCommand("Set search result highlight " + highlightSearchResults);
     }
 
+    // Sort
+    private void refreshTableAfterSort(){
+        FileItem highlightedFileItem = guiInstance.getTableFilePanel().getHighlightedFileItem();           // to preserve highlighted file item after sort
+        guiInstance.getTableFilePanel().getTableFilePanelModel().populateTable();                          // to repopulate table with new data
+        guiInstance.getTableFilePanel().getTableFilePanelModel().fireTableStructureChanged();              // to update model
+        guiInstance.getTableFilePanel().setColumnWidth(guiInstance.getTableFilePanel().getColumnWidths()); // set the column widths
+        guiInstance.getTableFilePanel().assignSameCellRendererToEachColumn();                              // to assign the cell renderers to the updated model
+        guiInstance.getTableFilePanel().setRowSelectionToFileItem(highlightedFileItem);                    // to set the preserved fileitem as highlighted
+        guiInstance.getTableFilePanel().scrollToHighlightedItem();
+    }
     @Override
     public void toggleSortOrder() {
         String newOrder;
@@ -292,18 +299,26 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 //        tableFilePanelTable.getColumnModel().getColumn(0).setHeaderValue(sortOrder);
 //        tableFilePanelTable.getTableHeader().resizeAndRepaint();
 
-        FileItem highlightedFileItem = guiInstance.getTableFilePanel().getHighlightedFileItem();           // to preserve highlighted file item after sort
-        guiInstance.getTableFilePanel().getTableFilePanelModel().populateTable();                          // to repopulate table with new data
-        guiInstance.getTableFilePanel().getTableFilePanelModel().fireTableStructureChanged();              // to update model
-        guiInstance.getTableFilePanel().setColumnWidth(guiInstance.getTableFilePanel().getColumnWidths()); // set the column widths
-        guiInstance.getTableFilePanel().assignSameCellRendererToEachColumn();                              // to assign the cell renderers to the updated model
-        guiInstance.getTableFilePanel().setRowSelectionToFileItem(highlightedFileItem);                    // to set the preserved fileitem as highlighted
-        guiInstance.getTableFilePanel().scrollToHighlightedItem();
         guiInstance.getTableFilePanel().setSortOrder(newOrder);
+        refreshTableAfterSort();
     }
 
     @Override
     public void toggleSortBy() {
-        System.out.println("toggle sort order by called");
+        String oldSortBy = guiInstance.getTableFilePanel().getSortBy();
+        String newSortBy="";
+        switch (oldSortBy) {
+            case Constants.SORT_BY_NAME:
+                newSortBy = Constants.SORT_BY_SIZE;
+                break;
+            case Constants.SORT_BY_SIZE:
+                newSortBy = Constants.SORT_BY_DATE;
+                break;
+            case Constants.SORT_BY_DATE:
+                newSortBy = Constants.SORT_BY_NAME;
+                break;
+        }
+        guiInstance.getTableFilePanel().setSortBy(newSortBy);
+        refreshTableAfterSort();
     }
 }

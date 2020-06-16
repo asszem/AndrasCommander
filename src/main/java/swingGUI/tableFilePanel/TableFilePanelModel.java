@@ -23,7 +23,7 @@ public class TableFilePanelModel extends AbstractTableModel {
     public void populateTable() {
         String sortOrder = guiInstance.getTableFilePanel().getSortOrder();
         String sortBy = guiInstance.getTableFilePanel().getSortBy();
-        ArrayList<FileItem> fileItems = guiInstance.getTableFilePanel().getFolderContent().sortFileItemsByName(sortOrder);
+        ArrayList<FileItem> fileItems = guiInstance.getTableFilePanel().getFolderContent().sortFileItems(sortOrder, sortBy);
         columnNames = new Object[3];
         columnNames[0] = "File name ";
         columnNames[1] = "Size";
@@ -31,6 +31,12 @@ public class TableFilePanelModel extends AbstractTableModel {
 
         if (sortBy.equals(Constants.SORT_BY_NAME)) {
             columnNames[0] += sortOrder;
+        }
+        if (sortBy.equals(Constants.SORT_BY_SIZE)) {
+            columnNames[1] += sortOrder;
+        }
+        if (sortBy.equals(Constants.SORT_BY_DATE)) {
+            columnNames[2] += sortOrder;
         }
 
         rowData = new Object[fileItems.size()][columnNames.length];

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,15 +48,45 @@ public class FolderContent {
     }
 
     // Directories first
-    public ArrayList<FileItem> sortFileItemsByName(String sortOrder) {
+    public ArrayList<FileItem> sortFileItems(String sortOrder, String sortBy) {
         List<FileItem> foldersOnly;
         List<FileItem> filesOnly;
 
         foldersOnly = fileItems.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
         filesOnly = fileItems.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
 
-        foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-        filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+        switch (sortBy) {
+            case Constants.SORT_BY_NAME:
+                foldersOnly.sort((fileItem1, fileItem2) -> fileItem1.getFile().getName().compareTo(fileItem2.getFile().getName()));
+                filesOnly.sort((fileItem1, fileItem2) -> fileItem1.getFile().getName().compareTo(fileItem2.getFile().getName()));
+                break;
+            case Constants.SORT_BY_SIZE:
+                Comparator<FileItem> fileSizeComparator = new Comparator<FileItem>() {
+                    @Override
+                    public int compare(FileItem fileItem, FileItem t1) {
+                        long s1 = fileItem.getFile().length();
+                        long s2 = t1.getFile().length();
+                        int result = s1 < s2 ? -1 : s1 > s2 ? 1 : 0;
+                        return result;
+                    }
+                };
+                Collections.sort(foldersOnly, fileSizeComparator);
+                Collections.sort(filesOnly, fileSizeComparator);
+                break;
+            case Constants.SORT_BY_DATE:
+                Comparator<FileItem> fileDateComparator = new Comparator<FileItem>() {
+                    @Override
+                    public int compare(FileItem fileItem, FileItem t1) {
+                        long s1 = fileItem.getFile().lastModified();
+                        long s2 = t1.getFile().lastModified();
+                        int result = s1 < s2 ? -1 : s1 > s2 ? 1 : 0;
+                        return result;
+                    }
+                };
+                Collections.sort(foldersOnly, fileDateComparator);
+                Collections.sort(filesOnly, fileDateComparator);
+                break;
+        }
 
         if (sortOrder.equals(Constants.SORT_ORDER_REVERSED)) {
             Collections.reverse(foldersOnly);

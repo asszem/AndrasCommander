@@ -281,7 +281,6 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         } else {
             newOrder = Constants.SORT_ORDER_NORMAL;
         }
-        System.out.println("toggle sort order to " + newOrder);
         guiInstance.getTableFilePanel().setSortOrder(newOrder);
     }
 

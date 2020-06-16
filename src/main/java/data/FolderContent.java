@@ -51,30 +51,16 @@ public class FolderContent {
         List<FileItem> foldersOnly;
         List<FileItem> filesOnly;
 
-        if (sortOrder.equals(Constants.SORT_ORDER_NORMAL)) {
-//            List<FileItem> sortedFileItemList = fileItems;
-//            sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+        foldersOnly = fileItems.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
+        filesOnly = fileItems.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
 
-            foldersOnly = fileItems.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
-            foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+        foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+        filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
 
-            filesOnly = fileItems.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
-            filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-        } else {
-            System.out.println("reverse sorting");
-//            List<FileItem> sortedFileItemList = fileItems;
-//            sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
-
-            foldersOnly = fileItems.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
-            foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+        if (sortOrder.equals(Constants.SORT_ORDER_REVERSED)) {
             Collections.reverse(foldersOnly);
-
-            filesOnly = fileItems.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
-            filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
             Collections.reverse(filesOnly);
-
         }
-
 
         List<FileItem> sortedFilesAndFolders = new ArrayList<>();
         sortedFilesAndFolders.add(parentFolder);

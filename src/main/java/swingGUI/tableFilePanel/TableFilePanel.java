@@ -36,6 +36,7 @@ public class TableFilePanel {
     private TableFilePanelModel tableFilePanelModel;
     private TableFilePanelCommandImplementations tableFilePanelCommandImplementations;
     private KeyListener keyListener;
+    int[] columnWidths;
 
     //Constructor
     public TableFilePanel(GUI guiInstance) {
@@ -78,6 +79,13 @@ public class TableFilePanel {
         sortBy = Constants.SORT_BY_NAME;
         sortOrder = Constants.SORT_ORDER_NORMAL;
 
+        // TODO decide whether this info should be handled by the table model
+        // Column width for 3 columns
+        columnWidths = new int[3];
+        columnWidths[0]=400;
+        columnWidths[1]=200;
+        columnWidths[2]=200;
+
         // Draw the actual table
         drawTableFilePanel(0);
         scrollToHighlightedItem();
@@ -107,6 +115,7 @@ public class TableFilePanel {
 
         // Assign the same cell renderer for each column
         assignSameCellRendererToEachColumn();
+        setColumnWidth(columnWidths);
 //        tableFilePanelTable.getColumnModel().getColumn(0).setPreferredWidth(600);
 
         tableFilePanelTable.addKeyListener(keyListener);
@@ -135,6 +144,11 @@ public class TableFilePanel {
         int columnNumber = tableFilePanelTable.getColumnCount();
         for (int i = 0; i < columnNumber; i++) {
             tableFilePanelTable.getColumnModel().getColumn(i).setCellRenderer(tableFilePanelCellRenderer);
+        }
+    }
+    public void setColumnWidth(int[] widths){
+        for (int i=0;i<widths.length;i++){
+            tableFilePanelTable.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
         }
     }
 
@@ -201,6 +215,7 @@ public class TableFilePanel {
         FileItem highlightedFileItem = getHighlightedFileItem();    // to preserve highlighted file item after sort
         tableFilePanelModel.populateTable();                        // to repopulate table with new data
         tableFilePanelModel.fireTableStructureChanged();            // to update model
+        setColumnWidth(columnWidths);                               // set the column widths
         assignSameCellRendererToEachColumn();                       // to assign the cell renderels to the updated model
         setRowSelectionToFileItem(highlightedFileItem);             // to set the preserved fileitem as highlighted
         scrollToHighlightedItem();

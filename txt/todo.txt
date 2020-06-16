@@ -2,8 +2,7 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
-- TODO - Preserve column width when redrawing table for sorting
-- TODO - Sort by change with s (date, last modified)
+- TODO - Sort by change with S (date, last modified)
 
 Fix
 TODO - Fix including parent folder in search highlighting

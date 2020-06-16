@@ -74,6 +74,7 @@ public class TableFilePanel {
 
         // Search
         searchType = Constants.SEARCH_MODE_STARTSWITH;
+        displaySearchResultMatches=false;
 
         // Sort
         sortBy = Constants.SORT_BY_NAME;
@@ -140,19 +141,24 @@ public class TableFilePanel {
         scrollToHighlightedItem();
     }
 
-    private void assignSameCellRendererToEachColumn() {
+    public void assignSameCellRendererToEachColumn() {
         int columnNumber = tableFilePanelTable.getColumnCount();
         for (int i = 0; i < columnNumber; i++) {
             tableFilePanelTable.getColumnModel().getColumn(i).setCellRenderer(tableFilePanelCellRenderer);
         }
     }
+
+    //Getters and setters
+
     public void setColumnWidth(int[] widths){
         for (int i=0;i<widths.length;i++){
             tableFilePanelTable.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
         }
     }
+    public int[] getColumnWidths(){
+        return columnWidths;
+    }
 
-    //Getters and setters
     public int getHighlightedRowIndex() {
         return tableFilePanelTable.getSelectedRow();
     }
@@ -188,9 +194,6 @@ public class TableFilePanel {
 
     // SEARCH Related Methods
     public TableFilePanel setDisplaySearchResultMatches(boolean displaySearchResultMatches) {
-        tableFilePanelCellRenderer.setSearchHighlightEnabled(displaySearchResultMatches); // Set the cell renderer accordingly
-        tableFilePanelTable.repaint();
-        tableFilePanelTable.revalidate();
         this.displaySearchResultMatches = displaySearchResultMatches;
         return this;
     }
@@ -203,22 +206,16 @@ public class TableFilePanel {
         return this.tableFilePanelCellRenderer;
     }
 
+    public TableFilePanelModel getTableFilePanelModel(){
+        return this.tableFilePanelModel;
+    }
+
     public String getSortOrder() {
         return sortOrder;
     }
 
     public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
-        // This is how update if only the header is changed, but not the content of the table itself
-//        tableFilePanelTable.getColumnModel().getColumn(0).setHeaderValue(sortOrder);
-//        tableFilePanelTable.getTableHeader().resizeAndRepaint();
-        FileItem highlightedFileItem = getHighlightedFileItem();    // to preserve highlighted file item after sort
-        tableFilePanelModel.populateTable();                        // to repopulate table with new data
-        tableFilePanelModel.fireTableStructureChanged();            // to update model
-        setColumnWidth(columnWidths);                               // set the column widths
-        assignSameCellRendererToEachColumn();                       // to assign the cell renderels to the updated model
-        setRowSelectionToFileItem(highlightedFileItem);             // to set the preserved fileitem as highlighted
-        scrollToHighlightedItem();
     }
 
     public void setRowSelectionToFileItem(FileItem targetFileItem) {

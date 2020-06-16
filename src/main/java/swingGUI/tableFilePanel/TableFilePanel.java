@@ -21,9 +21,11 @@ public class TableFilePanel {
 
     // SEARCH related fields
     private boolean displaySearchResultMatches;
-    //    private ArrayList<Integer> searchMathcedItemIndexes;
-//    private int searchMatchedItemIndexesPointer; // points to the current searchMathcedItemIndex. Used when navigating with n/N
     private String searchType;
+
+    // SORT related fields
+    private String sortOrder;
+    private String sortBy;
 
     //GUI Fields
     private GUI guiInstance;
@@ -69,10 +71,12 @@ public class TableFilePanel {
         // Create a new key listener
         keyListener = new KeyListener(guiInstance);
 
-        // Search related stuff
-//        searchMathcedItemIndexes = new ArrayList<>();
+        // Search
         searchType = Constants.SEARCH_MODE_STARTSWITH;
-//        searchMatchedItemIndexesPointer = 0;
+
+        // Sort
+        sortBy = Constants.SORT_BY_NAME;
+        sortOrder = Constants.SORT_ORDER_NORMAL;
 
         // Draw the actual table
         drawTableFilePanel(0);
@@ -102,12 +106,8 @@ public class TableFilePanel {
         tableFilePanelTable = new JTable(tableFilePanelModel);
 
         // Assign the same cell renderer for each column
-        int columnNumber = tableFilePanelTable.getColumnCount();
-        for (int i = 0; i < columnNumber; i++) {
-            tableFilePanelTable.getColumnModel().getColumn(i).setCellRenderer(tableFilePanelCellRenderer);
-            tableFilePanelTable.getColumnModel().getColumn(i).setPreferredWidth(200);
-        }
-        tableFilePanelTable.getColumnModel().getColumn(0).setPreferredWidth(600);
+        assignSameCellRendererToEachColumn();
+//        tableFilePanelTable.getColumnModel().getColumn(0).setPreferredWidth(600);
 
         tableFilePanelTable.addKeyListener(keyListener);
         RemapCursorNavigation.remapCursors(tableFilePanelTable);
@@ -129,9 +129,14 @@ public class TableFilePanel {
         tableFilePanelTable.setFillsViewportHeight(true);
         tableFilePanelTable.setRowSelectionInterval(highlightedRowIndex, highlightedRowIndex);
         scrollToHighlightedItem();
-//        tableFilePanelTable.updateUI();
     }
 
+    private void assignSameCellRendererToEachColumn() {
+        int columnNumber = tableFilePanelTable.getColumnCount();
+        for (int i = 0; i < columnNumber; i++) {
+            tableFilePanelTable.getColumnModel().getColumn(i).setCellRenderer(tableFilePanelCellRenderer);
+        }
+    }
 
     //Getters and setters
     public int getHighlightedRowIndex() {
@@ -184,20 +189,40 @@ public class TableFilePanel {
         return this.tableFilePanelCellRenderer;
     }
 
-//    public ArrayList<Integer> getSearchMathcedItemIndexes() {
-//        return this.searchMathcedItemIndexes;
-//    }
-//
-//    public TableFilePanel resetSearchMathcedItemIndexes() {
-//        this.searchMathcedItemIndexes.clear();
-//        return this;
-//    }
-//
-//    public int getSearchMatchedItemIndexesPointer() {
-//        return searchMatchedItemIndexesPointer;
-//    }
-//
-//    public void setSearchMatchedItemIndexesPointer(int searchMatchedItemIndexesPointer) {
-//        this.searchMatchedItemIndexesPointer = searchMatchedItemIndexesPointer;
-//    }
+    public String getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(String sortOrder) {
+        this.sortOrder = sortOrder;
+        // This is how update if only the header is changed, but not the content of the table itself
+//        tableFilePanelTable.getColumnModel().getColumn(0).setHeaderValue(sortOrder);
+//        tableFilePanelTable.getTableHeader().resizeAndRepaint();
+        FileItem highlightedFileItem = getHighlightedFileItem();    // to preserve highlighted file item after sort
+        tableFilePanelModel.populateTable();                        // to repopulate table with new data
+        tableFilePanelModel.fireTableStructureChanged();            // to update model
+        assignSameCellRendererToEachColumn();                       // to assign the cell renderels to the updated model
+        setRowSelectionToFileItem(highlightedFileItem);             // to set the preserved fileitem as highlighted
+        scrollToHighlightedItem();
+    }
+
+    public void setRowSelectionToFileItem(FileItem targetFileItem) {
+        int rows = tableFilePanelTable.getModel().getRowCount();
+        int currentRowIndex;
+        for (currentRowIndex = 0; currentRowIndex < rows; currentRowIndex++) {
+            FileItem currentFileItem = (FileItem) guiInstance.getTableFilePanel().getTableFilePanelTable().getModel().getValueAt(currentRowIndex, 0);
+            if (currentFileItem.equals(targetFileItem)) {
+                break;
+            }
+        }
+        tableFilePanelTable.setRowSelectionInterval(currentRowIndex, currentRowIndex);
+    }
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+    }
 }

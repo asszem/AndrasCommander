@@ -91,13 +91,16 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
             case "open":
                 openHighlighted();
                 break;
+            case "toggle sort order":
+                toggleSortOrder();
+                break;
+            case "toggle sort by":
+                toggleSortBy();
+                break;
             case "pageDown":
                 //TODO implement pageDown move action
                 break;
             case "pageUp":
-                //todo implement pageUp move action
-                break;
-            case "Enter":
                 //todo implement pageUp move action
                 break;
             case "quit":
@@ -264,10 +267,26 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         }
     }
 
-
     @Override
     public void setHighlightSearchResults(boolean highlightSearchResults) {
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(highlightSearchResults);
         guiInstance.getKeyInfoPanel().displayCommand("Set search result highlight " + highlightSearchResults);
+    }
+
+    @Override
+    public void toggleSortOrder() {
+        String newOrder;
+        if (guiInstance.getTableFilePanel().getSortOrder().equals(Constants.SORT_ORDER_NORMAL)) {
+            newOrder = Constants.SORT_ORDER_REVERSED;
+        } else {
+            newOrder = Constants.SORT_ORDER_NORMAL;
+        }
+        System.out.println("toggle sort order to " + newOrder);
+        guiInstance.getTableFilePanel().setSortOrder(newOrder);
+    }
+
+    @Override
+    public void toggleSortBy() {
+
     }
 }

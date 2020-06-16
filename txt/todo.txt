@@ -2,8 +2,11 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
+- TODO - Preserve column width when redrawing table for sorting
+- TODO - Sort by change with s (date, last modified)
 
 Fix
+TODO - Fix including parent folder in search highlighting
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
         - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b
@@ -39,3 +42,4 @@ TODO - Improve File Open method in KeyBindingParser
 
 UI
 TODO - Implement GUI using JavaFX
+TODO - Implement using some of the modern Kotlin UI

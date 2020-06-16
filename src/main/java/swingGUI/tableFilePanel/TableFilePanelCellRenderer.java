@@ -1,5 +1,6 @@
 package swingGUI.tableFilePanel;
 
+import control.Constants;
 import data.FileItem;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
     private Font font = getFont();
     private String textToDisplay;
     private String originalText;
-    private boolean isSearchHighlightEnabled;
+    private boolean isSearchHighlightEnabled=false;
     private String colorForegroundSearchMatch="red";
     private String colorBackgroundSearchMatch="yellow";
     private Color folderForeground=Color.BLUE;
@@ -31,10 +32,9 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
         return result;
     }
 
-
     public TableFilePanelCellRenderer() {
         setOpaque(true);
-        isSearchHighlightEnabled = false;
+//        isSearchHighlightEnabled = false;
     }
 
     public void setSearchHighlightEnabled(boolean searchHighlightEnabled) {
@@ -48,8 +48,6 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
                                                    boolean isSelected, boolean hasFocus, int row, int col) {
-
-
         setIcon(null);
 
         textToDisplay = value.toString(); // This will be formatted
@@ -75,7 +73,6 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
             originalText = "";
         }
 
-
         if (row == 0) {
             if (col == 0) {
                 textToDisplay = "..";
@@ -98,7 +95,6 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
                     rest = textToDisplay.substring(searchTerm.length(), textToDisplay.length());
                     textToDisplay =setTextColor(matchingPart)+rest;
                 }
-
             }
         }
 

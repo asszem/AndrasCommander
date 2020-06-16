@@ -123,7 +123,7 @@ public class KeyBindingParser {
                 matchedCommand = "set no highlight search results";
                 break;
             case ":hl<ENTER>":
-                matchedCommand="set highlight search results";
+                matchedCommand = "set highlight search results";
                 break;
             case "j":
                 matchedCommand = "down";
@@ -157,6 +157,12 @@ public class KeyBindingParser {
                 inSearchMode = true;
                 // Note - the command implementation class should handle the mode switch
 //                guiInstance.getAndrasCommanderInstance().setMode(Constants.SEARCH_MODE);
+                break;
+            case "s":
+                matchedCommand = "toggle sort order";
+                break;
+            case "S":
+                matchedCommand = "toggle sort by";
                 break;
             case ":q<ENTER>":
             case "quit":

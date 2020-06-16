@@ -1,10 +1,12 @@
 package data;
 
+import control.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,16 +47,34 @@ public class FolderContent {
     }
 
     // Directories first
-    public ArrayList<FileItem> sortFileItemsByName() {
+    public ArrayList<FileItem> sortFileItemsByName(String sortOrder) {
+        List<FileItem> foldersOnly;
+        List<FileItem> filesOnly;
 
-        List<FileItem> sortedFileItemList = fileItems;
-        sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+        if (sortOrder.equals(Constants.SORT_ORDER_NORMAL)) {
+//            List<FileItem> sortedFileItemList = fileItems;
+//            sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
 
-        List<FileItem> foldersOnly = sortedFileItemList.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
-        foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+            foldersOnly = fileItems.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
+            foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
 
-        List<FileItem> filesOnly = sortedFileItemList.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
-        filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+            filesOnly = fileItems.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
+            filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+        } else {
+            System.out.println("reverse sorting");
+//            List<FileItem> sortedFileItemList = fileItems;
+//            sortedFileItemList.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+
+            foldersOnly = fileItems.stream().filter(fileItem -> fileItem.getFile().isDirectory()).collect(Collectors.toList());
+            foldersOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+            Collections.reverse(foldersOnly);
+
+            filesOnly = fileItems.stream().filter(fileItem -> !fileItem.getFile().isDirectory()).collect(Collectors.toList());
+            filesOnly.sort((fileName1, fileName2) -> fileName1.getFile().getName().compareTo(fileName2.getFile().getName()));
+            Collections.reverse(filesOnly);
+
+        }
+
 
         List<FileItem> sortedFilesAndFolders = new ArrayList<>();
         sortedFilesAndFolders.add(parentFolder);
@@ -80,7 +100,7 @@ public class FolderContent {
     //TODO add settings for different search method = first match, contents, exact match
     public FolderContent executeSearch(String searchTerm) {
         searchResults = new ArrayList<>();
-        logger.debug("In executeSearch for = " + searchTerm);
+//        logger.debug("In executeSearch for = " + searchTerm);
 
         searchResults = (ArrayList<FileItem>) fileItems.stream().filter(fileItem -> fileItem.getFile().getName().startsWith(searchTerm)).collect(Collectors.toList());
 

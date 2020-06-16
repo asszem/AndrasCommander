@@ -16,4 +16,6 @@ public interface CommandsInterface {
     public void exitSearchMode();
     public void jumpToSearchResult(String direction);
     public void setHighlightSearchResults(boolean highlightSearchResults);
+    public void toggleSortOrder();
+    public void toggleSortBy();
 }

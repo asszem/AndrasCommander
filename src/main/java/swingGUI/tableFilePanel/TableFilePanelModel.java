@@ -1,5 +1,6 @@
 package swingGUI.tableFilePanel;
 
+import control.Constants;
 import data.FileItem;
 import swingGUI.GUI;
 
@@ -15,16 +16,25 @@ public class TableFilePanelModel extends AbstractTableModel {
 
     public TableFilePanelModel(GUI guiInstance) {
         this.guiInstance = guiInstance;
+
     }
 
     //TODO implement different sorting methods here
     public void populateTable() {
-        ArrayList<FileItem> fileItems = guiInstance.getTableFilePanel().getFolderContent().sortFileItemsByName();
+        String sortOrder = guiInstance.getTableFilePanel().getSortOrder();
+        String sortBy = guiInstance.getTableFilePanel().getSortBy();
+        ArrayList<FileItem> fileItems = guiInstance.getTableFilePanel().getFolderContent().sortFileItemsByName(sortOrder);
         columnNames = new Object[3];
-        columnNames[0] = "File name";
+        columnNames[0] = "File name ";
         columnNames[1] = "Size";
         columnNames[2] = "Modified";
+
+        if (sortBy.equals(Constants.SORT_BY_NAME)) {
+            columnNames[0] += sortOrder;
+        }
+
         rowData = new Object[fileItems.size()][columnNames.length];
+
 
         for (int i = 0; i < rowData.length; i++) {
             rowData[i][0] = fileItems.get(i); // The first column is the fileitem itself

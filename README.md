@@ -44,9 +44,9 @@ Simple File Manager with VIM like motions.  This is a learning pet project, noth
 - [ ] VIM like (netrw): "s" for sort by (name, name-reversed, date, date-reversed, etc)
 
 ### Version 0.5 - Basic Info panels
+- [ ] Display Available Keys Panel
 - [ ] Display History Panel
 - [ ] Jump to history item using Ctrl-# 
-- [ ] Display Available Keys Panel
 
 ## Version 1.0 - MVP Reached
 At this point it should be an actually usable product.

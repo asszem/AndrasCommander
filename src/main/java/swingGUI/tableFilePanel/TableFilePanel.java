@@ -84,8 +84,8 @@ public class TableFilePanel {
         // Column width for 3 columns
         columnWidths = new int[3];
         columnWidths[0]=400;
-        columnWidths[1]=200;
-        columnWidths[2]=200;
+        columnWidths[1]=100;
+        columnWidths[2]=100;
 
         // Draw the actual JTable
         drawTableFilePanel(0);

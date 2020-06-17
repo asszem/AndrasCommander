@@ -60,7 +60,7 @@ public class GUI extends JFrame {
         windowTitle = new WindowTitle();
         setWindowTitle();
 
-        Dimension frameSize = new Dimension(1200, 500);
+        Dimension frameSize = new Dimension(1000, 500);
         frame.setPreferredSize(frameSize);
 //        frame.setSize(frameSize);
 //        frame.setLocationRelativeTo(null);

@@ -37,35 +37,40 @@ public class KeyInfoPanel {
     public JPanel initPanel(String panelTitle) {
         keyInfoPanel = new JPanel();
         keyInfoPanel.setBorder(BorderFactory.createTitledBorder(panelTitle));
-        Dimension keyInfoPanelSize = new Dimension(800, 150);
-        keyInfoPanel.setPreferredSize(keyInfoPanelSize);
+//        Dimension keyInfoPanelSize = new Dimension(800, 100);
+//        keyInfoPanel.setPreferredSize(keyInfoPanelSize);
 
 
         //Highlighted File Panel
         highlightedFilePanel = new JPanel();
+        highlightedFilePanel.setLayout(new GridBagLayout());
         highlightedFilePanel.setBorder(BorderFactory.createTitledBorder("Highlighted file"));
         displayHighlightedFile();
 
         // Search Term Panel
         searchTermPanel = new JPanel();
+        searchTermPanel.setLayout(new GridBagLayout());
         searchTermPanel.setBorder(BorderFactory.createTitledBorder("Search term"));
         searchTermLabel = new JLabel("<empty>");
         searchTermPanel.add(searchTermLabel);
 
         //Pressed Key Panel
         pressedKeyPanel = new JPanel();
+        pressedKeyPanel.setLayout(new GridBagLayout());
         pressedKeyPanel.setBorder(BorderFactory.createTitledBorder("Last Key (Code)"));
         pressedKeyLabel = new JLabel("Nothing pressed");
         pressedKeyPanel.add(pressedKeyLabel);
 
         //Pressed Keys List Panel
         pressedKeysListPanel = new JPanel();
+        pressedKeysListPanel.setLayout(new GridBagLayout());
         setPressedKeysListTitle("Pressed Keys List");
         pressedKeysListLabel = new JLabel("<empty>");
         pressedKeysListPanel.add(pressedKeysListLabel);
 
         // Command Panel
         commandPanel = new JPanel();
+        commandPanel.setLayout(new GridBagLayout());
         commandPanel.setBorder(BorderFactory.createTitledBorder("Last command"));
         commandLabel = new JLabel("Last command is empty");
         commandPanel.add(commandLabel);
@@ -73,22 +78,26 @@ public class KeyInfoPanel {
 
 
         Dimension topRowDimension= new Dimension(400,50);
-        highlightedFilePanel.setMinimumSize(topRowDimension);
+//        highlightedFilePanel.setMinimumSize(topRowDimension);
         highlightedFilePanel.setPreferredSize(topRowDimension);
-        highlightedFilePanel.setMaximumSize(topRowDimension);
-        searchTermPanel.setMinimumSize(topRowDimension);
-        searchTermPanel.setPreferredSize(topRowDimension);
-        searchTermPanel.setMaximumSize(topRowDimension);
-        Dimension bottomRowDimension=new Dimension(200,50);
-        pressedKeyPanel.setMinimumSize(bottomRowDimension);
-        pressedKeyPanel.setPreferredSize(bottomRowDimension);
-        pressedKeyPanel.setMaximumSize(bottomRowDimension);
-        pressedKeysListPanel.setMinimumSize(bottomRowDimension);
-        pressedKeysListPanel.setPreferredSize(bottomRowDimension);
-        pressedKeysListPanel.setMaximumSize(bottomRowDimension);
-        commandPanel.setMinimumSize(bottomRowDimension);
-        commandPanel.setPreferredSize(bottomRowDimension);
-        commandPanel.setMaximumSize(bottomRowDimension);
+//        highlightedFilePanel.setMaximumSize(topRowDimension);
+//        searchTermPanel.setMinimumSize(topRowDimension);
+//        searchTermPanel.setPreferredSize(topRowDimension);
+//        searchTermPanel.setMaximumSize(topRowDimension);
+        Dimension bottomRowDimension=new Dimension(200,30);
+//        pressedKeyPanel.setMinimumSize(bottomRowDimension);
+//        pressedKeyPanel.setPreferredSize(bottomRowDimension);
+//        pressedKeyPanel.setMaximumSize(bottomRowDimension);
+//        pressedKeysListPanel.setMinimumSize(bottomRowDimension);
+//        pressedKeysListPanel.setPreferredSize(bottomRowDimension);
+//        pressedKeysListPanel.setMaximumSize(bottomRowDimension);
+
+
+//        commandPanel.setMinimumSize(bottomRowDimension);
+//        commandPanel.setPreferredSize(bottomRowDimension);
+//        commandPanel.setMaximumSize(bottomRowDimension);
+//        commandPanel.setLayout(new BoxLayout(commandPanel, BoxLayout.Y_AXIS));
+
 
         keyInfoPanel.setLayout(new GridLayout(0,3));
         keyInfoPanel.add(pressedKeyPanel);

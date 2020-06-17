@@ -87,7 +87,7 @@ public class TableFilePanel {
         columnWidths[1]=200;
         columnWidths[2]=200;
 
-        // Draw the actual table
+        // Draw the actual JTable
         drawTableFilePanel(0);
         scrollToHighlightedItem();
 

@@ -1,6 +1,8 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
+TODO - Display available keys panel
+
 
 Fix
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder

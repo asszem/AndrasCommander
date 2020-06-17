@@ -37,7 +37,7 @@ Simple File Manager with VIM like motions.  This is a learning pet project, noth
 - [x] Highlight other matching items (after Enter)
 - [x] VIM like: :noh (no highlight) to clear search results
 
-### Version 0.4 - Improved display - File Details and Search Result Highlights
+[**DONE**] Version 0.4 - Improved display - File Details and Search Result Highlights
 - [x] Display file details (size in human readable format, modified date)
 - [x] Display File/Folder thumbnail icons
 - [x] Highlight search result match background

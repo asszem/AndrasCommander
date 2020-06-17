@@ -19,13 +19,14 @@ public class GUI extends JFrame {
     private AndrasCommander andrasCommanderInstance;
 
     // Action Listener classes
-    private UIActionListener actionListener;
-    private KeyListener keyListener;
+//    private UIActionListener actionListener;
+//    private KeyListener keyListener;
 
     // UI classes
     // TODO implement multiple panels and store every filePanel in a list
     private TableFilePanel tableFilePanel;
     private KeyInfoPanel keyInfoPanel;
+    private KeyBindingsPanel keyBindingsPanel;
 
     // This frame is to hold the entire UI
     private JFrame frame = new JFrame();
@@ -46,11 +47,13 @@ public class GUI extends JFrame {
 //        filePanel = new FilePanel(this);
         tableFilePanel = new TableFilePanel(this);
         keyInfoPanel = new KeyInfoPanel(this);
+        keyBindingsPanel = new KeyBindingsPanel(this);
 
         // call the init method when adding UI elements to the contentPane
 //        frame.getContentPane().add(BorderLayout.NORTH, tableFilePanel.initTableFilePanel("File Panel"));
         frame.getContentPane().add(BorderLayout.CENTER, tableFilePanel.initTableFilePanel("Table File Panel"));
         frame.getContentPane().add(BorderLayout.SOUTH, keyInfoPanel.initPanel("Key Info Panel"));
+        frame.getContentPane().add(BorderLayout.EAST, keyBindingsPanel.initPanel("Key Bindings"));
 //        filePanel.getFileListPanel().addKeyListener(keyListener);
 //        frame.addKeyListener(keyListener);
 
@@ -76,9 +79,9 @@ public class GUI extends JFrame {
         return keyInfoPanel;
     }
 
-    public KeyListener getKeyListener() {
-        return keyListener;
-    }
+//    public KeyListener getKeyListener() {
+//        return keyListener;
+//    }
 
     public WindowTitle getWindowTitle() {
         return windowTitle;
@@ -88,9 +91,9 @@ public class GUI extends JFrame {
         frame.setTitle(windowTitle.getApplicationName() + " version " + windowTitle.getVersion());
     }
 
-    public UIActionListener getActionListener() {
-        return actionListener;
-    }
+//    public UIActionListener getActionListener() {
+//        return actionListener;
+//    }
 
     public JFrame getFrame() {
         return frame;

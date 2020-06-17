@@ -34,6 +34,8 @@ public class KeyBindingsPanel {
         keyBindingsMap.put("N", "prev search match");
         keyBindingsMap.put(":noh", "no highlight search results");
         keyBindingsMap.put(":hl", "highlight search results");
+        keyBindingsMap.put("ESC", "quit search mode, clear results");
+        keyBindingsMap.put("Enter", "quit search mode, keep results ");
         keyBindingsMap.put("separator2", "");
         keyBindingsMap.put("headerOther", "────Other────");
         keyBindingsMap.put("Enter", "Execute file / enter folder");

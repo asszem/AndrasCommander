@@ -67,7 +67,7 @@ public class TableFilePanel {
         tableFilePanelModel = new TableFilePanelModel(guiInstance);
 
         // Crate a new cell renderer
-        tableFilePanelCellRenderer = new TableFilePanelCellRenderer();
+        tableFilePanelCellRenderer = new TableFilePanelCellRenderer(guiInstance);
 
         // Create a new key listener
         keyListener = new KeyListener(guiInstance);

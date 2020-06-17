@@ -36,6 +36,10 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
             guiInstance.getTableFilePanel().getTableFilePanelCellRenderer().setSearchTerm(searchTerm);
             guiInstance.getKeyInfoPanel().displaySearchTerm(searchTerm);
             guiInstance.getTableFilePanel().getTableFilePanelTable().repaint();
+
+            // To immediately jump to the first matching item, reset previous matches before
+            guiInstance.getTableFilePanel().getFolderContent().setEveryFileItemSearchMatchedToFalse();
+            executeSearch();
         }
 
         switch (command) {
@@ -64,7 +68,9 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
                 enterSearchMode();
                 break;
             case "execute search":
-                executeSearch();
+//                executeSearch();
+                guiInstance.getAndrasCommanderInstance().setMode(Constants.NORMAL_MODE); // set here and not in execute search
+                guiInstance.getTableFilePanel().getTableFilePanelTable().repaint();
                 break;
             case "exit search mode":
                 exitSearchMode();
@@ -245,6 +251,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         guiInstance.getKeyInfoPanel().displaySearchTerm("<none>");
         guiInstance.getTableFilePanel().setDisplaySearchResultMatches(false);
         guiInstance.getTableFilePanel().getTableFilePanelCellRenderer().setSearchTerm(""); // to avoid :hl displaying previous search term
+        guiInstance.getTableFilePanel().getTableFilePanelTable().repaint(); // so cursor color will change back
     }
 
     @Override

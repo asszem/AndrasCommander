@@ -164,6 +164,9 @@ public class KeyBindingParser {
             case "S":
                 matchedCommand = "toggle sort by";
                 break;
+            case "?":
+                matchedCommand = "toggle Key Bindings Panel";
+                break;
             case ":q<ENTER>":
             case "quit":
                 matchedCommand = "quit";

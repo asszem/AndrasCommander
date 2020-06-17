@@ -2,6 +2,7 @@ package swingGUI.tableFilePanel;
 
 import control.Constants;
 import data.FileItem;
+import swingGUI.GUI;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -14,27 +15,29 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
 
     private static final long serialVersionUID = 1L;
 
-    //    private GUI guiInstance;
+    private GUI guiInstance;
     private String searchTerm = "";
     private Font font = getFont();
     private String textToDisplay;
     private String originalText;
-    private boolean isSearchHighlightEnabled=false;
-    private String colorForegroundSearchMatch="red";
-    private String colorBackgroundSearchMatch="yellow";
-    private Color folderForeground=Color.BLUE;
-    private Color folderBackground=Color.BLACK;
-    private Color fileForeground=Color.BLACK;
-    private Color fileBackground=Color.WHITE;
+    private boolean isSearchHighlightEnabled = false;
+    private String colorForegroundSearchMatch = "red";
+    private String colorBackgroundSearchMatch = "yellow";
+    private Color folderForeground = Color.BLUE;
+    private Color folderBackground = Color.BLACK;
+    private Color fileForeground = Color.BLACK;
+    private Color fileBackground = Color.WHITE;
+    private Color highlightWhenInSearchMode = Color.magenta;
+    private Color highlightWhenInNormalMode = Color.ORANGE;
 
-    private String setTextColor(String text){
-        String result="<html><font color="+colorForegroundSearchMatch+"><span style='background:"+colorBackgroundSearchMatch+";'>" + text + "</font></span>";
+    private String setTextColor(String text) {
+        String result = "<html><font color=" + colorForegroundSearchMatch + "><span style='background:" + colorBackgroundSearchMatch + ";'>" + text + "</font></span>";
         return result;
     }
 
-    public TableFilePanelCellRenderer() {
+    public TableFilePanelCellRenderer(GUI guiInstance) {
         setOpaque(true);
-//        isSearchHighlightEnabled = false;
+        this.guiInstance = guiInstance;
     }
 
     public void setSearchHighlightEnabled(boolean searchHighlightEnabled) {
@@ -89,11 +92,11 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
                 if (textToDisplay.startsWith("[")) {
                     matchingPart = textToDisplay.substring(1, searchTerm.length());
                     rest = textToDisplay.substring(searchTerm.length(), textToDisplay.length());
-                    textToDisplay =setTextColor("["+matchingPart)+rest;
+                    textToDisplay = setTextColor("[" + matchingPart) + rest;
                 } else {
                     matchingPart = textToDisplay.substring(0, searchTerm.length());
                     rest = textToDisplay.substring(searchTerm.length(), textToDisplay.length());
-                    textToDisplay =setTextColor(matchingPart)+rest;
+                    textToDisplay = setTextColor(matchingPart) + rest;
                 }
             }
         }
@@ -101,7 +104,15 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
         setText(textToDisplay);
 
         if (isSelected) {
-            setBackground(Color.ORANGE);
+            switch (guiInstance.getAndrasCommanderInstance().getMode()) {
+                case Constants.SEARCH_MODE:
+                    setBackground(highlightWhenInSearchMode);
+                    break;
+                case Constants.NORMAL_MODE:
+                    setBackground(highlightWhenInNormalMode);
+                default:
+                    break;
+            }
         } else {
             setBackground(Color.WHITE);
         }

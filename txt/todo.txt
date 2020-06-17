@@ -2,8 +2,6 @@ This list has elements that are not related to a specific part of the source cod
 
 Now
 TODO - Add scrollpane to keybinding panel
-TODO - Toggle Keybindingpanel display with "?"
-
 
 Fix
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder

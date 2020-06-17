@@ -1,7 +1,12 @@
-Version 0.4 - File Details and Search Highlighting - InProgress
+Version 0.5 - Additional Panels
+    - Add "?" to toggle KeyBindingsPanel which shows available key bindings
+    - Cursor color reflects mode (search, normal)
+    - Search automatically jumps to first match
+
+Version 0.4 - File Details and Search Highlighting - 2020-06-16
     - Refactor code to use JTable with a custom Table Model that holds FileItem objects
     - Display file details (name, size, last modified) and file thumbnail icons
-    INPROGRESS- Sortable columns by name, size, last modified date
+    - Sortable columns by name, size, last modified date
     - Highlight search result matches as search term is typed using a Custom Table Cell Renderer
     - Toggle search result highlighting with :noh and :hl
     - Handle space and backspace in search mode

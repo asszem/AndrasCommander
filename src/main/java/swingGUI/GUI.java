@@ -27,6 +27,7 @@ public class GUI extends JFrame {
     private TableFilePanel tableFilePanel;
     private KeyInfoPanel keyInfoPanel;
     private KeyBindingsPanel keyBindingsPanel;
+    private boolean isKeyBindingsPanelVisible;
 
     // This frame is to hold the entire UI
     private JFrame frame = new JFrame();
@@ -48,6 +49,7 @@ public class GUI extends JFrame {
         tableFilePanel = new TableFilePanel(this);
         keyInfoPanel = new KeyInfoPanel(this);
         keyBindingsPanel = new KeyBindingsPanel(this);
+        isKeyBindingsPanelVisible=true;
 
         // call the init method when adding UI elements to the contentPane
 //        frame.getContentPane().add(BorderLayout.NORTH, tableFilePanel.initTableFilePanel("File Panel"));
@@ -79,6 +81,17 @@ public class GUI extends JFrame {
         return keyInfoPanel;
     }
 
+    public void toggleKeyBindingsPanel(){
+       if (isKeyBindingsPanelVisible){
+           frame.getContentPane().remove(keyBindingsPanel.keyBindingsPanel);
+           frame.repaint();
+           isKeyBindingsPanelVisible=false;
+       } else {
+           frame.getContentPane().add(BorderLayout.EAST, keyBindingsPanel.initPanel("Key Bindings"));
+           frame.repaint();
+           isKeyBindingsPanelVisible=true;
+       }
+    }
 //    public KeyListener getKeyListener() {
 //        return keyListener;
 //    }

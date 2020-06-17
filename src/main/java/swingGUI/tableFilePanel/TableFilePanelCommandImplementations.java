@@ -103,6 +103,9 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
             case "toggle sort by":
                 toggleSortBy();
                 break;
+            case "toggle Key Bindings Panel":
+                guiInstance.toggleKeyBindingsPanel();
+                break;
             case "pageDown":
                 //TODO implement pageDown move action
                 break;

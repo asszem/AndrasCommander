@@ -12,9 +12,8 @@ public class KeyBindingsPanel {
     private static Logger logger = LogManager.getLogger(KeyBindingsPanel.class);
     private GUI guiInstance;
     JPanel keyBindingsPanel;
-    private ArrayList<String> keyBindings;
     private LinkedHashMap<String, String> keyBindingsMap;
-    private JTable keyBindingsTable;
+    private JScrollPane keyBindingsScrollPane;
 
     public KeyBindingsPanel(GUI guiInstance) {
         this.guiInstance = guiInstance;
@@ -81,21 +80,20 @@ public class KeyBindingsPanel {
         return result;
     }
 
-    public JPanel initPanel(String panelTitle) {
+    public JScrollPane initPanel(String panelTitle) {
         keyBindingsPanel = new JPanel();
         keyBindingsPanel.setLayout(new BoxLayout(keyBindingsPanel, BoxLayout.Y_AXIS));
 
         keyBindingsPanel.setBorder(BorderFactory.createTitledBorder(panelTitle));
-
-//        JLabel titleLabel = new JLabel("Available commands:");
-//        keyBindingsPanel.add(titleLabel);
+        keyBindingsScrollPane = new JScrollPane(keyBindingsPanel);
 
         populateKeyBindings();
         displayKeyBindings();
 
-
-        return keyBindingsPanel;
+        return keyBindingsScrollPane;
     }
 
-
+    public JScrollPane getKeyBindingsScrollPane(){
+        return keyBindingsScrollPane;
+    }
 }

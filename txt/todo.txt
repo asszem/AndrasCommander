@@ -1,13 +1,19 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
-TODO - Highlight last folder in History item
 TODO - Implement jump to History item
+TODO - Add scrollpane to History items - and list items over
+TODO - Toggle history panel
+TODO - Make search highlight work in History/Bookmark panel as welll (?)
+
+Soon
+TODO - Set ignore case in search - use :set ic to update in properties file
 
 Fix
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
         - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b
+TODO - Fix Linux arrow key remap infinite keypress error
 
 Tasks
 TODO - Setup correct layout manager for KeyInfoPanel
@@ -18,6 +24,7 @@ TODO - Set filapanel size to have always the title bar visible
 TODO - Edge case handling - folders without files (only dirs), full empty folders, only files, top folder reached, etc
 TODO - Implement gf - going forward (and not goto file) command should be implemented to navigate forwards in History
 TODO - Workaround for file thumbnails not displaying correctly on Linux
+TODO - [RENAME] - update history and bookmarks if Rename is affecting it
 
 Refactor
 TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)

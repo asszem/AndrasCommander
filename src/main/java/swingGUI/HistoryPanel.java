@@ -4,7 +4,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class HistoryPanel {
@@ -12,10 +15,12 @@ public class HistoryPanel {
     private GUI guiInstance;
 
     private int maxNumberOfHistoryItems = 10;
-    int historyItemFrontCharactersNumber = 10;
-    int truncateHistoryItemOverCharacter = 25;
+    int historyItemFrontCharactersNumber = 15;
+    int truncateHistoryItemOverCharacter = 30;
     private JPanel historyPanel;
     private JScrollPane historyScrollPane;
+    private String historyItemLastFolderBackground="grey";
+    private String historyItemLastFolderForeground="orange";
 
     public HistoryPanel(GUI guiInstance) {
         this.guiInstance = guiInstance;
@@ -42,10 +47,13 @@ public class HistoryPanel {
     public void displayHistoryItems() {
         historyPanel.removeAll();
         ArrayList<String> historyItems = guiInstance.getAndrasCommanderInstance().getHistoryWriter().getLastNHistoryItems(maxNumberOfHistoryItems);
+        Icon icon = FileSystemView.getFileSystemView().getSystemIcon(new File(".")); // get the current dir
         historyItems.forEach(historyItem -> logger.debug(historyItem));
         counter = 1;
         historyItems.forEach(historyItem -> {
-            historyItemLabel = new JLabel(counter + ". " + truncatePath(historyItem));
+            historyItemLabel = new JLabel(highlightLastFolder(counter + ". " + truncatePath(historyItem)));
+            historyItemLabel.setBorder(new EmptyBorder(5,0,5,0));
+            historyItemLabel.setIcon(icon);
             historyPanel.add(historyItemLabel);
             counter++;
         });
@@ -62,7 +70,21 @@ public class HistoryPanel {
         } else {
             return input;
         }
-        return front + ". . ." + end;
+        return front + " ... " + end;
     }
+     private String highlightLastFolder(String input){
+        // TODO handle if last folder length is greater than displayed and / is not found or found in before ...
+        int indexOfLastPart=0;
+        if (System.getProperty("os.name").toLowerCase().contains("windows")){
+            indexOfLastPart = input.lastIndexOf("\\");
+        } else {
+            indexOfLastPart = input.lastIndexOf("/");
+        }
+        String firstPart=input.substring(0, indexOfLastPart);
+        String lastPart=input.substring(indexOfLastPart, input.length());
+        String result = "<html><nobr>"+firstPart+"<font color=" + historyItemLastFolderForeground + "><span style='background:" + historyItemLastFolderBackground + ";'>" + lastPart + "</font></span></html>";
+         System.out.println(result);
+        return result;
+     }
 
 }

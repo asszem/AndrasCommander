@@ -52,9 +52,9 @@ public class GUI extends JFrame {
         windowTitle = new WindowTitle();
         setWindowTitle();
 
-        Dimension frameSize = new Dimension(1000, 500);
-//        frame.setPreferredSize(frameSize);
-        frame.setLocation(600, 0);
+        Dimension frameSize = new Dimension(1300, 800);
+        frame.setPreferredSize(frameSize);
+        frame.setLocation(300, 0);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         frame.pack(); //sizes the frame so that all its contents are at or above their preferred sizes

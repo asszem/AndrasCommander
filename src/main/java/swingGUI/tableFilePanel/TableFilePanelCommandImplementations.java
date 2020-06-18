@@ -178,6 +178,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         guiInstance.getTableFilePanel().drawTableFilePanel(0);
         guiInstance.getKeyInfoPanel().displayHighlightedFile();
 
+        guiInstance.getHistoryPanel().displayHistoryItems();
         exitSearchMode(); // so n/N will not work in new directory where the search was not executed
     }
 

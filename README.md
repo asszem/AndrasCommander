@@ -44,7 +44,7 @@ Simple File Manager with VIM like motions.  This is a learning pet project, noth
 - [x] VIM like (netrw): "s" for toggle sort order (normal, reversed, "S" to toggle sort by (name, size, date modified)
 
 ### Version 0.5 - Basic Info panels
-- [ ] Display Available Keys Panel
+- [x] Display Available Keys Panel
 - [ ] Display History Panel
 - [ ] Jump to history item using Ctrl-# 
 

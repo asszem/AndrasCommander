@@ -1,7 +1,8 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
-TODO - Add scrollpane to keybinding panel
+TODO - Highlight last folder in History item
+TODO - Implement jump to History item
 
 Fix
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder

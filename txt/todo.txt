@@ -1,10 +1,12 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
-TODO - Implement jump to History item
 TODO - Add scrollpane to History items - and list items over
+    - Fix jlables not triggering scrollpane
+TODO - Implement jump to History item
 TODO - Toggle history panel
 TODO - Make search highlight work in History/Bookmark panel as welll (?)
+TODO - Think about using a table to display history with a modified cell renderer
 
 Soon
 TODO - Set ignore case in search - use :set ic to update in properties file
@@ -13,6 +15,9 @@ Fix
 TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
         - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b
+        - When gf is pressed, it should go forward in history
+        - Implement a pointer that points to the last item of the history
+        - Think of solution for keeping separate history for each tab
 TODO - Fix Linux arrow key remap infinite keypress error
 
 Tasks

@@ -33,7 +33,8 @@ public class HistoryPanel {
         Dimension historyPanelSize = new Dimension(250, 50);
         historyPanel.setPreferredSize(historyPanelSize);
         historyPanel.setMaximumSize(historyPanelSize);
-        historyScrollPane = new JScrollPane(historyPanel);
+        historyScrollPane = new JScrollPane(historyPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
 
         displayHistoryItems();
 

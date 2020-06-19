@@ -153,7 +153,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         File fileToBeExecuted = guiInstance.getTableFilePanel().getHighlightedFileItem().getFile();
         if (fileToBeExecuted.isDirectory()) {
             guiInstance.getKeyInfoPanel().displayCommand("ENTER to go to Folder " + fileToBeExecuted.getName());
-            changeFolder(fileToBeExecuted.getAbsolutePath());
+            changeFolder(fileToBeExecuted.getAbsolutePath(), true);
         } else {
             guiInstance.getKeyInfoPanel().displayCommand("ENTER to execute File " + fileToBeExecuted.getName());
             logger.debug("Executing file = " + fileToBeExecuted.getAbsolutePath());
@@ -168,9 +168,11 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
     }
 
     @Override
-    public void changeFolder(String folderPath) {
-        String originalPath = guiInstance.getTableFilePanel().getFolderContent().getFolderPath();
-        guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(originalPath); // save history
+    public void changeFolder(String folderPath, boolean writeOldFolderToHistoryFile) {
+        if (writeOldFolderToHistoryFile) {
+            String originalPath = guiInstance.getTableFilePanel().getFolderContent().getFolderPath();
+            guiInstance.getAndrasCommanderInstance().getHistoryWriter().appendToHistory(originalPath); // save history
+        }
 
         guiInstance.getTableFilePanel().getFolderContent().setFolderPath(folderPath);
         guiInstance.getTableFilePanel().getFolderContent().loadFiles(folderPath);
@@ -186,7 +188,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
     public void goUpToParentFolder() {
         File parentFolder = new File(guiInstance.getTableFilePanel().getFolderContent().getParentFolder().getFile().getAbsolutePath());
         if (parentFolder != null) {
-            changeFolder(parentFolder.getAbsolutePath());
+            changeFolder(parentFolder.getAbsolutePath(), true);
         }
     }
 
@@ -198,7 +200,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         // Validation
         File prevFolderCheck = new File(prevFolder);
         if (prevFolderCheck.exists() && prevFolderCheck.isDirectory()) {
-            changeFolder(prevFolder);
+            changeFolder(prevFolder, false);
         } else {
             logger.debug("prev Folder is not a valid Directory");
         }
@@ -206,7 +208,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 
     @Override
     public void refreshView() {
-        changeFolder(guiInstance.getTableFilePanel().getFolderContent().getFolderPath());
+        changeFolder(guiInstance.getTableFilePanel().getFolderContent().getFolderPath(), false);
     }
 
     @Override

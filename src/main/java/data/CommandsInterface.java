@@ -9,7 +9,7 @@ public interface CommandsInterface {
     public void moveCursor(String direction);
     public void goUpToParentFolder();
     public void goBackInHistory();
-    public void changeFolder(String folderPath);
+    public void changeFolder(String folderPath, boolean preserveHistory);
     public void refreshView();
     public void enterSearchMode();
     public void executeSearch();

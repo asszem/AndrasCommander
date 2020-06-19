@@ -45,7 +45,7 @@ Simple File Manager with VIM like motions.  This is a learning pet project, noth
 
 ### Version 0.5 - Basic Info panels
 - [x] Display Available Keys Panel
-- [ ] Display History Panel
+- [x] Display History Panel
 - [ ] Jump to history item using Ctrl-# 
 
 ## Version 1.0 - MVP Reached

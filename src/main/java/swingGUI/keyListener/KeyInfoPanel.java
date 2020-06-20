@@ -50,7 +50,7 @@ public class KeyInfoPanel {
         // Search Term Panel
         searchTermPanel = new JPanel();
         searchTermPanel.setLayout(new GridBagLayout());
-        searchTermPanel.setBorder(BorderFactory.createTitledBorder("Search term"));
+        setIgnoreCaseInSearchTermTitle();
         searchTermLabel = new JLabel("<empty>");
         searchTermPanel.add(searchTermLabel);
 
@@ -76,15 +76,14 @@ public class KeyInfoPanel {
         commandPanel.add(commandLabel);
 
 
-
-        Dimension topRowDimension= new Dimension(400,50);
+        Dimension topRowDimension = new Dimension(400, 50);
 //        highlightedFilePanel.setMinimumSize(topRowDimension);
         highlightedFilePanel.setPreferredSize(topRowDimension);
 //        highlightedFilePanel.setMaximumSize(topRowDimension);
 //        searchTermPanel.setMinimumSize(topRowDimension);
 //        searchTermPanel.setPreferredSize(topRowDimension);
 //        searchTermPanel.setMaximumSize(topRowDimension);
-        Dimension bottomRowDimension=new Dimension(200,30);
+        Dimension bottomRowDimension = new Dimension(200, 30);
 //        pressedKeyPanel.setMinimumSize(bottomRowDimension);
 //        pressedKeyPanel.setPreferredSize(bottomRowDimension);
 //        pressedKeyPanel.setMaximumSize(bottomRowDimension);
@@ -99,7 +98,7 @@ public class KeyInfoPanel {
 //        commandPanel.setLayout(new BoxLayout(commandPanel, BoxLayout.Y_AXIS));
 
 
-        keyInfoPanel.setLayout(new GridLayout(0,3));
+        keyInfoPanel.setLayout(new GridLayout(0, 3));
         keyInfoPanel.add(pressedKeyPanel);
         keyInfoPanel.add(pressedKeysListPanel);
         keyInfoPanel.add(commandPanel);
@@ -154,10 +153,15 @@ public class KeyInfoPanel {
     }
 
     public void setPressedKeysListTitle(String title) {
-        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title + " - " + guiInstance.getAndrasCommanderInstance().getMode()+" mode"));
+        pressedKeysListPanel.setBorder(BorderFactory.createTitledBorder(title + " - " + guiInstance.getAndrasCommanderInstance().getMode() + " mode"));
     }
 
-    public void displaySearchTerm(String searchTerm){
+    public void setIgnoreCaseInSearchTermTitle() {
+        String ignoreCaseMsg = guiInstance.getTableFilePanel().getSearchHighlightIgnoreCase() == true ? " (ignore case)" : " (case sensitive)";
+        searchTermPanel.setBorder(BorderFactory.createTitledBorder("Search term " + ignoreCaseMsg));
+    }
+
+    public void displaySearchTerm(String searchTerm) {
         searchTermPanel.removeAll();
         searchTermLabel = new JLabel(searchTerm);
         searchTermPanel.add(searchTermLabel);

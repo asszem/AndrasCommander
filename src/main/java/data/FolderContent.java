@@ -115,11 +115,14 @@ public class FolderContent {
 
     //TODO Create Unit test for this Method
     //TODO add settings for different search method = first match, contents, exact match
-    public FolderContent executeSearch(String searchTerm) {
+    public FolderContent executeSearch(String searchTerm, boolean ignoreCase) {
         searchResults = new ArrayList<>();
 //        logger.debug("In executeSearch for = " + searchTerm);
-
-        searchResults = (ArrayList<FileItem>) fileItems.stream().filter(fileItem -> fileItem.getFile().getName().startsWith(searchTerm)).collect(Collectors.toList());
+        if (ignoreCase){
+            searchResults = (ArrayList<FileItem>) fileItems.stream().filter(fileItem -> fileItem.getFile().getName().toLowerCase().startsWith(searchTerm.toLowerCase())).collect(Collectors.toList());
+        } else {
+            searchResults = (ArrayList<FileItem>) fileItems.stream().filter(fileItem -> fileItem.getFile().getName().startsWith(searchTerm)).collect(Collectors.toList());
+        }
 
         searchResults.forEach(fileItem -> {
 //            logger.debug("matched file item title = [" + fileItem.getFile().getName() + "]");

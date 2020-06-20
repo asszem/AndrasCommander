@@ -21,7 +21,7 @@ public class KeyBindingsPanel {
 
     private void populateKeyBindings() {
         keyBindingsMap = new LinkedHashMap<>();
-        keyBindingsMap.put("headerNav", "────Navigation────" );
+        keyBindingsMap.put("headerNav", "────Navigation────");
         keyBindingsMap.put("j/k", "down/up");
         keyBindingsMap.put("gg/G", "top/bottom");
         keyBindingsMap.put("gu", "go up to parent folder");
@@ -33,11 +33,12 @@ public class KeyBindingsPanel {
         keyBindingsMap.put("N", "prev search match");
         keyBindingsMap.put(":noh", "no highlight search results");
         keyBindingsMap.put(":hl", "highlight search results");
+        keyBindingsMap.put(":ic", "toggle case sensitive search");
         keyBindingsMap.put("ESC", "quit search mode, clear results");
         keyBindingsMap.put("Enter", "quit search mode, keep results ");
         keyBindingsMap.put("separator2", "");
         keyBindingsMap.put("headerOther", "────Other────");
-        keyBindingsMap.put("Enter", "Execute file / enter folder");
+        keyBindingsMap.put("Enter ", "Execute file / enter folder");
         keyBindingsMap.put(":q", "Quit");
     }
 
@@ -47,8 +48,8 @@ public class KeyBindingsPanel {
 
     private void displayKeyBindings() {
         keyBindingsMap.forEach((k, v) -> {
-            JLabel label=new JLabel();
-            int keyCharWidth=6;
+            JLabel label = new JLabel();
+            int keyCharWidth = 6;
 
 
             if (k.startsWith("header")) {
@@ -60,13 +61,13 @@ public class KeyBindingsPanel {
 //                String padding= String.format("%-" + 8 + "s", k);
                 //a____(4) total 5, size 1
                 //aa___(3)
-                String padding="&nbsp "+k;
-                for (int i=0;i<keyCharWidth-k.length();i++){
-                    padding+="&nbsp";
+                String padding = "&nbsp " + k;
+                for (int i = 0; i < keyCharWidth - k.length(); i++) {
+                    padding += "&nbsp";
                 }
                 String key = setTextAttribute(padding, "blue", "grey", 800);
                 String value = setTextAttribute(v, "black", "none", 200);
-                label.setText("<html>" + key + value +  "</html>");
+                label.setText("<html>" + key + value + "</html>");
             }
 
             Font currFont = label.getFont();
@@ -93,7 +94,7 @@ public class KeyBindingsPanel {
         return keyBindingsScrollPane;
     }
 
-    public JScrollPane getKeyBindingsScrollPane(){
+    public JScrollPane getKeyBindingsScrollPane() {
         return keyBindingsScrollPane;
     }
 }

@@ -1,30 +1,28 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
-TODO - Add scrollpane to History items - and list items over
-    - Fix jlables not triggering scrollpane
-TODO - Implement jump to History item
-TODO - Toggle history panel
-TODO - Make search highlight work in History/Bookmark panel as welll (?)
-TODO - Think about using a table to display history with a modified cell renderer
-
-Soon
-TODO - Set ignore case in search - use :set ic to update in properties file
+TODO - Think about using a table to display history/bookmarks with a modified cell renderer where search and shortcuts work
 
 Fix
-TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix going back ping-ponging between last two directory
         - When gb is pressed, it should go back in history: a -> b -> c -> d (gb)-> c (gb)-> b
         - When gf is pressed, it should go forward in history
         - Implement a pointer that points to the last item of the history
         - Think of solution for keeping separate history for each tab
+TODO - Handle situation when the last history folder is not found because it was renamed - add general error protection for non-existing folder
 TODO - Fix Linux arrow key remap infinite keypress error
 
 Tasks
+TODO - [HISTORY] Add scrollpane to History items - and list items over
+TODO - [HISTORY] Implement jump to History item
+TODO - [HISTORY] Toggle history panel
+TODO - [HISTORY] Make search highlight work in History/Bookmark panel as well (?)
+TODO - [hSITORY] Add keyboard shortcut do delete history (:dh)
+TODO - [OPENER] add command "o" to open folder locator based on history
+TODO - Setup final layout manager structure for GUI
 TODO - Setup correct layout manager for KeyInfoPanel
 TODO - Convert file size to human readable format
 TODO - Update UML after basic search was implemented - The standard sequence diagram as well
-TODO - Fix and setup a Layout Manager to the main Frame so a borderlayout on KeyInfoPanel wont mess up the entire GUI
 TODO - Set filapanel size to have always the title bar visible
 TODO - Edge case handling - folders without files (only dirs), full empty folders, only files, top folder reached, etc
 TODO - Implement gf - going forward (and not goto file) command should be implemented to navigate forwards in History
@@ -35,11 +33,6 @@ Refactor
 TODO - Refactor repaint and set visible redundant calls (for example, KeyInfoPanel and FilePanel)
 TODO - Refactor table handling for increased response time
 TODO - Refactor KeyInfoPanel to work with multiple file panels
-TODO - Refactor CommandImplementations to avoid long and ugly chain of commands
-    - Find out why passing the objects in the constructor to a variable did not reflected the changes on that object
-TODO - Refactor separation of files and folders
-    - Rethink how the FileList class handles file data and metadata
-    - When a list is created, the files and folders should be separated visually
 TODO - Refactor remapping cursor keys
     - remove hardcoded keys
     - find an alternative solution to using Robot
@@ -49,6 +42,7 @@ TODO - Improve File Open method in KeyBindingParser
     - Do not open Directories in file
     - Currently using Java AWT Desktop
     - Will open every type of file
+TODO - Read/Write settings to a file .acrc (keybindings, case sensitivity, history, layout, etc)
 
 UI
 TODO - Implement GUI using JavaFX

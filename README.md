@@ -48,10 +48,7 @@ Simple File Manager with VIM like motions.  This is a learning pet project, noth
 - [x] Display History Panel
 - [ ] Jump to history item using Ctrl-# 
 
-## Version 1.0 - MVP Reached
-At this point it should be an actually usable product.
-
-### Version 1.1 - Improved display - Basic Multiple Panes and Tabs
+### Version 0.6 - Improved display - Basic Multiple Panes and Tabs
 - [ ] Multiple panes (vertical, horizontal)
 - [ ] VIM like: "sp" and "vs" to add a new horizontal or vertical viewing pane
 - [ ] VIM like: jump between panes with Ctrl-W and "h"/"j"/"k"/"l"
@@ -60,7 +57,14 @@ At this point it should be an actually usable product.
 - [ ] VIM like: :on (only) maximize current pane (but remember previous panes)
 - [ ] :res (reset) - reset the previous displayed pane(s)
 - [ ] Get and store panel position, width and height from config file
-- [ ] Separate history for each pane
+
+## Version 1.0 - MVP Reached
+At this point it should be an actually usable product.
+
+### Version 1.1 - Actionable History Panel
+- [ ] - History panel can be navigated to, and items can be opened by selecting them with the cursor
+- [ ] - Remove history items
+- [ ] - Separate history for each pane and a global history
 
 ### Version 1.2 - Nerdtree like Bookmarks panel and Vim like marks
 - [ ] - VIM like: "m" for adding local marks and "'"<char> for jumping to mark
@@ -80,19 +84,12 @@ At this point it should be an actually usable product.
 - [ ] Copy / move / delete selected file(s)
 - [ ] "go" to Open system right click menu on files to get file operations
 
-### Version 1.4 - Actionable History Panel
-- [ ] - History panel can be navigated to, and items can be opened by selecting them with the cursor
-- [ ] - Add keyboard shortcut Quickkey-s to open history items by pressing Ctrl-# of history item 
-- [ ] - Remove history items
-- [ ] - Separate history for each pane and a global history
-- [ ] - Pin/Bookmark history item
-
-### Version 1.5 - Preview Panels
+### Version 1.4 - Preview Panels
 - [ ] File preview panel - open and close with a command
 - [ ] Folder preview panel - display5 last changed file in highlighted folder
 - [ ] Display scrollable content of highlighted file
 
-### Version 1.6 - Improved Search types
+### Version 1.5 - Improved Search types
 - [ ] Implement different search types  (starts with, contains, equals, wildcards, search by Date, size, etc)
 - [ ] Display search type in FilePanel 
 - [ ] Toggle search type with Ctrl-S while in Search mode
@@ -108,7 +105,7 @@ At this point it should be an actually usable product.
 - [ ] [navigation] VIM like: "gf" - going forward (and not goto file!) in history
 - [ ] [navigation] Remap Home, End, PageUp, PageDown
 - [ ] [QoL] Toggle keybindings list
-    - [ ] Static info of available commands
+    - [x] Static info of available commands
     - [ ] Dinamic info with random reminders, least used commands, etc
 - [ ] [file operation] Open system file explorer in current directory
 - [ ] [file operation] yank (copy) absolute path to current file / directory

@@ -125,6 +125,9 @@ public class KeyBindingParser {
             case ":hl<ENTER>":
                 matchedCommand = "set highlight search results";
                 break;
+            case ":ic<ENTER>":
+                matchedCommand= "toggle ignore case";
+                break;
             case "j":
                 matchedCommand = "down";
                 break;

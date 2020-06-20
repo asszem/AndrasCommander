@@ -106,6 +106,9 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
             case "toggle Key Bindings Panel":
                 guiInstance.toggleKeyBindingsPanel();
                 break;
+            case "toggle ignore case":
+                toggleIgnoreCase();
+                break;
             case "pageDown":
                 //TODO implement pageDown move action
                 break;
@@ -226,7 +229,7 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
 
     @Override
     public void executeSearch() {
-        guiInstance.getTableFilePanel().getFolderContent().executeSearch(searchTerm.toString());
+        guiInstance.getTableFilePanel().getFolderContent().executeSearch(searchTerm.toString(), guiInstance.getTableFilePanel().getSearchHighlightIgnoreCase());
 
         // Prepare the results pointers
         searchResultIndexes = new ArrayList<>();
@@ -333,5 +336,20 @@ public class TableFilePanelCommandImplementations implements CommandsInterface {
         }
         guiInstance.getTableFilePanel().setSortBy(newSortBy);
         refreshTableAfterSort();
+    }
+
+    public void toggleIgnoreCase(){
+        boolean currentIsTrue=guiInstance.getTableFilePanel().getSearchHighlightIgnoreCase();
+        if (currentIsTrue){
+            guiInstance.getTableFilePanel().setSearchHighlightIgnoreCase(false);
+            guiInstance.getTableFilePanel().getTableFilePanelCellRenderer().setSearchHighlightIgnoreCase(false);
+            guiInstance.getTableFilePanel().getTableFilePanelTable().repaint();
+            guiInstance.getKeyInfoPanel().setIgnoreCaseInSearchTermTitle();
+        } else {
+            guiInstance.getTableFilePanel().setSearchHighlightIgnoreCase(true);
+            guiInstance.getTableFilePanel().getTableFilePanelCellRenderer().setSearchHighlightIgnoreCase(true);
+            guiInstance.getTableFilePanel().getTableFilePanelTable().repaint();
+            guiInstance.getKeyInfoPanel().setIgnoreCaseInSearchTermTitle();
+        }
     }
 }

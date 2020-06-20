@@ -21,6 +21,7 @@ public class TableFilePanel {
 
     // SEARCH related fields
     private boolean displaySearchResultMatches;
+    private boolean isSearchHighlightIgnoreCase;
     private String searchType;
 
     // SORT related fields
@@ -66,15 +67,17 @@ public class TableFilePanel {
         // Create a new table model
         tableFilePanelModel = new TableFilePanelModel(guiInstance);
 
+        // Search
+        searchType = Constants.SEARCH_MODE_STARTSWITH;
+        displaySearchResultMatches = false;
+        isSearchHighlightIgnoreCase = true;
+
         // Crate a new cell renderer
         tableFilePanelCellRenderer = new TableFilePanelCellRenderer(guiInstance);
+        tableFilePanelCellRenderer.setSearchHighlightIgnoreCase(isSearchHighlightIgnoreCase);
 
         // Create a new key listener
         keyListener = new KeyListener(guiInstance);
-
-        // Search
-        searchType = Constants.SEARCH_MODE_STARTSWITH;
-        displaySearchResultMatches=false;
 
         // Sort
         sortBy = Constants.SORT_BY_NAME;
@@ -83,9 +86,9 @@ public class TableFilePanel {
         // TODO decide whether this info should be handled by the table model
         // Column width for 3 columns
         columnWidths = new int[3];
-        columnWidths[0]=400;
-        columnWidths[1]=100;
-        columnWidths[2]=100;
+        columnWidths[0] = 400;
+        columnWidths[1] = 100;
+        columnWidths[2] = 100;
 
         // Draw the actual JTable
         drawTableFilePanel(0);
@@ -150,12 +153,13 @@ public class TableFilePanel {
 
     //Getters and setters
 
-    public void setColumnWidth(int[] widths){
-        for (int i=0;i<widths.length;i++){
+    public void setColumnWidth(int[] widths) {
+        for (int i = 0; i < widths.length; i++) {
             tableFilePanelTable.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
         }
     }
-    public int[] getColumnWidths(){
+
+    public int[] getColumnWidths() {
         return columnWidths;
     }
 
@@ -206,7 +210,7 @@ public class TableFilePanel {
         return this.tableFilePanelCellRenderer;
     }
 
-    public TableFilePanelModel getTableFilePanelModel(){
+    public TableFilePanelModel getTableFilePanelModel() {
         return this.tableFilePanelModel;
     }
 
@@ -236,5 +240,13 @@ public class TableFilePanel {
 
     public void setSortBy(String sortBy) {
         this.sortBy = sortBy;
+    }
+
+    public boolean getSearchHighlightIgnoreCase() {
+        return isSearchHighlightIgnoreCase;
+    }
+
+    public void setSearchHighlightIgnoreCase(boolean searchHighlightIgnoreCase) {
+        this.isSearchHighlightIgnoreCase = searchHighlightIgnoreCase;
     }
 }

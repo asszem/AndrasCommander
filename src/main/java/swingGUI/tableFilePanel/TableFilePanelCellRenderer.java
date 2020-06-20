@@ -21,6 +21,7 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
     private String textToDisplay;
     private String originalText;
     private boolean isSearchHighlightEnabled = false;
+    private boolean isSearchHighlightIgnoreCase = true;
     private String colorForegroundSearchMatch = "red";
     private String colorBackgroundSearchMatch = "yellow";
     private Color folderForeground = Color.BLUE;
@@ -42,6 +43,10 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
 
     public void setSearchHighlightEnabled(boolean searchHighlightEnabled) {
         isSearchHighlightEnabled = searchHighlightEnabled;
+    }
+
+    public void setSearchHighlightIgnoreCase(boolean highlightIgnoreCase) {
+        this.isSearchHighlightIgnoreCase = highlightIgnoreCase;
     }
 
     public void setSearchTerm(String searchTerm) {
@@ -85,7 +90,8 @@ public class TableFilePanelCellRenderer extends DefaultTableCellRenderer {
         }
 
         if (isSearchHighlightEnabled) {
-            if (!searchTerm.isEmpty() && !originalText.isEmpty() && originalText.startsWith(searchTerm) && !textToDisplay.equals("..")) {
+            boolean doesTextMatch=isSearchHighlightIgnoreCase?originalText.toLowerCase().startsWith(searchTerm.toLowerCase()):originalText.startsWith(searchTerm);
+            if (!searchTerm.isEmpty() && !originalText.isEmpty() &&  !textToDisplay.equals("..") && doesTextMatch) {
                 String matchingPart;
                 String rest;
                 // This is to handle folder names in brackets

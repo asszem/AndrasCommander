@@ -2,6 +2,8 @@ Version 0.5 - Additional Panels
     - Add "?" to toggle KeyBindingsPanel which shows available key bindings
     - Cursor color reflects mode (search, normal)
     - Search automatically jumps to first match
+    - Toggle case sensitivity in search with :ic command
+    - Display last 10 history item
 
 Version 0.4 - File Details and Search Highlighting - 2020-06-16
     - Refactor code to use JTable with a custom Table Model that holds FileItem objects

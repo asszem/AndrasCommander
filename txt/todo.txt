@@ -1,7 +1,17 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
-TODO - Think about using a table to display history/bookmarks with a modified cell renderer where search and shortcuts work
+TODO - Have a Panel handle multiple Tabs.
+    - Have every tab an ID and a name
+    - Have a FocusedTab set in Gui
+TODO - Move Action Listener to GUI from TableFilePanel
+    - Update KeyBindingParser to send the matchedCommand to the FocusedFilePanel or any other panel
+TODO - Make the GUI handle multiple Panels
+    - Handle focus between FilePanels, search, history, bookmarks, etc
+    - Hava a FocusedFilePanel set in Gui
+TODO - Misc for V0.6
+    - Update Changelog
+    - Update KeyBindingsPanel
 
 Fix
 TODO - Fix going back ping-ponging between last two directory

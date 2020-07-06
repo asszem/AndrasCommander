@@ -1,4 +1,5 @@
-Version 0.5 - Additional Panels
+Version 0.6 - Multiple Panels and Tabbed Interface
+Version 0.5 - Additional Panels - 2020-06-20
     - Add "?" to toggle KeyBindingsPanel which shows available key bindings
     - Cursor color reflects mode (search, normal)
     - Search automatically jumps to first match

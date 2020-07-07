@@ -1,14 +1,20 @@
 This list has elements that are not related to a specific part of the source code and required for feature completion
 
 Now
-TODO - Have a Panel handle multiple Tabs.
-    - Have every tab an ID and a name
-    - Have a FocusedTab set in Gui
+TODO - Create Panels for the Center Border layout that will hold the tabs
+    - CenterPanel - this will be the JPanel that can have multiple FilePanels with GridBagLayout
+    - Each TabbedFilePanel component's tab will have its own TableFilePanel Component
+    - A new horizontal panel open command will create a new TabbedFilePanel component
+    - A new vertical panel open command will create a ntab
+TODO - Create a FocusManager class that will handle giving focus to Panels
 TODO - Move Action Listener to GUI from TableFilePanel
     - Update KeyBindingParser to send the matchedCommand to the FocusedFilePanel or any other panel
 TODO - Make the GUI handle multiple Panels
     - Handle focus between FilePanels, search, history, bookmarks, etc
     - Hava a FocusedFilePanel set in Gui
+TODO - Have a Panel handle multiple Tabs.
+    - Have every tab an ID and a name
+    - Have a FocusedTab set in Gui
 TODO - Misc for V0.6
     - Update Changelog
     - Update KeyBindingsPanel

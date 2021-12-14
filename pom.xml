@@ -23,7 +23,7 @@
 
     <properties>
         <junit.version>5.5.1</junit.version>
-        <logj.version>2.12.1</logj.version>
+        <logj.version>2.16.0</logj.version>
     </properties>
     <dependencies>
         <!-- JUNIT -->
